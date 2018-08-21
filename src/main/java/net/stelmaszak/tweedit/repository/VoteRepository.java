@@ -1,0 +1,7 @@
+package net.stelmaszak.tweedit.repository;
+
+import net.stelmaszak.tweedit.entity.Vote;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface VoteRepository extends JpaRepository<Vote, Long> {
+}
