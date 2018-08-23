@@ -2,6 +2,7 @@ package net.stelmaszak.tweedit.config;
 
 import net.stelmaszak.tweedit.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -36,6 +37,11 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
         return vr;
     }
 
+    @Bean(initMethod = "runSql")
+    public DbInit dbInit() {
+        return new DbInit();
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
@@ -49,7 +55,9 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("**/app/**").authenticated()
                 .anyRequest().permitAll()
                 .and().formLogin().loginPage("/login")
-                .permitAll();
+                .permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/accessDenied");
     }
 
     private PasswordEncoder getPasswordEncoder() {
