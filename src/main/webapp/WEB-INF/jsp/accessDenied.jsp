@@ -43,7 +43,7 @@
 </head>
 <body class="app">
 
-<%--<jsp:include page="/WEB-INF/jsp/header/header.jsp"/>--%>
+<jsp:include page="/WEB-INF/jsp/header.jsp"/>
 <div class="app-body">
     <div class="container">
         <main class="main">

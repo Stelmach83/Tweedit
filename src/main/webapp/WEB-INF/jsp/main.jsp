@@ -4,6 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css">
@@ -11,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
-    <title>Login</title>
+    <title>Tweedit</title>
     <style>
         html {
             overflow-y: scroll;
@@ -43,37 +44,15 @@
     </style>
 </head>
 <body class="app">
-
-<jsp:include page="/WEB-INF/jsp/header.jsp"/>
+<jsp:include page="header.jsp"/>
 <div class="app-body">
     <div class="container">
         <main class="main">
-            <h4>Login page</h4>
-            <form action="/login" method="post">
-                <label>Email:<br>
-                    <input type="text" name="username">
-                </label>
-                <br>
-                <label>Password:<br>
-                    <input type="password" name="password">
-                </label>
-                <br>
-                <input type="submit" value="Proceed" name="submit">
-            </form>
-            <c:if test="${sessionScope[\"SPRING_SECURITY_LAST_EXCEPTION\"].message eq 'Bad credentials'}">
-                <p class="error">Username/Password entered is incorrect.</p>
-            </c:if>
-            <c:if test="${sessionScope[\"SPRING_SECURITY_LAST_EXCEPTION\"].message eq 'User is disabled'}">
-                Your account is disabled, please contact administrator.
-            </c:if>
-            <c:if test="${fn:containsIgnoreCase(sessionScope[\"SPRING_SECURITY_LAST_EXCEPTION\"].message,'A communications error has been detected')}">
-                Database connection is down, try after sometime.
-            </c:if>
-
+            <jsp:include page="${appContext}.jsp"/>
         </main>
     </div>
 </div>
-<%--<jsp:include page="/WEB-INF/jsp/footer/footer.jsp"/>--%>
+
 
 </body>
 </html>
