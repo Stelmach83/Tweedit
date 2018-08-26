@@ -3,6 +3,7 @@ package net.stelmaszak.tweedit.controller;
 import net.stelmaszak.tweedit.entity.Category;
 import net.stelmaszak.tweedit.entity.User;
 import net.stelmaszak.tweedit.service.CategoryService;
+import net.stelmaszak.tweedit.service.MessageService;
 import net.stelmaszak.tweedit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,12 +26,15 @@ public class HomeController {
     private UserService userService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private MessageService messageService;
 
 
     @RequestMapping("/")
     public String home(Model model, Principal principal) {
         List<Category> categories = categoryService.getCategories();
-        findUser(principal, model);
+        User user = findUser(principal, model);
+        model.addAttribute("unread", messageService.getUnreadMessagesByUser(user));
         model.addAttribute("categories", categories);
         model.addAttribute("appContext", "index");
         return "main";
@@ -51,14 +55,16 @@ public class HomeController {
         return "main";
     }
 
-    private void findUser(Principal principal, Model model) {
+    private User findUser(Principal principal, Model model) {
         if (principal != null) {
             Optional<User> findUser = userService.getUserByEmail(principal.getName());
             if (findUser.isPresent()) {
                 User user = findUser.get();
                 model.addAttribute("user", user);
+                return user;
             }
         }
+        return null;
     }
 
     @RequestMapping("/lout")

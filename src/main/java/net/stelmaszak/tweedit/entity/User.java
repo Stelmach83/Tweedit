@@ -1,12 +1,11 @@
 package net.stelmaszak.tweedit.entity;
 
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -20,17 +19,13 @@ public class User {
 
     @Column(unique = true)
     @Email
-    @NotEmpty
-    @NotNull
     private String email;
 
+    @Column(unique = true)
     @Size(min = 3, max = 15, message = "Username needs to be between 3 - 15 characters.")
-    @NotEmpty
-    @NotNull
     private String username;
 
-    @NotEmpty
-    @NotNull
+    @Size(min = 4, max = 200, message = "Password needs to be between 4 - 200 characters.")
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -50,6 +45,13 @@ public class User {
     @OneToMany
     private Set<Vote> votes;                            // user ma set swoich łapek w górę i dół
 
+    @OneToMany
+    private Set<Message> received;                      // user ma set otrzymanych wiadomości
+
+    @OneToMany
+    private Set<Message> sent;                          // user ma set wysłanych wiadomości
+
+    @ColumnDefault("0")
     private Long points;                                // zsumowana ilość puntów za Votes z Comments i Posts
 
     public User() {
@@ -103,10 +105,10 @@ public class User {
         this.roles = roles;
     }
 
-    @PrePersist
-    public void prePersist() {
-        if (points == null) {
-            points = 0l;
-        }
-    }
+//    @PrePersist
+//    public void prePersist() {
+//        if (points == null) {
+//            points = 0l;
+//        }
+//    }
 }

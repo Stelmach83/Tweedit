@@ -27,6 +27,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
+
+                <c:if test="${not empty user}">
+                    <c:if test="${unread ne 0}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">You have ${unread} messages</a>
+                        </li>
+                    </c:if>
+                </c:if>
+
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
                 </li>
@@ -34,9 +43,10 @@
                     <a class="nav-link disabled" href="#">Disabled</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0" action="/login" method="post">
+            <form class="form-inline my-2 my-lg-0" action="<%=request.getContextPath()%>/login" method="post">
                 <c:choose>
-                    <c:when test="${not empty user}"><a href="/login?logout">${user.getUsername()} logout</a></c:when>
+                    <c:when test="${not empty user}"><a
+                            href="<%=request.getContextPath()%>/login?logout">${user.getUsername()} logout</a></c:when>
                     <c:otherwise>
                         <input class="form-control mr-sm-2" type="email" placeholder="Email" name="username">
                         <input class="form-control mr-sm-2" type="password" placeholder="Password" name="password">
