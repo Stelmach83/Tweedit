@@ -8,8 +8,19 @@
 <br>
 <h4>Your messages</h4>
 
-<ul>
-    <c:forEach var="m" items="${messages}">
-        <li><a href="<%=request.getContextPath()%>/message/${m.getId()}">message</a></li>
-    </c:forEach>
-</ul>
+
+<c:forEach var="m" items="${messages}">
+    <p>
+        <a href="<%=request.getContextPath()%>/message/${m.getId()}">
+            <c:if test="${m.getMessageRead() eq 0}">
+                <strong>${m.getTitle()} (unread)</strong>
+            </c:if>
+            <c:if test="${m.getMessageRead() eq 1}">
+                ${m.getTitle()}
+            </c:if>
+        </a>
+    </p>
+</c:forEach>
+
+
+<h5><a href="<%=request.getContextPath()%>/send">send message</a></h5>

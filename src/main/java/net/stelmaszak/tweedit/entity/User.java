@@ -105,7 +105,17 @@ public class User {
         this.roles = roles;
     }
 
-//    @PrePersist
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", points=" + points +
+                '}';
+    }
+
+    //    @PrePersist
 //    public void prePersist() {
 //        if (points == null) {
 //            points = 0l;
