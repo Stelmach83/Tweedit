@@ -11,4 +11,8 @@ public interface MessageService {
 
     int getUnreadMessagesByUser(User user);
 
+    Message getMessagyById(Long id);
+
+    void saveMessage(Message message);
+
 }

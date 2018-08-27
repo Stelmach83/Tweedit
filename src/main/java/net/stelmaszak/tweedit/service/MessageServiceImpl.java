@@ -26,4 +26,14 @@ public class MessageServiceImpl implements MessageService {
                 .count();
 
     }
+
+    @Override
+    public Message getMessagyById(Long id) {
+        return messageRepository.getOne(id);
+    }
+
+    @Override
+    public void saveMessage(Message message) {
+        messageRepository.save(message);
+    }
 }

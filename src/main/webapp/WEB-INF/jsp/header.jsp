@@ -31,7 +31,13 @@
                 <c:if test="${not empty user}">
                     <c:if test="${unread ne 0}">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">You have ${unread} messages</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/messages">You have ${unread}
+                                messages</a>
+                        </li>
+                    </c:if>
+                    <c:if test="${unread eq 0}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<%=request.getContextPath()%>/messages">Your messages</a>
                         </li>
                     </c:if>
                 </c:if>
