@@ -11,4 +11,6 @@ public interface UserService {
 
     List<User> getAllUsers();
 
+    List<User> getAllUsersOtherThanLoggedIn(User user);
+
 }

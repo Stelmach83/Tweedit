@@ -56,6 +56,7 @@ public class MessageController {
     }
 
     @RequestMapping("/message/{message_id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String showMessage(Model model, Principal principal, @PathVariable Long message_id) {
         User user = findUser(principal, model);
         List<Message> messages = messageService.getMessagesByToUser(user);
@@ -77,11 +78,12 @@ public class MessageController {
     }
 
     @GetMapping("/send")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String sendMessage(Model model, Principal principal) {
         User user = findUser(principal, model);
         List<Message> messages = messageService.getMessagesByToUser(user);
         List<Category> categories = categoryService.getCategories();
-        List<User> users = userService.getAllUsers();
+        List<User> users = userService.getAllUsersOtherThanLoggedIn(user); // testuje
         Message message = new Message();
         model.addAttribute("message", message);
         model.addAttribute("users", users);
@@ -93,6 +95,7 @@ public class MessageController {
     }
 
     @PostMapping("/send")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String sendPost(Model model, Principal principal, @Valid Message message, BindingResult result) {
 
         if (result.hasErrors()) {
@@ -107,9 +110,12 @@ public class MessageController {
             model.addAttribute("appContext", "send");
             return "main";
         } else {
+
+            // TODO problem z poprawnym wyświetleniem nowej wiaomości w tabeli wszystkich wiadomości
+
             User user = findUser(principal, model);
             List<Category> categories = categoryService.getCategories();
-            message.setDate(new Date());
+            message.setDate(new Date());   // JUŻ NIEWAŻE -> to przeniosłem do MessageServiceImpl.saveMessage()
             message.setMessageRead(0);
             messageService.saveMessage(message);
             List<Message> messages = messageService.getMessagesByToUser(user);

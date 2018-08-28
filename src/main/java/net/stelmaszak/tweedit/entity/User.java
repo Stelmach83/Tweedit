@@ -105,6 +105,14 @@ public class User {
         this.roles = roles;
     }
 
+    public Long getPoints() {
+        return points;
+    }
+
+    public void setPoints(Long points) {
+        this.points = points;
+    }
+
     @Override
     public String toString() {
         return "User{" +

@@ -41,10 +41,17 @@
 
 <h5></h5>
 
-<form:form method="post" action="/send" modelAttribute="message">
+<form:form method="post" modelAttribute="message">
     <form>
 
         <input type="hidden" name="fromUser.id" value="${user.getId()}">
+
+        <%--<div class="form-group">--%>
+            <%--<label for="exampleFormControlInput0">Send from</label>--%>
+            <%--<form:select items="${users}" itemValue="id" itemLabel="username" class="form-control"--%>
+                         <%--id="exampleFormControlInput0" path="fromUser.id"/>--%>
+            <%--<form:errors path="fromUser.id" cssClass="error"/>--%>
+        <%--</div>--%>
 
         <div class="form-group">
             <label for="exampleFormControlInput1">Send to</label>

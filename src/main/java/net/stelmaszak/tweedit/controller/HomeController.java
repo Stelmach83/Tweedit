@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,8 @@ public class HomeController {
     public String home(Model model, Principal principal) {
         List<Category> categories = categoryService.getCategories();
         User user = findUser(principal, model);
+        Date date = new Date();
+        model.addAttribute("now", date);
         model.addAttribute("unread", messageService.getUnreadMessagesByUser(user));
         model.addAttribute("categories", categories);
         model.addAttribute("appContext", "index");
