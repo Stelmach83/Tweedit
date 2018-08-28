@@ -94,17 +94,33 @@ public class MessageController {
 
     @PostMapping("/send")
     public String sendPost(Model model, Principal principal, @Valid Message message, BindingResult result) {
-        User user = findUser(principal, model);
-        List<Category> categories = categoryService.getCategories();
-        message.setDate(new Date());
-        message.setMessageRead(0);
-        messageService.saveMessage(message);
-        List<Message> messages = messageService.getMessagesByToUser(user);
-        model.addAttribute("categories", categories);
-        model.addAttribute("unread", messageService.getUnreadMessagesByUser(user));
-        model.addAttribute("messages", messages);
-        model.addAttribute("appContext", "messages");
-        return "main";
+
+        // TODO if (result) wykonaj, else zwróć błędy
+
+        if (result.hasErrors()) {
+            User user = findUser(principal, model);
+            List<Category> categories = categoryService.getCategories();
+            List<Message> messages = messageService.getMessagesByToUser(user);
+            List<User> users = userService.getAllUsers();
+            model.addAttribute("users", users);
+            model.addAttribute("categories", categories);
+            model.addAttribute("unread", messageService.getUnreadMessagesByUser(user));
+            model.addAttribute("messages", messages);
+            model.addAttribute("appContext", "send");
+            return "main";
+        } else {
+            User user = findUser(principal, model);
+            List<Category> categories = categoryService.getCategories();
+            message.setDate(new Date());
+            message.setMessageRead(0);
+            messageService.saveMessage(message);
+            List<Message> messages = messageService.getMessagesByToUser(user);
+            model.addAttribute("categories", categories);
+            model.addAttribute("unread", messageService.getUnreadMessagesByUser(user));
+            model.addAttribute("messages", messages);
+            model.addAttribute("appContext", "messages");
+            return "main";
+        }
     }
 
     private User findUser(Principal principal, Model model) {

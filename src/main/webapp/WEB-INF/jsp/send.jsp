@@ -25,16 +25,12 @@
 
 <h5></h5>
 
-<%--TODO Nie wyświetlac fromUser w formularzu. Dodać wyświetlanie listy wiadomości w tabeli, a nie <p> --%>
+<%-- TODO Dodać wyświetlanie listy wiadomości w tabeli, a nie <p>. --%>
 
-<form:form method="post" modelAttribute="message">
+<form:form method="post" action="/send" modelAttribute="message">
     <form>
-        <div class="form-group">
-            <label for="exampleFormControlInput0">From</label>
-            <form:select items="${users}" itemValue="id" itemLabel="username" class="form-control"
-                         id="exampleFormControlInput0" path="fromUser.id"/>
-            <form:errors path="fromUser.id" cssClass="error"/>
-        </div>
+
+        <input type="hidden" name="fromUser.id" value="${user.getId()}">
 
         <div class="form-group">
             <label for="exampleFormControlInput1">Send to</label>
@@ -47,7 +43,7 @@
             <label for="exampleFormControlInput1a">Title</label>
             <form:textarea class="form-control" rows="1" id="exampleFormControlInput1a"
                            placeholder="title" path="title"/>
-            <form:errors path="text" cssClass="error"/>
+            <form:errors path="title" cssClass="error"/>
         </div>
 
         <div class="form-group">
