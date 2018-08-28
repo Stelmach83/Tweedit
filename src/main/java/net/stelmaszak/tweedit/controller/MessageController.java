@@ -95,8 +95,6 @@ public class MessageController {
     @PostMapping("/send")
     public String sendPost(Model model, Principal principal, @Valid Message message, BindingResult result) {
 
-        // TODO if (result) wykonaj, else zwróć błędy
-
         if (result.hasErrors()) {
             User user = findUser(principal, model);
             List<Category> categories = categoryService.getCategories();

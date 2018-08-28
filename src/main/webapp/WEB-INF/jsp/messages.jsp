@@ -8,19 +8,35 @@
 <br>
 <h4>Your messages</h4>
 
-
-<c:forEach var="m" items="${messages}">
-    <p>
-        <a href="<%=request.getContextPath()%>/message/${m.getId()}">
-            <c:if test="${m.getMessageRead() eq 0}">
-                <strong>${m.getTitle()} (unread)</strong>
-            </c:if>
-            <c:if test="${m.getMessageRead() eq 1}">
-                ${m.getTitle()}
-            </c:if>
-        </a>
-    </p>
-</c:forEach>
-
+<table class="table">
+    <col style="width: 20%">
+    <col style="width: 15%">
+    <col style="width: 65%">
+    <thead class="thead-dark">
+    <tr>
+        <th>Received</th>
+        <th>From</th>
+        <th>Title</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach var="m" items="${messages}">
+        <tr>
+            <td>${m.getDate()}</td>
+            <td>${m.getFromUser().getUsername()}</td>
+            <td>
+                <a href="<%=request.getContextPath()%>/message/${m.getId()}">
+                    <c:if test="${m.getMessageRead() eq 0}">
+                        <strong>${m.getTitle()} (unread)</strong>
+                    </c:if>
+                    <c:if test="${m.getMessageRead() eq 1}">
+                        ${m.getTitle()}
+                    </c:if>
+                </a>
+            </td>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
 
 <h5><a href="<%=request.getContextPath()%>/send">send message</a></h5>
