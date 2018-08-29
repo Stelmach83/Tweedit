@@ -8,7 +8,7 @@
 <br>
 <h4>Add Post</h4>
 
-<form:form method="post" modelAttribute="post">
+<form:form method="post" action="/app/addpost" modelAttribute="post">
     <form>
         <input type="hidden" name="user.id" value="${user.getId()}">
         <div class="form-group">
@@ -21,15 +21,15 @@
         <div class="form-group">
             <label for="exampleFormControlInput1a">Title</label>
             <form:textarea class="form-control" rows="1" id="exampleFormControlInput1a"
-                           placeholder="title" path="content.title"/>
-            <form:errors path="content.title" cssClass="error"/>
+                           placeholder="title" path="title"/>
+            <form:errors path="title" cssClass="error"/>
         </div>
 
         <div class="form-group">
             <label for="exampleFormControlInput2">Content</label>
             <form:textarea class="form-control" rows="4" id="exampleFormControlInput2"
-                           placeholder="content" path="content.text"/>
-            <form:errors path="content.text" cssClass="error"/>
+                           placeholder="content" path="text"/>
+            <form:errors path="text" cssClass="error"/>
         </div>
         <input type="submit" value="Send">
     </form>

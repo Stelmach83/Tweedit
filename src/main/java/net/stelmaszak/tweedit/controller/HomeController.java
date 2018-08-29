@@ -1,9 +1,11 @@
 package net.stelmaszak.tweedit.controller;
 
 import net.stelmaszak.tweedit.entity.Category;
+import net.stelmaszak.tweedit.entity.Post;
 import net.stelmaszak.tweedit.entity.User;
 import net.stelmaszak.tweedit.service.CategoryService;
 import net.stelmaszak.tweedit.service.MessageService;
+import net.stelmaszak.tweedit.service.PostService;
 import net.stelmaszak.tweedit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,6 +31,8 @@ public class HomeController {
     private CategoryService categoryService;
     @Autowired
     private MessageService messageService;
+    @Autowired
+    private PostService postService;
 
 
     @RequestMapping("/")
@@ -36,6 +40,8 @@ public class HomeController {
         List<Category> categories = categoryService.getCategories();
         User user = findUser(principal, model);
         Date date = new Date();
+        List<Post> posts = postService.getAllPosts();
+        model.addAttribute("posts", posts);
         model.addAttribute("now", date);
         model.addAttribute("unread", messageService.getUnreadMessagesByUser(user));
         model.addAttribute("categories", categories);

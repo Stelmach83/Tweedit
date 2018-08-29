@@ -12,7 +12,7 @@ public class Vote {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean votedUp;
+    private byte voted;   // 2=voted up; 1=voted down; 0=no vote
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "user_id", nullable = false)

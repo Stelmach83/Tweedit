@@ -22,7 +22,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="<%=request.getContextPath()%>/app/post">Add Post</a>
+                        <a class="nav-link" href="<%=request.getContextPath()%>/app/addpost">Add Post</a>
                     </li>
 
                     <%--<li class="nav-item">--%>

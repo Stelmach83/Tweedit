@@ -3,6 +3,7 @@ package net.stelmaszak.tweedit.entity;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Set;
 
@@ -20,13 +21,18 @@ public class Post {
 
     private Date created;
 
+    private Date updated;
+
+    @Size(min = 1)
+    private String title;
+
+    @Size(min = 1)
+    @Lob
+    private String text;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
-
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "post")
-    @JoinColumn(name = "content_id", nullable = false)
-    private Content content;
 
     @OneToMany
     private Set<Comment> comments;
@@ -63,20 +69,36 @@ public class Post {
         this.created = created;
     }
 
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public Category getCategory() {
         return category;
     }
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public Content getContent() {
-        return content;
-    }
-
-    public void setContent(Content content) {
-        this.content = content;
     }
 
     public Set<Comment> getComments() {
