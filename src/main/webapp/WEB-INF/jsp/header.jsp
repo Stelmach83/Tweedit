@@ -5,56 +5,58 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%--<nav class="navbar navbar-expand-lg navbar-dark bg-dark">--%>
-<header class="app-header navbar navbar-expand-lg">
+<header class="app-header navbar navbar-expand-lg" style="background-color: #f4f4f4;">
     <div class="container">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All categories</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <c:forEach var="cat" items="${categories}">
-                        <a class="dropdown-item" href="#">${cat.getName()}</a>
-                        </c:forEach>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Your wall</a>
-                </li>
+                <c:if test="${not empty user}">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All categories</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <c:forEach var="cat" items="${categories}">
+                            <a class="dropdown-item" href="#">${cat.getName()}</a>
+                            </c:forEach>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=request.getContextPath()%>/app/wall">Your wall</a>
+                    </li>
 
-                <%--<li class="nav-item">--%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=request.getContextPath()%>/app/post">Add Post</a>
+                    </li>
+
+                    <%--<li class="nav-item">--%>
                     <%--<a class="nav-link" href="#">Go to category</a>--%>
-                <%--</li>--%>
+                    <%--</li>--%>
 
 
-                <%--<c:if test="${not empty user}">--%>
-                <%--<c:if test="${unread ne 0}">--%>
-                <%--<li class="nav-item">--%>
-                <%--<a class="nav-link" href="<%=request.getContextPath()%>/messages">You have ${unread} messages</a>--%>
-                <%--</li>--%>
-                <%--</c:if>--%>
-                <%--<c:if test="${unread eq 0}">--%>
-                <%--<li class="nav-item">--%>
-                <%--<a class="nav-link" href="<%=request.getContextPath()%>/messages">Your messages</a>--%>
-                <%--</li>--%>
-                <%--</c:if>--%>
-                <%--</c:if>--%>
+                    <%--<c:if test="${not empty user}">--%>
+                    <%--<c:if test="${unread ne 0}">--%>
+                    <%--<li class="nav-item">--%>
+                    <%--<a class="nav-link" href="<%=request.getContextPath()%>/messages">You have ${unread} messages</a>--%>
+                    <%--</li>--%>
+                    <%--</c:if>--%>
+                    <%--<c:if test="${unread eq 0}">--%>
+                    <%--<li class="nav-item">--%>
+                    <%--<a class="nav-link" href="<%=request.getContextPath()%>/messages">Your messages</a>--%>
+                    <%--</li>--%>
+                    <%--</c:if>--%>
+                    <%--</c:if>--%>
 
-                <%--<li class="nav-item">--%>
-                <%--<a class="nav-link disabled" href="#">Disabled</a>--%>
-                <%--</li>--%>
+                    <%--<li class="nav-item">--%>
+                    <%--<a class="nav-link disabled" href="#">Disabled</a>--%>
+                    <%--</li>--%>
+                </c:if>
             </ul>
+
             <form class="form-inline my-2 my-lg-0" action="<%=request.getContextPath()%>/login" method="post">
                 <c:choose>
                     <c:when test="${not empty user}">
                         <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/send">Send message</a></li>
+                            <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/app/send">Send message</a></li>
                                 <%--MESSAGES--%>
                             <li class="nav-item dropdown d-md-down-none">
-                                <a class="nav-link" data-toggle="dropdown" href="<%=request.getContextPath()%>/messages" role="button" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link" data-toggle="dropdown" href="<%=request.getContextPath()%>/app/messages" role="button" aria-haspopup="true" aria-expanded="false">
                                     <i class="icon-envelope-letter"></i>
                                     <span class="badge badge-pill badge-info">${unread}</span>
                                 </a>
@@ -228,6 +230,11 @@
                 </c:choose>
             </form>
         </div>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </div>
 </header>
 <%--</nav>--%>

@@ -41,7 +41,7 @@ public class MessageController {
         return String.valueOf(unread);
     }
 
-    @RequestMapping("/messages")
+    @RequestMapping("/app/messages")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String showMessages(Model model, Principal principal) {
 
@@ -55,7 +55,7 @@ public class MessageController {
         return "main";
     }
 
-    @RequestMapping("/message/{message_id}")
+    @RequestMapping("/app/message/{message_id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String showMessage(Model model, Principal principal, @PathVariable Long message_id) {
         User user = findUser(principal, model);
@@ -77,7 +77,7 @@ public class MessageController {
         return "main";
     }
 
-    @GetMapping("/send")
+    @GetMapping("/app/send")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String sendMessage(Model model, Principal principal) {
         User user = findUser(principal, model);
@@ -94,7 +94,7 @@ public class MessageController {
         return "main";
     }
 
-    @PostMapping("/send")
+    @PostMapping("/app/send")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String sendPost(Model model, Principal principal, @Valid Message message, BindingResult result) {
 

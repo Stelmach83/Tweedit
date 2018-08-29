@@ -25,7 +25,7 @@
             <td><fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${m.getDate()}"/></td>
             <td>${m.getFromUser().getUsername()}</td>
             <td>
-                <a href="<%=request.getContextPath()%>/message/${m.getId()}">
+                <a href="<%=request.getContextPath()%>/app/message/${m.getId()}">
                     <c:if test="${m.getMessageRead() eq 0}">
                         <strong>${m.getTitle()} (unread)</strong>
                     </c:if>
@@ -39,4 +39,4 @@
     </tbody>
 </table>
 
-<h5><a href="<%=request.getContextPath()%>/send">send message</a></h5>
+<h5><a href="<%=request.getContextPath()%>/app/send">send message</a></h5>
