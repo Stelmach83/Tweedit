@@ -22,7 +22,7 @@
     <tbody>
     <c:forEach var="m" items="${messages}">
         <tr>
-            <td>${m.getDate()}</td>
+            <td><fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${m.getDate()}"/></td>
             <td>${m.getFromUser().getUsername()}</td>
             <td>
                 <a href="<%=request.getContextPath()%>/message/${m.getId()}">
@@ -45,13 +45,6 @@
     <form>
 
         <input type="hidden" name="fromUser.id" value="${user.getId()}">
-
-        <%--<div class="form-group">--%>
-            <%--<label for="exampleFormControlInput0">Send from</label>--%>
-            <%--<form:select items="${users}" itemValue="id" itemLabel="username" class="form-control"--%>
-                         <%--id="exampleFormControlInput0" path="fromUser.id"/>--%>
-            <%--<form:errors path="fromUser.id" cssClass="error"/>--%>
-        <%--</div>--%>
 
         <div class="form-group">
             <label for="exampleFormControlInput1">Send to</label>

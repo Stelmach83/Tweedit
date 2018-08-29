@@ -22,7 +22,7 @@
     <tbody>
     <c:forEach var="m" items="${messages}">
         <tr>
-            <td>${m.getDate()}</td>
+            <td><fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${m.getDate()}"/></td>
             <td>${m.getFromUser().getUsername()}</td>
             <td>
                 <a href="<%=request.getContextPath()%>/message/${m.getId()}">
