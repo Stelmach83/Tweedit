@@ -40,7 +40,7 @@ public class HomeController {
         List<Category> categories = categoryService.getCategories();
         User user = findUser(principal, model);
         Date date = new Date();
-        List<Post> posts = postService.getAllPosts();
+        List<Post> posts = postService.getAllFromNewest();
         model.addAttribute("posts", posts);
         model.addAttribute("now", date);
         model.addAttribute("unread", messageService.getUnreadMessagesByUser(user));

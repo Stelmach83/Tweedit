@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header">  <!--SHOW CATEGORY-->
                             <i class="fa fa-check"></i>${post.getTitle()} <fmt:formatDate pattern="dd-MM-yyyy" value="${post.getCreated()}"/>
                             <span class="float-right"><i class="icon-arrow-up"></i></span>
                             <span class="badge badge-pill badge-warning float-right">${post.getPoints()}</span>

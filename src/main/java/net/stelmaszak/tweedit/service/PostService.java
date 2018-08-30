@@ -10,4 +10,6 @@ public interface PostService {
 
     List<Post> getAllPosts();
 
+    List<Post> getAllFromNewest();
+
 }

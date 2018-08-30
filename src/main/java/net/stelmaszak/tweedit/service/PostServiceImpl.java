@@ -22,4 +22,11 @@ public class PostServiceImpl implements PostService {
     public List<Post> getAllPosts() {
         return postRepository.findAll();
     }
+
+    @Override
+    public List<Post> getAllFromNewest() {
+        return postRepository.findAllByOrderByCreatedDesc();
+    }
+
+
 }
