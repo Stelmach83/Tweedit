@@ -20,10 +20,14 @@
                 <div class="col-sm-12 col-md-12">
                     <div class="card">
                         <div class="card-header">  <!--SHOW CATEGORY-->
-                            <i class="fa fa-check"></i>${post.getTitle()} <fmt:formatDate pattern="dd-MM-yyyy" value="${post.getCreated()}"/>
-                            <span class="float-right"><i class="icon-arrow-up"></i></span>
-                            <span class="badge badge-pill badge-warning float-right">${post.getPoints()}</span>
-                            <span class="float-right"><i class="icon-arrow-down"></i></span>
+                            <div class="float-left">
+                                <i class="fa fa-check"></i>${post.getTitle()} <fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${post.getCreated()}"/>
+                            </div>
+                            <div class="float-right">
+                                <a href="#"><i class="fas fa-arrow-up"></i></a>
+                                <span class="badge badge-pill badge-warning">${post.getPoints()}</span>
+                                <a href="#"><i class="fas fa-arrow-down"></i></a>
+                            </div>
                         </div>
                         <div class="card-body">
                                 ${post.getText()}
