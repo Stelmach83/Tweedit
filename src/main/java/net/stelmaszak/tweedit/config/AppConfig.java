@@ -36,7 +36,8 @@ public class AppConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**")
-                .addResourceLocations("/resources")
+                .addResourceLocations("classpath:/META-INF/resources/", "classpath:/resources/",
+                        "classpath:/static/", "classpath:/public/")
                 .setCachePeriod(3600)
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver());

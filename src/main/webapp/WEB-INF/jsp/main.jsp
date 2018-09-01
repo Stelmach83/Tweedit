@@ -11,41 +11,12 @@
     <link rel="stylesheet" href="https://unpkg.com/@coreui/icons/css/coreui-icons.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/resources/css/style.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
-    <script type="text/javascript" src="<c:url value="/resources/js/app.js"/> "></script>
     <title>Tweedit</title>
-    <style>
-        html {
-            overflow-y: scroll;
-        }
-
-        /* width */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        /* Track */
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        /* Handle */
-        ::-webkit-scrollbar-thumb {
-            background: #34383C;
-        }
-
-        /* Handle on hover */
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-
-        .error {
-            color: red;
-        }
-    </style>
 </head>
 <body class="app">
 <jsp:include page="header.jsp"/>
@@ -58,5 +29,6 @@
 </div>
 
 
+<script type="text/javascript" src="/resources/js/app.js"></script>
 </body>
 </html>
