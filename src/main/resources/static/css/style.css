@@ -37,3 +37,7 @@ html {
 .redarrow {
     color: red;
 }
+
+.notlink {
+    cursor: default;
+}

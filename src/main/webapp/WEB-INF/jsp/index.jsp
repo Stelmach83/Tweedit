@@ -33,21 +33,34 @@
                                         <i class="fas fa-arrow-up greenarrow"></i>
                                     </c:if>
                                     <c:if test="${pdto.getVote().getVoted() eq 1}">
-                                        <i class="fas fa-arrow-up greyarrow"></i>
+                                        <%--<i class="fas fa-arrow-up greyarrow"></i>--%>
                                     </c:if>
                                     <c:if test="${pdto.getVote() eq null}">
                                         <a href="#" id="arrowup" data-pid="${postid}"><i class="fas fa-arrow-up greyarrow"></i></a>
                                     </c:if>
                                 </c:if>
 
-                                <span class="badge badge-pill badge-secondary">${post.getPoints()}</span>
+                                <c:if test="${empty user}">
+                                    <span class="badge badge-pill badge-secondary" id="pointsbadge" data-points="${post.getPoints()}">${post.getPoints()}</span>
+                                </c:if>
+                                <c:if test="${not empty user}">
+                                    <c:if test="${pdto.getVote().getVoted() eq 2}">
+                                        <span class="badge badge-pill badge-success" id="pointsbadge" data-points="${post.getPoints()}">${post.getPoints()}</span>
+                                    </c:if>
+                                    <c:if test="${pdto.getVote().getVoted() eq 1}">
+                                        <span class="badge badge-pill badge-danger" id="pointsbadge" data-points="${post.getPoints()}">${post.getPoints()}</span>
+                                    </c:if>
+                                    <c:if test="${pdto.getVote() eq null}">
+                                        <span class="badge badge-pill badge-secondary" id="pointsbadge" data-points="${post.getPoints()}">${post.getPoints()}</span>
+                                    </c:if>
+                                </c:if>
 
                                 <c:if test="${not empty user}">
                                     <c:if test="${pdto.getVote().getVoted() eq 1}">
                                         <i class="fas fa-arrow-down redarrow"></i>
                                     </c:if>
                                     <c:if test="${pdto.getVote().getVoted() eq 2}">
-                                        <i class="fas fa-arrow-down greyarrow"></i>
+                                        <%--<i class="fas fa-arrow-down greyarrow"></i>--%>
                                     </c:if>
                                     <c:if test="${pdto.getVote() eq null}">
                                         <a href="#" id="arrowdown" data-pid="${postid}"><i class="fas fa-arrow-down greyarrow"></i></a>
@@ -57,8 +70,26 @@
 
                             </div>
                         </div>
-                        <div class="card-body">
-                                ${post.getText()}
+                        <div class="card-body"><p>${post.getText()}</p><br>
+                            <div class="card-footer">
+                                <div class="row text-center">
+                                    <div class="col-sm-12 col-md mb-sm-2 mb-0">
+                                        <h6>${post.getUser().getUsername()}</h6>
+                                    </div>
+                                    <div class="col-sm-12 col-md mb-sm-2 mb-0">
+                                        <h6>${post.getCategory().getName()}</h6>
+                                    </div>
+                                    <div class="col-sm-12 col-md mb-sm-2 mb-0">
+                                        <h6>${post.getCategory().getName()}</h6>
+                                    </div>
+                                    <div class="col-sm-12 col-md mb-sm-2 mb-0">
+                                        <h6>${post.getComments().size()}</h6>
+                                    </div>
+                                    <div class="col-sm-12 col-md mb-sm-2 mb-0">
+                                        <h6>placeholder</h6>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

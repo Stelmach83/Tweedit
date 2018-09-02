@@ -2,7 +2,14 @@ $(function () {
     var arrowsUp = $('.float-right').children('#arrowup');
     arrowsUp.one('click', function (e) {
         e.preventDefault();
+        $(this).addClass("notlink");
+        var pointsBadge = $(this).siblings('#pointsbadge');
+
+        var arrowsDown = $(this).siblings('#arrowdown');
+        $(arrowsDown).remove();
+
         $(this).find('i').removeClass('greyarrow').addClass('greenarrow')
+        pointsBadge.removeClass('badge-secondary').addClass('badge-success')
 
         var postId = $(this).attr('data-pid');
 
@@ -23,7 +30,14 @@ $(function () {
     var arrowsDown = $('.float-right').children('#arrowdown');
     arrowsDown.one('click', function (e) {
         e.preventDefault();
+        $(this).addClass("notlink");
+        var pointsBadge = $(this).siblings('#pointsbadge');
+
+        var arrowsUp = $(this).siblings('#arrowup');
+        $(arrowsUp).remove();
+
         $(this).find('i').removeClass('greyarrow').addClass('redarrow')
+        pointsBadge.removeClass('badge-secondary').addClass('badge-danger')
 
         var postId = $(this).attr('data-pid');
 
@@ -36,8 +50,10 @@ $(function () {
             }
         })
     })
+
     arrowsDown.on('click', function (e) {
         e.preventDefault();
     })
+
 })
 
