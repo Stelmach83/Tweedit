@@ -61,19 +61,13 @@ public class VoteController {
         voteService.saveVote(newVote);
     }
 
+    // For testing purposes
     @GetMapping("/showusers")
 //    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public List<User> showUsers() {
         List<User> users = userService.getAllUsers();
         return users;
     }
-
-//    @PostMapping("/adduser")
-//    public User registerUser(@RequestBody User user) {
-//        userRepository.save(user);
-//        return user;
-//    }
-
 
     private User findUser(Principal principal, Model model) {
         if (principal != null) {

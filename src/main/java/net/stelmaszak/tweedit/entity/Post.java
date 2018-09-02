@@ -1,6 +1,7 @@
 package net.stelmaszak.tweedit.entity;
 
 import lombok.EqualsAndHashCode;
+import net.stelmaszak.tweedit.dto.PostDTO;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -130,6 +131,12 @@ public class Post {
         if (points == null) {
             points = 0l;
         }
+    }
+
+    public static PostDTO mapToPostDTO(Post post) {
+        PostDTO postDTO = new PostDTO();
+        postDTO.setPost(post);
+        return postDTO;
     }
 
 }

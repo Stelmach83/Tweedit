@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.*;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
@@ -42,21 +42,10 @@ public class HomeController {
         Date date = new Date();
         List<Post> posts = postService.getAllFromNewest();
         List<Vote> userVotes = voteService.getVotedByUser(user);
-        List<PostDTO> postDTOS = new ArrayList<>();
-
-        for (Post p : posts) {
-            PostDTO pDto = new PostDTO();
-            pDto.setPost(p);
-            for (Vote v : userVotes) {
-                if (v.getPost() == p) {
-                    pDto.setVote(v);
-                }
-            }
-            postDTOS.add(pDto);
-        }
-
-        List<PostDTO> postDTOS1 = Stream.of(posts)
-                .forEach(new::PostDTO());
+        List<PostDTO> postDTOS = posts.stream()
+                .map(Post::mapToPostDTO)
+                .map(x -> x.addVote(userVotes))
+                .collect(Collectors.toList());
 
 
         model.addAttribute("postdtos", postDTOS);

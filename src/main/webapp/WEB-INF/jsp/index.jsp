@@ -30,7 +30,10 @@
 
                                 <c:if test="${not empty user}">
                                     <c:if test="${pdto.getVote().getVoted() eq 2}">
-                                        <a href="#" id="arrowup" data-pid="${postid}"><i class="fas fa-arrow-up greenarrow"></i></a>
+                                        <i class="fas fa-arrow-up greenarrow"></i>
+                                    </c:if>
+                                    <c:if test="${pdto.getVote().getVoted() eq 1}">
+                                        <i class="fas fa-arrow-up greyarrow"></i>
                                     </c:if>
                                     <c:if test="${pdto.getVote() eq null}">
                                         <a href="#" id="arrowup" data-pid="${postid}"><i class="fas fa-arrow-up greyarrow"></i></a>
@@ -40,7 +43,16 @@
                                 <span class="badge badge-pill badge-secondary">${post.getPoints()}</span>
 
                                 <c:if test="${not empty user}">
-                                    <a href="#" id="arrowdown${post.getId()}"><i class="fas fa-arrow-down greyarrow"></i></a>
+                                    <c:if test="${pdto.getVote().getVoted() eq 1}">
+                                        <i class="fas fa-arrow-down redarrow"></i>
+                                    </c:if>
+                                    <c:if test="${pdto.getVote().getVoted() eq 2}">
+                                        <i class="fas fa-arrow-down greyarrow"></i>
+                                    </c:if>
+                                    <c:if test="${pdto.getVote() eq null}">
+                                        <a href="#" id="arrowdown" data-pid="${postid}"><i class="fas fa-arrow-down greyarrow"></i></a>
+                                    </c:if>
+
                                 </c:if>
 
                             </div>
