@@ -42,7 +42,7 @@ public class User {
     @JoinTable(name = "user_category", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "category_id")})
     private Set<Category> categories;                   // user ma subskrypcje do categorii (many to many)
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private Set<Vote> votes;                            // user ma set swoich łapek w górę i dół
 
     @OneToMany

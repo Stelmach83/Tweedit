@@ -22,6 +22,6 @@ public class VoteServiceImpl implements VoteService {
 
     @Override
     public List<Vote> getVotedByUser(User user) {
-        return voteRepository.findAll();
+        return voteRepository.findAllByUser(user);
     }
 }

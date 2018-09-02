@@ -47,7 +47,6 @@ public class HomeController {
                 .map(x -> x.addVote(userVotes))
                 .collect(Collectors.toList());
 
-
         model.addAttribute("postdtos", postDTOS);
         model.addAttribute("userVotes", userVotes);
         model.addAttribute("posts", posts);
