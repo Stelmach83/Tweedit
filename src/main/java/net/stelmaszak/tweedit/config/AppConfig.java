@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -54,6 +55,13 @@ public class AppConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
     @Bean(initMethod = "runSql")
     public DbInit dbInit() {
         return new DbInit();
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedOrigins("*");
     }
 
     @Override

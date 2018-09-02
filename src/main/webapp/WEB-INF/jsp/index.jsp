@@ -15,7 +15,10 @@
             </div>
         </div>
         <br>
-        <c:forEach var="post" items="${posts}">
+
+        <c:forEach var="pdto" items="${postdtos}">
+            <c:set var="post" value="${pdto.getPost()}"></c:set>
+            <c:set var="postid" value="${post.getId()}"></c:set>
             <div class="row">
                 <div class="col-sm-12 col-md-12">
                     <div class="card">
@@ -24,9 +27,22 @@
                                 <i class="fa fa-check"></i>${post.getTitle()} <fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${post.getCreated()}"/>
                             </div>
                             <div class="float-right">
-                                <a href="#"><i class="fas fa-arrow-up"></i></a>
-                                <span class="badge badge-pill badge-warning">${post.getPoints()}</span>
-                                <a href="#"><i class="fas fa-arrow-down"></i></a>
+
+                                <c:if test="${not empty user}">
+                                    <c:if test="${pdto.getVote().getVoted() eq 2}">
+                                        <a href="#" id="arrowup" data-pid="${postid}"><i class="fas fa-arrow-up greenarrow"></i></a>
+                                    </c:if>
+                                    <c:if test="${pdto.getVote() eq null}">
+                                        <a href="#" id="arrowup" data-pid="${postid}"><i class="fas fa-arrow-up greyarrow"></i></a>
+                                    </c:if>
+                                </c:if>
+
+                                <span class="badge badge-pill badge-secondary">${post.getPoints()}</span>
+
+                                <c:if test="${not empty user}">
+                                    <a href="#" id="arrowdown${post.getId()}"><i class="fas fa-arrow-down greyarrow"></i></a>
+                                </c:if>
+
                             </div>
                         </div>
                         <div class="card-body">

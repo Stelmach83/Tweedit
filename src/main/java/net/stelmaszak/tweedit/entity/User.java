@@ -113,6 +113,14 @@ public class User {
         this.points = points;
     }
 
+    public Set<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Set<Vote> votes) {
+        this.votes = votes;
+    }
+
     @Override
     public String toString() {
         return "User{" +

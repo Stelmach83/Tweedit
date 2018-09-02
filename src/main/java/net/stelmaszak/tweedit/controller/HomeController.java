@@ -1,12 +1,11 @@
 package net.stelmaszak.tweedit.controller;
 
+import net.stelmaszak.tweedit.dto.PostDTO;
 import net.stelmaszak.tweedit.entity.Category;
 import net.stelmaszak.tweedit.entity.Post;
 import net.stelmaszak.tweedit.entity.User;
-import net.stelmaszak.tweedit.service.CategoryService;
-import net.stelmaszak.tweedit.service.MessageService;
-import net.stelmaszak.tweedit.service.PostService;
-import net.stelmaszak.tweedit.service.UserService;
+import net.stelmaszak.tweedit.entity.Vote;
+import net.stelmaszak.tweedit.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -18,9 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Stream;
 
 @Controller
 public class HomeController {
@@ -33,6 +31,8 @@ public class HomeController {
     private MessageService messageService;
     @Autowired
     private PostService postService;
+    @Autowired
+    private VoteService voteService;
 
 
     @RequestMapping("/")
@@ -41,6 +41,26 @@ public class HomeController {
         User user = findUser(principal, model);
         Date date = new Date();
         List<Post> posts = postService.getAllFromNewest();
+        List<Vote> userVotes = voteService.getVotedByUser(user);
+        List<PostDTO> postDTOS = new ArrayList<>();
+
+        for (Post p : posts) {
+            PostDTO pDto = new PostDTO();
+            pDto.setPost(p);
+            for (Vote v : userVotes) {
+                if (v.getPost() == p) {
+                    pDto.setVote(v);
+                }
+            }
+            postDTOS.add(pDto);
+        }
+
+        List<PostDTO> postDTOS1 = Stream.of(posts)
+                .forEach(new::PostDTO());
+
+
+        model.addAttribute("postdtos", postDTOS);
+        model.addAttribute("userVotes", userVotes);
         model.addAttribute("posts", posts);
         model.addAttribute("now", date);
         model.addAttribute("unread", messageService.getUnreadMessagesByUser(user));

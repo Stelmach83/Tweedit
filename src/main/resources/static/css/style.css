@@ -25,3 +25,11 @@ html {
 .error {
     color: red;
 }
+
+.greyarrow {
+    color: #999999;
+}
+
+.greenarrow {
+    color: green;
+}

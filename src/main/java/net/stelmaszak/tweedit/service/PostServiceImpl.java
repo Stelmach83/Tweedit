@@ -28,5 +28,10 @@ public class PostServiceImpl implements PostService {
         return postRepository.findAllByOrderByCreatedDesc();
     }
 
+    @Override
+    public Post getPostById(Long id) {
+        return postRepository.getOne(id);
+    }
+
 
 }

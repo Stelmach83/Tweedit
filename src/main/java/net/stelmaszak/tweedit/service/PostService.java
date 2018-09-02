@@ -12,4 +12,6 @@ public interface PostService {
 
     List<Post> getAllFromNewest();
 
+    Post getPostById(Long id);
+
 }
