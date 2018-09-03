@@ -12,9 +12,10 @@ $(function () {
         pointsBadge.removeClass('badge-secondary').addClass('badge-success')
 
         var postId = $(this).attr('data-pid');
-//      <%=request.getContextPath()%> dodać
+        var contextPath = $(this).attr('data-contextpath');
+
         $.ajax({
-            url: "http://localhost:8080/app/votedup/" + postId,
+            url: contextPath + "/app/votedup/" + postId,
             type: "POST",
             headers: {
                 "Accept": "application/json",
@@ -40,9 +41,10 @@ $(function () {
         pointsBadge.removeClass('badge-secondary').addClass('badge-danger')
 
         var postId = $(this).attr('data-pid');
+        var contextPath = $(this).attr('data-contextpath');
 
         $.ajax({
-            url: "http://localhost:8080/app/voteddown/" + postId,
+            url: contextPath + "/app/voteddown/" + postId,
             type: "POST",
             headers: {
                 "Accept": "application/json",

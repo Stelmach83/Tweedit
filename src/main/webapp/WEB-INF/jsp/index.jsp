@@ -4,7 +4,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <br>
 <div class="card">
     <div class="card-body" style="background-color: #f4f4f4;">
@@ -36,7 +35,7 @@
                                         <%--<i class="fas fa-arrow-up greyarrow"></i>--%>
                                     </c:if>
                                     <c:if test="${pdto.getVote() eq null}">
-                                        <a href="#" id="arrowup" data-pid="${postid}"><i class="fas fa-arrow-up greyarrow"></i></a>
+                                        <a href="#" id="arrowup" data-pid="${postid}" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-up greyarrow"></i></a>
                                     </c:if>
                                 </c:if>
 
@@ -63,7 +62,7 @@
                                         <%--<i class="fas fa-arrow-down greyarrow"></i>--%>
                                     </c:if>
                                     <c:if test="${pdto.getVote() eq null}">
-                                        <a href="#" id="arrowdown" data-pid="${postid}"><i class="fas fa-arrow-down greyarrow"></i></a>
+                                        <a href="#" id="arrowdown" data-pid="${postid}" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-down greyarrow"></i></a>
                                     </c:if>
 
                                 </c:if>
