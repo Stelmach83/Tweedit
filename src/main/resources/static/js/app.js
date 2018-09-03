@@ -12,7 +12,7 @@ $(function () {
         pointsBadge.removeClass('badge-secondary').addClass('badge-success')
 
         var postId = $(this).attr('data-pid');
-
+//      <%=request.getContextPath()%> dodać
         $.ajax({
             url: "http://localhost:8080/app/votedup/" + postId,
             type: "POST",
