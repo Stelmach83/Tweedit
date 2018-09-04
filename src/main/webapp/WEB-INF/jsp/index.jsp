@@ -71,21 +71,45 @@
                         </div>
                         <div class="card-body"><p>${post.getText()}</p><br>
                             <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-10">Jest to jakiś tam comment do postu, trala la napisany przez autora w dniu dzisiejszym.</div>
+                                    <div class="col-sm-1"></div>
+                                </div>
                                 <div class="row text-center">
                                     <div class="col-sm-12 col-md mb-sm-2 mb-0">
-                                        <h6>${post.getUser().getUsername()}</h6>
+                                        <c:if test="${not empty user && empty addcomment}">
+                                            <a href="<%=request.getContextPath()%>/app/addcomment" class="nav-link">add comment</a>
+                                        </c:if>
+                                        <c:if test="${not empty user && not empty addcomment}">
+                                            <form:form method="post" action="/app/addcomment" modelAttribute="comment">
+                                                <form>
+                                                    <input type="hidden" name="user.id" value="${user.getId()}">
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlInput1a">Text</label>
+                                                        <form:textarea class="form-control" rows="3" id="exampleFormControlInput1a"
+                                                                       placeholder="title" path="comment"/>
+                                                        <form:errors path="comment" cssClass="error"/>
+                                                    </div>
+                                                    <input type="submit" value="Send">
+                                                </form>
+                                            </form:form>
+                                        </c:if>
+                                        <c:if test="${empty user}">
+                                            <%--<h6>${post.getComments().size()}</h6>--%>
+                                        </c:if>
                                     </div>
                                     <div class="col-sm-12 col-md mb-sm-2 mb-0">
-                                        <h6>${post.getCategory().getName()}</h6>
+                                            <%--<h6>Comments</h6>--%>
                                     </div>
                                     <div class="col-sm-12 col-md mb-sm-2 mb-0">
-                                        <h6>${post.getCategory().getName()}</h6>
+                                            <%--<h6>${post.getCategory().getName()}</h6>--%>
                                     </div>
                                     <div class="col-sm-12 col-md mb-sm-2 mb-0">
-                                        <h6>${post.getComments().size()}</h6>
+                                            <%--<h6>${post.getCategory().getName()}</h6>--%>
                                     </div>
                                     <div class="col-sm-12 col-md mb-sm-2 mb-0">
-                                        <h6>placeholder</h6>
+                                            <%--<h6>${post.getComments().size()}</h6>--%>
                                     </div>
                                 </div>
                             </div>
