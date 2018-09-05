@@ -6,6 +6,7 @@ import net.stelmaszak.tweedit.dto.PostDTO;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -35,8 +36,8 @@ public class Post {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    @OneToMany
-    private Set<Comment> comments;
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
 
     @OneToMany
     private Set<Vote> votes;
@@ -102,11 +103,11 @@ public class Post {
         this.category = category;
     }
 
-    public Set<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Set<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 

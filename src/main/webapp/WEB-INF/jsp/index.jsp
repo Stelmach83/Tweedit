@@ -18,6 +18,7 @@
         <c:forEach var="pdto" items="${postdtos}">
             <c:set var="post" value="${pdto.getPost()}"></c:set>
             <c:set var="postid" value="${post.getId()}"></c:set>
+            <c:set var="comments" value="${post.getComments()}"></c:set>
             <div class="row">
                 <div class="col-sm-12 col-md-12">
                     <div class="card">
@@ -71,25 +72,28 @@
                         </div>
                         <div class="card-body"><p>${post.getText()}</p><br>
                             <div class="card-footer">
-                                <div class="row">
-                                    <div class="col-sm-1"></div>
-                                    <div class="col-sm-10">Jest to jakiś tam comment do postu, trala la napisany przez autora w dniu dzisiejszym.</div>
-                                    <div class="col-sm-1"></div>
-                                </div>
+                                <c:forEach items="${comments}" var="comment">
+                                    <div class="row">
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-10">${comment.getCommentText()}</div>
+                                        <div class="col-sm-1"></div>
+                                    </div>
+                                </c:forEach>
                                 <div class="row text-center">
                                     <div class="col-sm-12 col-md mb-sm-2 mb-0">
                                         <c:if test="${not empty user && empty addcomment}">
                                             <a href="<%=request.getContextPath()%>/app/addcomment" class="nav-link">add comment</a>
                                         </c:if>
                                         <c:if test="${not empty user && not empty addcomment}">
-                                            <form:form method="post" action="/app/addcomment" modelAttribute="comment">
+                                            <form:form method="post" modelAttribute="comment">
                                                 <form>
                                                     <input type="hidden" name="user.id" value="${user.getId()}">
+                                                    <input type="hidden" name="post.id" value="${post.getId()}">
                                                     <div class="form-group">
                                                         <label for="exampleFormControlInput1a">Text</label>
                                                         <form:textarea class="form-control" rows="3" id="exampleFormControlInput1a"
-                                                                       placeholder="title" path="comment"/>
-                                                        <form:errors path="comment" cssClass="error"/>
+                                                                       placeholder="title" path="commentText"/>
+                                                        <form:errors path="commentText" cssClass="error"/>
                                                     </div>
                                                     <input type="submit" value="Send">
                                                 </form>

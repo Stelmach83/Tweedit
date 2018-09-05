@@ -27,12 +27,20 @@ public class Comment {
 
     private Date date;
 
-    private String comment;
+    private String commentText;
 
     @OneToMany
     private Set<Vote> votes;
 
     private Long points;
+
+    public String getCommentText() {
+        return commentText;
+    }
+
+    public void setCommentText(String commentText) {
+        this.commentText = commentText;
+    }
 
     @PrePersist
     public void prePersist() {

@@ -111,8 +111,6 @@ public class MessageController {
             return "main";
         } else {
 
-            // TODO problem z poprawnym wyświetleniem nowej wiaomości w tabeli wszystkich wiadomości
-
             User user = findUser(principal, model);
             List<Category> categories = categoryService.getCategories();
             message.setDate(new Date());   // JUŻ NIEWAŻE -> to przeniosłem do MessageServiceImpl.saveMessage()
