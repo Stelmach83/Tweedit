@@ -4,7 +4,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%--<nav class="navbar navbar-expand-lg navbar-dark bg-dark">--%>
 <header class="app-header navbar navbar-expand-lg" style="background-color: #f4f4f4;">
     <div class="container">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -24,28 +23,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<%=request.getContextPath()%>/app/addpost">Add Post</a>
                     </li>
-
-                    <%--<li class="nav-item">--%>
-                    <%--<a class="nav-link" href="#">Go to category</a>--%>
-                    <%--</li>--%>
-
-
-                    <%--<c:if test="${not empty user}">--%>
-                    <%--<c:if test="${unread ne 0}">--%>
-                    <%--<li class="nav-item">--%>
-                    <%--<a class="nav-link" href="<%=request.getContextPath()%>/messages">You have ${unread} messages</a>--%>
-                    <%--</li>--%>
-                    <%--</c:if>--%>
-                    <%--<c:if test="${unread eq 0}">--%>
-                    <%--<li class="nav-item">--%>
-                    <%--<a class="nav-link" href="<%=request.getContextPath()%>/messages">Your messages</a>--%>
-                    <%--</li>--%>
-                    <%--</c:if>--%>
-                    <%--</c:if>--%>
-
-                    <%--<li class="nav-item">--%>
-                    <%--<a class="nav-link disabled" href="#">Disabled</a>--%>
-                    <%--</li>--%>
                 </c:if>
             </ul>
 
@@ -139,29 +116,14 @@
                             <li class="nav-item dropdown d-md-down-none">
                                 <a class="nav-link" data-toggle="dropdown" href="<%=request.getContextPath()%>/messages" role="button" aria-haspopup="true" aria-expanded="false">
                                     <i class="icon-user"></i>
-                                    <span class="badge badge-pill badge-success">${user.getPoints()}</span>
+                                        <%--<span id="userpoints" class="badge badge-pill badge-success">${user.getPoints()}</span>--%>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg">
                                     <div class="dropdown-header text-center">
-                                        <strong>You have 4 messages</strong>
+                                        <strong>${user.getUsername()} <i class="icon-trophy"></i>${user.getPoints()}</strong>
                                     </div>
                                     <a class="dropdown-item" href="#">
-                                        <div class="message">
-                                            <div class="py-3 mr-3 float-left">
-                                                <div class="avatar">
-                                                    <i class="fa fa-check"></i>
-                                                    <span class="avatar-status badge-success"></span>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <small class="text-muted">John Doe</small>
-                                                <small class="text-muted float-right mt-1">Just now</small>
-                                            </div>
-                                            <div class="text-truncate font-weight-bold">
-                                                <span class="fa fa-exclamation text-danger"></span> Important message
-                                            </div>
-                                            <div class="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</div>
-                                        </div>
+                                        <p>Your user profile</p>
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <div class="message">
@@ -211,12 +173,13 @@
                                             <div class="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</div>
                                         </div>
                                     </a>
-                                    <a class="dropdown-item text-center" href="#">
-                                        <strong>View all messages</strong>
-                                    </a>
+                                        <%--<a class="dropdown-item text-center" href="#">--%>
+                                        <%--<strong>View all messages</strong>--%>
+                                        <%--</a>--%>
+                                    <a class="dropdown-item text-center" href="<%=request.getContextPath()%>/login?logout">logout</a>
                                 </div>
                             </li>
-                            <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/login?logout">${user.getUsername()} logout</a></li>
+                                <%--<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/login?logout">${user.getUsername()} logout</a></li>--%>
                         </ul>
                     </c:when>
                     <c:otherwise>
@@ -237,4 +200,3 @@
         </button>
     </div>
 </header>
-<%--</nav>--%>

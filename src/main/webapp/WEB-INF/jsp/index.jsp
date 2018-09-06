@@ -22,9 +22,10 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12">
                     <div class="card">
-                        <div class="card-header">  <!--SHOW CATEGORY-->
+                        <div class="card-header">
                             <div class="float-left">
-                                <i class="fa fa-check"></i>${post.getTitle()} <fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${post.getCreated()}"/>
+                                    ${post.getTitle()}
+                                <em><i class="fa fa-at"></i> ${post.getCategory().getName()}</em>
                             </div>
                             <div class="float-right">
 
@@ -70,7 +71,12 @@
 
                             </div>
                         </div>
-                        <div class="card-body"><p>${post.getText()}</p><br>
+                        <div class="card-body"><p>${post.getText()}</p>
+                            <footer class="blockquote-footer">
+                                by <cite title="Show ${post.getUser().getUsername()}"><a href="<%=request.getContextPath()%>/app/user/${post.getUser().getId()}">${post.getUser().getUsername()}</a> <i
+                                    class="icon-trophy"></i>${post.getUser().getPoints()}, created: <fmt:formatDate pattern="dd-MM-yyyy HH:mm"
+                                                                                                                    value="${post.getCreated()}"/></cite>
+                            </footer>
                             <div class="card-footer">
                                 <c:forEach items="${comments}" var="comment">
                                     <div class="row">
@@ -79,45 +85,101 @@
                                         <div class="col-sm-1"></div>
                                     </div>
                                 </c:forEach>
-                                <div class="row text-center">
-                                    <div class="col-sm-12 col-md mb-sm-2 mb-0">
-                                        <c:if test="${not empty user && empty addcomment}">
-                                            <a href="<%=request.getContextPath()%>/app/addcomment/${post.getId()}" class="nav-link">add comment</a>
-                                        </c:if>
-                                        <c:if test="${not empty user && not empty addcomment}">
-                                            <c:if test="${addcomment eq post.getId()}">
-                                                <form:form method="post" modelAttribute="comment">
-                                                    <form>
-                                                        <input type="hidden" name="user.id" value="${user.getId()}">
-                                                        <input type="hidden" name="post.id" value="${post.getId()}">
-                                                        <div class="form-group">
-                                                            <label for="exampleFormControlInput1a">Text</label>
-                                                            <form:textarea class="form-control" rows="3" id="exampleFormControlInput1a"
-                                                                           placeholder="title" path="commentText"/>
-                                                            <form:errors path="commentText" cssClass="error"/>
-                                                        </div>
-                                                        <input type="submit" value="Send">
-                                                    </form>
-                                                </form:form>
-                                            </c:if>
+                                <div class="row">
+                                    <c:if test="${not empty user && empty addcomment}">
+                                        <div class="float-right"><a href="<%=request.getContextPath()%>/app/addcomment/${post.getId()}" class="nav-link">add comment</a></div>
+                                    </c:if>
 
-                                        </c:if>
-                                        <c:if test="${empty user}">
-                                            <%--<h6>${post.getComments().size()}</h6>--%>
-                                        </c:if>
-                                    </div>
-                                    <div class="col-sm-12 col-md mb-sm-2 mb-0">
-                                            <%--<h6>Comments</h6>--%>
-                                    </div>
-                                    <div class="col-sm-12 col-md mb-sm-2 mb-0">
-                                            <%--<h6>${post.getCategory().getName()}</h6>--%>
-                                    </div>
-                                    <div class="col-sm-12 col-md mb-sm-2 mb-0">
-                                            <%--<h6>${post.getCategory().getName()}</h6>--%>
-                                    </div>
-                                    <div class="col-sm-12 col-md mb-sm-2 mb-0">
-                                            <%--<h6>${post.getComments().size()}</h6>--%>
-                                    </div>
+                                    <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                                        <thead>
+                                        <tr>
+                                            <th>Username</th>
+                                            <th>Date registered</th>
+                                            <th>Role</th>
+                                            <th>Status</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>Vishnu Serghei</td>
+                                            <td>2012/01/01</td>
+                                            <td>Member</td>
+                                            <td>
+                                                <span class="badge badge-success">Active</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Zbyněk Phoibos</td>
+                                            <td>2012/02/01</td>
+                                            <td>Staff</td>
+                                            <td>
+                                                <span class="badge badge-danger">Banned</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Einar Randall</td>
+                                            <td>2012/02/01</td>
+                                            <td>Admin</td>
+                                            <td>
+                                                <span class="badge badge-secondary">Inactive</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Félix Troels</td>
+                                            <td>2012/03/01</td>
+                                            <td>Member</td>
+                                            <td>
+                                                <span class="badge badge-warning">Pending</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Aulus Agmundr</td>
+                                            <td>2012/01/21</td>
+                                            <td>Staff</td>
+                                            <td>
+                                                <span class="badge badge-success">Active</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                        <%--<div class="col-sm-12 col-md mb-sm-2 mb-0">--%>
+                                        <%--<c:if test="${not empty user && empty addcomment}">--%>
+                                        <%--<div class="float-right"><a href="<%=request.getContextPath()%>/app/addcomment/${post.getId()}" class="nav-link">add comment</a></div>--%>
+                                        <%--</c:if>--%>
+                                        <%--<c:if test="${not empty user && not empty addcomment}">--%>
+                                        <%--<c:if test="${addcomment eq post.getId()}">--%>
+                                        <%--<form:form method="post" modelAttribute="comment">--%>
+                                        <%--<form>--%>
+                                        <%--<input type="hidden" name="user.id" value="${user.getId()}">--%>
+                                        <%--<input type="hidden" name="post.id" value="${post.getId()}">--%>
+                                        <%--<div class="form-group">--%>
+                                        <%--<label for="exampleFormControlInput1a">Text</label>--%>
+                                        <%--<form:textarea class="form-control" rows="3" id="exampleFormControlInput1a"--%>
+                                        <%--placeholder="title" path="commentText"/>--%>
+                                        <%--<form:errors path="commentText" cssClass="error"/>--%>
+                                        <%--</div>--%>
+                                        <%--<input type="submit" value="Send">--%>
+                                        <%--</form>--%>
+                                        <%--</form:form>--%>
+                                        <%--</c:if>--%>
+
+                                        <%--</c:if>--%>
+                                        <%--<c:if test="${empty user}">--%>
+                                        <%--&lt;%&ndash;<h6>${post.getComments().size()}</h6>&ndash;%&gt;--%>
+                                        <%--</c:if>--%>
+                                        <%--</div>--%>
+                                        <%--<div class="col-sm-12 col-md mb-sm-2 mb-0">--%>
+                                        <%--&lt;%&ndash;<h6>Comments</h6>&ndash;%&gt;--%>
+                                        <%--</div>--%>
+                                        <%--<div class="col-sm-12 col-md mb-sm-2 mb-0">--%>
+                                        <%--&lt;%&ndash;<h6>${post.getCategory().getName()}</h6>&ndash;%&gt;--%>
+                                        <%--</div>--%>
+                                        <%--<div class="col-sm-12 col-md mb-sm-2 mb-0">--%>
+                                        <%--&lt;%&ndash;<h6>${post.getCategory().getName()}</h6>&ndash;%&gt;--%>
+                                        <%--</div>--%>
+                                        <%--<div class="col-sm-12 col-md mb-sm-2 mb-0">--%>
+                                        <%--&lt;%&ndash;<h6>${post.getComments().size()}</h6>&ndash;%&gt;--%>
+                                        <%--</div>--%>
                                 </div>
                             </div>
                         </div>

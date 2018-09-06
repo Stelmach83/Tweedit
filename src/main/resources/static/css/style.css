@@ -42,3 +42,7 @@ html {
 .notlink {
     cursor: default;
 }
+
+#userpoints.badge-pill {
+    font-size: 9px;
+}

@@ -33,10 +33,8 @@ public class CommentController {
     private PostService postService;
     @Autowired
     private VoteService voteService;
-
-    // test
     @Autowired
-    private CommentRepository commentRepository;
+    private CommentService commentService;
 
     @GetMapping("/app/addcomment/{postId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
@@ -96,7 +94,7 @@ public class CommentController {
                     .map(Post::mapToPostDTO)
                     .map(x -> x.addVote(userVotes))
                     .collect(Collectors.toList());
-            commentRepository.save(comment); // TODO zmienić na service
+            commentService.saveComment(comment);
 
             model.addAttribute("postdtos", postDTOS);
             model.addAttribute("userVotes", userVotes);
