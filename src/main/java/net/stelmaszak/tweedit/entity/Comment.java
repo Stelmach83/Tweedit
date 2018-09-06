@@ -5,6 +5,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Set;
 
@@ -27,6 +28,7 @@ public class Comment {
 
     private Date date;
 
+    @Size(min = 1)
     private String commentText;
 
     @OneToMany

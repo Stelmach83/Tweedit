@@ -85,6 +85,7 @@
                                             <a href="<%=request.getContextPath()%>/app/addcomment" class="nav-link">add comment</a>
                                         </c:if>
                                         <c:if test="${not empty user && not empty addcomment}">
+
                                             <form:form method="post" modelAttribute="comment">
                                                 <form>
                                                     <input type="hidden" name="user.id" value="${user.getId()}">
@@ -98,6 +99,7 @@
                                                     <input type="submit" value="Send">
                                                 </form>
                                             </form:form>
+
                                         </c:if>
                                         <c:if test="${empty user}">
                                             <%--<h6>${post.getComments().size()}</h6>--%>
