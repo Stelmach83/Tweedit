@@ -46,3 +46,7 @@ html {
 #userpoints.badge-pill {
     font-size: 9px;
 }
+
+#commenttable {
+    margin: 30px;
+}

@@ -8,11 +8,11 @@
 <h4>Error</h4>
 
 <c:if test="${sessionScope[\"SPRING_SECURITY_LAST_EXCEPTION\"].message eq 'Bad credentials'}">
-    <p class="error">Email/Password is incorrect.</p>
+  <p class="error">Email/Password is incorrect.</p>
 </c:if>
 <c:if test="${sessionScope[\"SPRING_SECURITY_LAST_EXCEPTION\"].message eq 'User is disabled'}">
-    <p>Your account is disabled, please contact administrator.</p>
+  <p>Your account is disabled, please contact administrator.</p>
 </c:if>
 <c:if test="${fn:containsIgnoreCase(sessionScope[\"SPRING_SECURITY_LAST_EXCEPTION\"].message,'A communications error has been detected')}">
-    <p>Database connection is down, try again later.</p>
+  <p>Database connection is down, try again later.</p>
 </c:if>

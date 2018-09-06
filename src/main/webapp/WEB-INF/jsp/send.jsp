@@ -9,66 +9,66 @@
 <h4>Your messages</h4>
 
 <table class="table">
-    <col style="width: 20%">
-    <col style="width: 15%">
-    <col style="width: 65%">
-    <thead class="thead-dark">
+  <col style="width: 20%">
+  <col style="width: 15%">
+  <col style="width: 65%">
+  <thead class="thead-dark">
+  <tr>
+    <th>Received</th>
+    <th>From</th>
+    <th>Title</th>
+  </tr>
+  </thead>
+  <tbody>
+  <c:forEach var="m" items="${messages}">
     <tr>
-        <th>Received</th>
-        <th>From</th>
-        <th>Title</th>
+      <td><fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${m.getDate()}"/></td>
+      <td>${m.getFromUser().getUsername()}</td>
+      <td>
+        <a href="<%=request.getContextPath()%>/app/message/${m.getId()}">
+          <c:if test="${m.getMessageRead() eq 0}">
+            <strong>${m.getTitle()} (unread)</strong>
+          </c:if>
+          <c:if test="${m.getMessageRead() eq 1}">
+            ${m.getTitle()}
+          </c:if>
+        </a>
+      </td>
     </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="m" items="${messages}">
-        <tr>
-            <td><fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${m.getDate()}"/></td>
-            <td>${m.getFromUser().getUsername()}</td>
-            <td>
-                <a href="<%=request.getContextPath()%>/app/message/${m.getId()}">
-                    <c:if test="${m.getMessageRead() eq 0}">
-                        <strong>${m.getTitle()} (unread)</strong>
-                    </c:if>
-                    <c:if test="${m.getMessageRead() eq 1}">
-                        ${m.getTitle()}
-                    </c:if>
-                </a>
-            </td>
-        </tr>
-    </c:forEach>
-    </tbody>
+  </c:forEach>
+  </tbody>
 </table>
 
 <h5></h5>
 
 <form:form method="post" modelAttribute="message">
-    <form>
+  <form>
 
-        <input type="hidden" name="fromUser.id" value="${user.getId()}">
+    <input type="hidden" name="fromUser.id" value="${user.getId()}">
 
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Send to</label>
-            <form:select items="${users}" itemValue="id" itemLabel="username" class="form-control"
-                         id="exampleFormControlInput1" path="toUser.id"/>
-            <form:errors path="toUser.id" cssClass="error"/>
-        </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Send to</label>
+      <form:select items="${users}" itemValue="id" itemLabel="username" class="form-control"
+                   id="exampleFormControlInput1" path="toUser.id"/>
+      <form:errors path="toUser.id" cssClass="error"/>
+    </div>
 
-        <div class="form-group">
-            <label for="exampleFormControlInput1a">Title</label>
-            <form:textarea class="form-control" rows="1" id="exampleFormControlInput1a"
-                           placeholder="title" path="title"/>
-            <form:errors path="title" cssClass="error"/>
-        </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1a">Title</label>
+      <form:textarea class="form-control" rows="1" id="exampleFormControlInput1a"
+                     placeholder="title" path="title"/>
+      <form:errors path="title" cssClass="error"/>
+    </div>
 
-        <div class="form-group">
-            <label for="exampleFormControlInput2">Message</label>
-            <form:textarea class="form-control" rows="4" id="exampleFormControlInput2"
-                           placeholder="text" path="text"/>
-            <form:errors path="text" cssClass="error"/>
-        </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput2">Message</label>
+      <form:textarea class="form-control" rows="4" id="exampleFormControlInput2"
+                     placeholder="text" path="text"/>
+      <form:errors path="text" cssClass="error"/>
+    </div>
 
-        <input type="submit" value="Send">
-    </form>
+    <input type="submit" value="Send">
+  </form>
 </form:form>
 
 
