@@ -38,9 +38,9 @@ public class CommentController {
     @Autowired
     private CommentRepository commentRepository;
 
-    @GetMapping("/app/addcomment")
+    @GetMapping("/app/addcomment/{postId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    public String addComment(Model model, Principal principal) {
+    public String addComment(Model model, Principal principal, @PathVariable String postId) {
         List<Category> categories = categoryService.getCategories();
         User user = findUser(principal, model);
         Date date = new Date();
@@ -52,7 +52,7 @@ public class CommentController {
                 .collect(Collectors.toList());
         Comment comment = new Comment();
         model.addAttribute("comment", comment);
-        model.addAttribute("addcomment", "true");
+        model.addAttribute("addcomment", postId);
         model.addAttribute("postdtos", postDTOS);
         model.addAttribute("userVotes", userVotes);
         model.addAttribute("posts", posts);
@@ -63,9 +63,9 @@ public class CommentController {
         return "main";
     }
 
-    @PostMapping("/app/addcomment")
+    @PostMapping("/app/addcomment/{postId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    public String postComment(Model model, Principal principal, @Valid Comment comment, BindingResult result) {
+    public String postComment(Model model, Principal principal, @Valid Comment comment, BindingResult result, @PathVariable String postId) {
 
         if (result.hasErrors()) {
             List<Category> categories = categoryService.getCategories();
@@ -77,7 +77,7 @@ public class CommentController {
                     .map(Post::mapToPostDTO)
                     .map(x -> x.addVote(userVotes))
                     .collect(Collectors.toList());
-            model.addAttribute("addcomment", "true");
+            model.addAttribute("addcomment", postId);
             model.addAttribute("postdtos", postDTOS);
             model.addAttribute("userVotes", userVotes);
             model.addAttribute("now", date);

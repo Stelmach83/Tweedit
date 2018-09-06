@@ -82,23 +82,24 @@
                                 <div class="row text-center">
                                     <div class="col-sm-12 col-md mb-sm-2 mb-0">
                                         <c:if test="${not empty user && empty addcomment}">
-                                            <a href="<%=request.getContextPath()%>/app/addcomment" class="nav-link">add comment</a>
+                                            <a href="<%=request.getContextPath()%>/app/addcomment/${post.getId()}" class="nav-link">add comment</a>
                                         </c:if>
                                         <c:if test="${not empty user && not empty addcomment}">
-
-                                            <form:form method="post" modelAttribute="comment">
-                                                <form>
-                                                    <input type="hidden" name="user.id" value="${user.getId()}">
-                                                    <input type="hidden" name="post.id" value="${post.getId()}">
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlInput1a">Text</label>
-                                                        <form:textarea class="form-control" rows="3" id="exampleFormControlInput1a"
-                                                                       placeholder="title" path="commentText"/>
-                                                        <form:errors path="commentText" cssClass="error"/>
-                                                    </div>
-                                                    <input type="submit" value="Send">
-                                                </form>
-                                            </form:form>
+                                            <c:if test="${addcomment eq post.getId()}">
+                                                <form:form method="post" modelAttribute="comment">
+                                                    <form>
+                                                        <input type="hidden" name="user.id" value="${user.getId()}">
+                                                        <input type="hidden" name="post.id" value="${post.getId()}">
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlInput1a">Text</label>
+                                                            <form:textarea class="form-control" rows="3" id="exampleFormControlInput1a"
+                                                                           placeholder="title" path="commentText"/>
+                                                            <form:errors path="commentText" cssClass="error"/>
+                                                        </div>
+                                                        <input type="submit" value="Send">
+                                                    </form>
+                                                </form:form>
+                                            </c:if>
 
                                         </c:if>
                                         <c:if test="${empty user}">
