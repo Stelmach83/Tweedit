@@ -85,10 +85,10 @@
                     <col style="width:11%">
                     <thead>
                     <tr>
-                      <th>Comment</th>
-                      <th>Date</th>
-                      <th>User</th>
-                      <th>Points</th>
+                      <th class="commentstitle">Comment</th>
+                      <th class="commentstitle">Date</th>
+                      <th class="commentstitle">User</th>
+                      <th class="commentstitle">Points</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -129,7 +129,6 @@
                     </form:form>
                   </c:if>
                 </div>
-
               </div>
             </div>
           </div>
@@ -137,7 +136,5 @@
       </div>
       <br>
     </c:forEach>
-
-
   </div>
 </div>

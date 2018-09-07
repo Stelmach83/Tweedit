@@ -38,6 +38,8 @@ public class PostController {
     @Autowired
     private DataHelper dataHelper;
 
+    // TODO Refactor with DataHelper
+
     @RequestMapping("/app/posts/{subs}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String showPostsForUserSubs(@PathVariable String subs) {

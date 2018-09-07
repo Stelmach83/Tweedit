@@ -1,7 +1,5 @@
 package net.stelmaszak.tweedit.controller;
 
-import net.stelmaszak.tweedit.dto.CommentDTO;
-import net.stelmaszak.tweedit.dto.PostDTO;
 import net.stelmaszak.tweedit.entity.*;
 import net.stelmaszak.tweedit.helper.DataHelper;
 import net.stelmaszak.tweedit.service.*;
@@ -18,22 +16,14 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller
 public class CommentController {
 
     @Autowired
-    private UserService userService;
-    @Autowired
-    private CategoryService categoryService;
-    @Autowired
     private MessageService messageService;
     @Autowired
     private PostService postService;
-    @Autowired
-    private VoteService voteService;
     @Autowired
     private CommentService commentService;
     @Autowired
@@ -42,30 +32,19 @@ public class CommentController {
     @GetMapping("/app/addcomment/{postId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String addComment(Model model, Principal principal, @PathVariable String postId) {
-        List<Category> categories = categoryService.getCategories();
         User user = dataHelper.getUserSendToView(principal, model);
         Date date = new Date();
+        model.addAttribute("now", date);
+        List<Comment> comments = commentService.getAllComments(); // NIE WIEM CZY NIE TRZEBA PRZEKAZAC DO WIDOKU (to teście - nie trzeba)
         List<Post> posts = postService.getAllFromNewest();
-        List<Vote> userVotes = voteService.getVotedByUser(user);
-        List<PostDTO> postDTOS = posts.stream()
-                .map(Post::mapToPostDTO)
-                .map(x -> x.addVote(userVotes))
-                .collect(Collectors.toList());
-        List<Comment> comments = commentService.getAllComments();
-        List<CommentDTO> commentDTOS = comments.stream()
-                .map(Comment::mapToCommentDTO)
-                .map(x -> x.addVote(userVotes))
-                .collect(Collectors.toList());
-        model.addAttribute("commentsdtos", commentDTOS);
+        dataHelper.getAllCategoriesAndSendToView(model);
+        dataHelper.getUserVotesSendToView(user, model);
+        dataHelper.getPostDTOandSendToView(posts, user, model);
+        dataHelper.getCommentDTOandSendToView(comments, user, model);
+        dataHelper.getIntegerUnreadMessagesForUser(user, model);
         Comment comment = new Comment();
         model.addAttribute("comment", comment);
         model.addAttribute("addcomment", postId);
-        model.addAttribute("postdtos", postDTOS);
-        model.addAttribute("userVotes", userVotes);
-        model.addAttribute("posts", posts);
-        model.addAttribute("now", date);
-        model.addAttribute("unread", messageService.getUnreadMessagesByUser(user));
-        model.addAttribute("categories", categories);
         model.addAttribute("appContext", "index");
         return "main";
     }
@@ -75,52 +54,31 @@ public class CommentController {
     public String postComment(Model model, Principal principal, @Valid Comment comment, BindingResult result, @PathVariable String postId) {
 
         if (result.hasErrors()) {
-            List<Category> categories = categoryService.getCategories();
             User user = dataHelper.getUserSendToView(principal, model);
             Date date = new Date();
-            List<Post> posts = postService.getAllFromNewest();
-            List<Vote> userVotes = voteService.getVotedByUser(user);
-            List<PostDTO> postDTOS = posts.stream()
-                    .map(Post::mapToPostDTO)
-                    .map(x -> x.addVote(userVotes))
-                    .collect(Collectors.toList());
-            model.addAttribute("postdtos", postDTOS);
-            List<Comment> comments = commentService.getAllComments();
-            List<CommentDTO> commentDTOS = comments.stream()
-                    .map(Comment::mapToCommentDTO)
-                    .map(x -> x.addVote(userVotes))
-                    .collect(Collectors.toList());
-            model.addAttribute("commentsdtos", commentDTOS);
-            model.addAttribute("addcomment", postId);
-            model.addAttribute("userVotes", userVotes);
             model.addAttribute("now", date);
-            model.addAttribute("unread", messageService.getUnreadMessagesByUser(user));
-            model.addAttribute("categories", categories);
+            List<Post> posts = postService.getAllFromNewest();
+            List<Comment> comments = commentService.getAllComments(); // NIE WIEM CZY NIE TRZEBA PRZEKAZAC DO WIDOKU (to teście - nie trzeba)
+            dataHelper.getAllCategoriesAndSendToView(model);
+            dataHelper.getUserVotesSendToView(user, model);
+            dataHelper.getPostDTOandSendToView(posts, user, model);
+            dataHelper.getCommentDTOandSendToView(comments, user, model);
+            dataHelper.getIntegerUnreadMessagesForUser(user, model);
+            model.addAttribute("addcomment", postId);
             model.addAttribute("appContext", "index");
             return "main";
         } else {
-
-            List<Category> categories = categoryService.getCategories();
             User user = dataHelper.getUserSendToView(principal, model);
             Date date = new Date();
-            List<Post> posts = postService.getAllFromNewest();
-            List<Vote> userVotes = voteService.getVotedByUser(user);
-            List<PostDTO> postDTOS = posts.stream()
-                    .map(Post::mapToPostDTO)
-                    .map(x -> x.addVote(userVotes))
-                    .collect(Collectors.toList());
-            commentService.saveComment(comment);
-            List<Comment> comments = commentService.getAllComments();
-            List<CommentDTO> commentDTOS = comments.stream()
-                    .map(Comment::mapToCommentDTO)
-                    .map(x -> x.addVote(userVotes))
-                    .collect(Collectors.toList());
-            model.addAttribute("commentsdtos", commentDTOS);
-            model.addAttribute("postdtos", postDTOS);
-            model.addAttribute("userVotes", userVotes);
             model.addAttribute("now", date);
-            model.addAttribute("unread", messageService.getUnreadMessagesByUser(user));
-            model.addAttribute("categories", categories);
+            List<Post> posts = postService.getAllFromNewest();
+            List<Comment> comments = commentService.getAllComments();
+            commentService.saveComment(comment);
+            dataHelper.getAllCategoriesAndSendToView(model);
+            dataHelper.getUserVotesSendToView(user, model);
+            dataHelper.getPostDTOandSendToView(posts, user, model);
+            dataHelper.getCommentDTOandSendToView(comments, user, model);
+            dataHelper.getIntegerUnreadMessagesForUser(user, model);
             model.addAttribute("appContext", "index");
             return "main";
         }

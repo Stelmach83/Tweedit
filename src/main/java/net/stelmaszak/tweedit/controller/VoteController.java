@@ -31,6 +31,8 @@ public class VoteController {
     @Autowired
     private DataHelper dataHelper;
 
+    // TODO Refactor with DataHelper
+
 
     @PostMapping("/app/votedup/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")

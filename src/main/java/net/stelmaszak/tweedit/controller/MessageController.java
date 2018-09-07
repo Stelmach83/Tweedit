@@ -44,6 +44,8 @@ public class MessageController {
 //        return String.valueOf(unread);
 //    }
 
+    // TODO Refactor with DataHelper
+
     @RequestMapping("/app/messages")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String showMessages(Model model, Principal principal) {

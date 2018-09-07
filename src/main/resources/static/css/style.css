@@ -52,9 +52,14 @@ html {
 }
 
 .commentsdata {
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .commentstext {
-    font-size: 12px;
+    font-size: 13px;
+}
+
+.commentstitle {
+    font-weight: normal;
+    font-size: 14px;
 }

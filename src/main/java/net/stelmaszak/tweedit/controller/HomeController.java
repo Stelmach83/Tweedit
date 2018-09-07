@@ -37,6 +37,7 @@ public class HomeController {
     @Autowired
     private DataHelper dataHelper;
 
+    // TODO Refactor with DataHelper
 
     @RequestMapping("/")
     public String home(Model model, Principal principal) {
