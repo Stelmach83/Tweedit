@@ -35,7 +35,7 @@ public class CommentController {
         User user = dataHelper.getUserSendToView(principal, model);
         Date date = new Date();
         model.addAttribute("now", date);
-        List<Comment> comments = commentService.getAllComments(); // NIE WIEM CZY NIE TRZEBA PRZEKAZAC DO WIDOKU (to teście - nie trzeba)
+        List<Comment> comments = commentService.getAllComments();
         List<Post> posts = postService.getAllFromNewest();
         dataHelper.getAllCategoriesAndSendToView(model);
         dataHelper.getUserVotesSendToView(user, model);
@@ -52,13 +52,12 @@ public class CommentController {
     @PostMapping("/app/addcomment/{postId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String postComment(Model model, Principal principal, @Valid Comment comment, BindingResult result, @PathVariable String postId) {
-
         if (result.hasErrors()) {
             User user = dataHelper.getUserSendToView(principal, model);
             Date date = new Date();
             model.addAttribute("now", date);
             List<Post> posts = postService.getAllFromNewest();
-            List<Comment> comments = commentService.getAllComments(); // NIE WIEM CZY NIE TRZEBA PRZEKAZAC DO WIDOKU (to teście - nie trzeba)
+            List<Comment> comments = commentService.getAllComments();
             dataHelper.getAllCategoriesAndSendToView(model);
             dataHelper.getUserVotesSendToView(user, model);
             dataHelper.getPostDTOandSendToView(posts, user, model);
