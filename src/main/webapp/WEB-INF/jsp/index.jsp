@@ -159,42 +159,46 @@
                     </tbody>
                   </table>
                   <c:if test="${not empty user && empty addcomment}">
-                    <div class="float-right"><a href="<%=request.getContextPath()%>/app/addcomment/${post.getId()}" class="nav-link">add comment</a></div>
+                    <a href="<%=request.getContextPath()%>/app/addcomment/${post.getId()}" class="nav-link">add comment</a>
                   </c:if>
-                  <c:if test="${addcomment eq post.getId()}">
-                    <form:form method="post" modelAttribute="comment">
-                      <form>
-                        <input type="hidden" name="user.id" value="${user.getId()}">
-                        <input type="hidden" name="post.id" value="${post.getId()}">
-                        <div class="form-group">
-                          <label for="exampleFormControlInput1a">Text</label>
-                          <form:textarea class="form-control" rows="3" id="exampleFormControlInput1a"
-                                         placeholder="title" path="commentText"/>
-                          <form:errors path="commentText" cssClass="error"/>
-                        </div>
-                        <input type="submit" value="Send">
-                      </form>
-                    </form:form>
-                  </c:if>
-
-                    <%--</c:if>--%>
-                    <%--<c:if test="${empty user}">--%>
-                    <%--&lt;%&ndash;<h6>${post.getComments().size()}</h6>&ndash;%&gt;--%>
-                    <%--</c:if>--%>
-                    <%--</div>--%>
-                    <%--<div class="col-sm-12 col-md mb-sm-2 mb-0">--%>
-                    <%--&lt;%&ndash;<h6>Comments</h6>&ndash;%&gt;--%>
-                    <%--</div>--%>
-                    <%--<div class="col-sm-12 col-md mb-sm-2 mb-0">--%>
-                    <%--&lt;%&ndash;<h6>${post.getCategory().getName()}</h6>&ndash;%&gt;--%>
-                    <%--</div>--%>
-                    <%--<div class="col-sm-12 col-md mb-sm-2 mb-0">--%>
-                    <%--&lt;%&ndash;<h6>${post.getCategory().getName()}</h6>&ndash;%&gt;--%>
-                    <%--</div>--%>
-                    <%--<div class="col-sm-12 col-md mb-sm-2 mb-0">--%>
-                    <%--&lt;%&ndash;<h6>${post.getComments().size()}</h6>&ndash;%&gt;--%>
-
                 </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <c:if test="${addcomment eq post.getId()}">
+                      <form:form method="post" modelAttribute="comment">
+                        <form>
+                          <input type="hidden" name="user.id" value="${user.getId()}">
+                          <input type="hidden" name="post.id" value="${post.getId()}">
+                          <div class="form-group">
+                            <label for="exampleFormControlInput1a">Add comment</label>
+                            <form:textarea class="form-control" rows="3" id="exampleFormControlInput1a"
+                                           placeholder="Insert comment content" path="commentText"/>
+                            <form:errors path="commentText" cssClass="error"/>
+                          </div>
+                          <input type="submit" value="Send">
+                        </form>
+                      </form:form>
+                    </c:if>
+                  </div>
+                </div>
+
+                  <%--</c:if>--%>
+                  <%--<c:if test="${empty user}">--%>
+                  <%--&lt;%&ndash;<h6>${post.getComments().size()}</h6>&ndash;%&gt;--%>
+                  <%--</c:if>--%>
+                  <%--</div>--%>
+                  <%--<div class="col-sm-12 col-md mb-sm-2 mb-0">--%>
+                  <%--&lt;%&ndash;<h6>Comments</h6>&ndash;%&gt;--%>
+                  <%--</div>--%>
+                  <%--<div class="col-sm-12 col-md mb-sm-2 mb-0">--%>
+                  <%--&lt;%&ndash;<h6>${post.getCategory().getName()}</h6>&ndash;%&gt;--%>
+                  <%--</div>--%>
+                  <%--<div class="col-sm-12 col-md mb-sm-2 mb-0">--%>
+                  <%--&lt;%&ndash;<h6>${post.getCategory().getName()}</h6>&ndash;%&gt;--%>
+                  <%--</div>--%>
+                  <%--<div class="col-sm-12 col-md mb-sm-2 mb-0">--%>
+                  <%--&lt;%&ndash;<h6>${post.getComments().size()}</h6>&ndash;%&gt;--%>
+
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 package net.stelmaszak.tweedit.entity;
 
 import lombok.EqualsAndHashCode;
+import net.stelmaszak.tweedit.dto.CommentDTO;
 import net.stelmaszak.tweedit.dto.PostDTO;
 
 import javax.persistence.*;
@@ -72,5 +73,9 @@ public class Vote {
 
     public boolean isVoteForPost(PostDTO post) {
         return this.post == post.getPost();
+    }
+
+    public boolean isVoteForComment(CommentDTO comment) {
+        return this.comment == comment.getComment();
     }
 }

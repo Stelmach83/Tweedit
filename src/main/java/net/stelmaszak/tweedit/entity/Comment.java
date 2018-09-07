@@ -1,6 +1,7 @@
 package net.stelmaszak.tweedit.entity;
 
 import lombok.Data;
+import net.stelmaszak.tweedit.dto.CommentDTO;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -49,6 +50,12 @@ public class Comment {
         if (points == null) {
             points = 0l;
         }
+    }
+
+    public static CommentDTO mapToCommentDTO(Comment comment) {
+        CommentDTO commentDTO = new CommentDTO();
+        commentDTO.setComment(comment);
+        return commentDTO;
     }
 
 }
