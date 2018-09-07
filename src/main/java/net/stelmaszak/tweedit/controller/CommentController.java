@@ -21,8 +21,6 @@ import java.util.List;
 public class CommentController {
 
     @Autowired
-    private MessageService messageService;
-    @Autowired
     private PostService postService;
     @Autowired
     private CommentService commentService;
