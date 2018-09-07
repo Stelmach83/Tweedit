@@ -1,6 +1,6 @@
 package net.stelmaszak.tweedit.entity;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
 import net.stelmaszak.tweedit.dto.CommentDTO;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Data
+@EqualsAndHashCode
 public class Comment {
 
     @Id
@@ -37,12 +37,63 @@ public class Comment {
 
     private Long points;
 
+    public Comment() {
+    }
+
     public String getCommentText() {
         return commentText;
     }
 
     public void setCommentText(String commentText) {
         this.commentText = commentText;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Set<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Set<Vote> votes) {
+        this.votes = votes;
+    }
+
+    public Long getPoints() {
+        return points;
+    }
+
+    public void setPoints(Long points) {
+        this.points = points;
     }
 
     @PrePersist

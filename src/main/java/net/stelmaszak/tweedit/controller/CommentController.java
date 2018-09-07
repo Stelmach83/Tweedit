@@ -1,8 +1,8 @@
 package net.stelmaszak.tweedit.controller;
 
+import net.stelmaszak.tweedit.dto.CommentDTO;
 import net.stelmaszak.tweedit.dto.PostDTO;
 import net.stelmaszak.tweedit.entity.*;
-import net.stelmaszak.tweedit.repository.CommentRepository;
 import net.stelmaszak.tweedit.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -48,6 +48,12 @@ public class CommentController {
                 .map(Post::mapToPostDTO)
                 .map(x -> x.addVote(userVotes))
                 .collect(Collectors.toList());
+        List<Comment> comments = commentService.getAllComments();
+        List<CommentDTO> commentDTOS = comments.stream()
+                .map(Comment::mapToCommentDTO)
+                .map(x -> x.addVote(userVotes))
+                .collect(Collectors.toList());
+        model.addAttribute("commentsdtos", commentDTOS);
         Comment comment = new Comment();
         model.addAttribute("comment", comment);
         model.addAttribute("addcomment", postId);
@@ -75,8 +81,14 @@ public class CommentController {
                     .map(Post::mapToPostDTO)
                     .map(x -> x.addVote(userVotes))
                     .collect(Collectors.toList());
-            model.addAttribute("addcomment", postId);
             model.addAttribute("postdtos", postDTOS);
+            List<Comment> comments = commentService.getAllComments();
+            List<CommentDTO> commentDTOS = comments.stream()
+                    .map(Comment::mapToCommentDTO)
+                    .map(x -> x.addVote(userVotes))
+                    .collect(Collectors.toList());
+            model.addAttribute("commentsdtos", commentDTOS);
+            model.addAttribute("addcomment", postId);
             model.addAttribute("userVotes", userVotes);
             model.addAttribute("now", date);
             model.addAttribute("unread", messageService.getUnreadMessagesByUser(user));
@@ -95,7 +107,12 @@ public class CommentController {
                     .map(x -> x.addVote(userVotes))
                     .collect(Collectors.toList());
             commentService.saveComment(comment);
-
+            List<Comment> comments = commentService.getAllComments();
+            List<CommentDTO> commentDTOS = comments.stream()
+                    .map(Comment::mapToCommentDTO)
+                    .map(x -> x.addVote(userVotes))
+                    .collect(Collectors.toList());
+            model.addAttribute("commentsdtos", commentDTOS);
             model.addAttribute("postdtos", postDTOS);
             model.addAttribute("userVotes", userVotes);
             model.addAttribute("now", date);

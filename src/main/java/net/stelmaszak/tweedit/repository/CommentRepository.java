@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    List<Comment> getAllByPost(Post post);
+    List<Comment> getAllByPostOrderByDateDesc(Post post);
+
 }

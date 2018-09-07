@@ -32,7 +32,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private Set<Post> posts;                            // user ma set swoich postów
 
     @OneToMany
@@ -119,6 +119,46 @@ public class User {
 
     public void setVotes(Set<Vote> votes) {
         this.votes = votes;
+    }
+
+    public Set<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
+    public Set<Message> getReceived() {
+        return received;
+    }
+
+    public void setReceived(Set<Message> received) {
+        this.received = received;
+    }
+
+    public Set<Message> getSent() {
+        return sent;
+    }
+
+    public void setSent(Set<Message> sent) {
+        this.sent = sent;
     }
 
     @Override
