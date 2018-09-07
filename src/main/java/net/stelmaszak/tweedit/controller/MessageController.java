@@ -3,6 +3,7 @@ package net.stelmaszak.tweedit.controller;
 import net.stelmaszak.tweedit.entity.Category;
 import net.stelmaszak.tweedit.entity.Message;
 import net.stelmaszak.tweedit.entity.User;
+import net.stelmaszak.tweedit.helper.DataHelper;
 import net.stelmaszak.tweedit.service.CategoryService;
 import net.stelmaszak.tweedit.service.MessageService;
 import net.stelmaszak.tweedit.service.UserService;
@@ -28,24 +29,26 @@ public class MessageController {
     private UserService userService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private DataHelper dataHelper;
 
-    @RequestMapping("/unread")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    @ResponseBody
-    public String howManyUnread() {
-
-        Optional<User> findUser = userService.getUserByEmail("stelmaszak@gmail.com");
-        User user = findUser.get();
-        int unread = messageService.getUnreadMessagesByUser(user);
-
-        return String.valueOf(unread);
-    }
+//    @RequestMapping("/unread")
+//    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+//    @ResponseBody
+//    public String howManyUnread() {
+//
+//        Optional<User> findUser = userService.getUserByEmail("stelmaszak@gmail.com");
+//        User user = findUser.get();
+//        int unread = messageService.getUnreadMessagesByUser(user);
+//
+//        return String.valueOf(unread);
+//    }
 
     @RequestMapping("/app/messages")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String showMessages(Model model, Principal principal) {
 
-        User user = findUser(principal, model);
+        User user = dataHelper.getUserSendToView(principal, model);
         List<Message> messages = messageService.getMessagesByToUser(user);
         List<Category> categories = categoryService.getCategories();
         model.addAttribute("categories", categories);
@@ -58,7 +61,7 @@ public class MessageController {
     @RequestMapping("/app/message/{message_id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String showMessage(Model model, Principal principal, @PathVariable Long message_id) {
-        User user = findUser(principal, model);
+        User user = dataHelper.getUserSendToView(principal, model);
         List<Message> messages = messageService.getMessagesByToUser(user);
         if (messages.contains(messageService.getMessagyById(message_id))) {
             Message message = messageService.getMessagyById(message_id);
@@ -80,7 +83,7 @@ public class MessageController {
     @GetMapping("/app/send")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String sendMessage(Model model, Principal principal) {
-        User user = findUser(principal, model);
+        User user = dataHelper.getUserSendToView(principal, model);
         List<Message> messages = messageService.getMessagesByToUser(user);
         List<Category> categories = categoryService.getCategories();
         List<User> users = userService.getAllUsersOtherThanLoggedIn(user); // testuje
@@ -99,7 +102,7 @@ public class MessageController {
     public String sendPost(Model model, Principal principal, @Valid Message message, BindingResult result) {
 
         if (result.hasErrors()) {
-            User user = findUser(principal, model);
+            User user = dataHelper.getUserSendToView(principal, model);
             List<Category> categories = categoryService.getCategories();
             List<Message> messages = messageService.getMessagesByToUser(user);
             List<User> users = userService.getAllUsers();
@@ -111,7 +114,7 @@ public class MessageController {
             return "main";
         } else {
 
-            User user = findUser(principal, model);
+            User user = dataHelper.getUserSendToView(principal, model);
             List<Category> categories = categoryService.getCategories();
             message.setDate(new Date());   // JUŻ NIEWAŻE -> to przeniosłem do MessageServiceImpl.saveMessage()
             message.setMessageRead(0);
@@ -123,18 +126,6 @@ public class MessageController {
             model.addAttribute("appContext", "messages");
             return "main";
         }
-    }
-
-    private User findUser(Principal principal, Model model) {
-        if (principal != null) {
-            Optional<User> findUser = userService.getUserByEmail(principal.getName());
-            if (findUser.isPresent()) {
-                User user = findUser.get();
-                model.addAttribute("user", user);
-                return user;
-            }
-        }
-        return null;
     }
 
 }

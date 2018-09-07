@@ -79,6 +79,10 @@
               <div>
                 <div class="row">
                   <table class="table table-responsive-sm table-sm" id="commenttable">
+                    <col style="width:67%">
+                    <col style="width:11%">
+                    <col style="width:11%">
+                    <col style="width:11%">
                     <thead>
                     <tr>
                       <th>Comment</th>
@@ -90,10 +94,10 @@
                     <tbody>
                     <c:forEach items="${comments}" var="comment">
                       <tr>
-                        <td>${comment.getCommentText()}</td>
-                        <td><fmt:formatDate pattern="dd-MMM HH:mm" value="${comment.getDate()}"/></td>
-                        <td>${comment.getUser().getUsername()}</td>
-                        <td>
+                        <td class="commentstext">${comment.getCommentText()}</td>
+                        <td class="commentsdata"><fmt:formatDate pattern="dd-MMM HH:mm" value="${comment.getDate()}"/></td>
+                        <td class="commentsdata">${comment.getUser().getUsername()}</td>
+                        <td class="commentsdata">
                           <a href="#" data-pid="placeholder" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-up greyarrow"></i></a>
                           <span class="badge badge-pill badge-secondary" id="commentpointsbadge${comment.getId()}" data-points="placeholder">${comment.getPoints()}</span>
                           <a href="#" data-pid="placeholder" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-down greyarrow"></i></a>

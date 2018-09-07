@@ -3,6 +3,7 @@ package net.stelmaszak.tweedit.controller;
 import net.stelmaszak.tweedit.entity.Category;
 import net.stelmaszak.tweedit.entity.Post;
 import net.stelmaszak.tweedit.entity.User;
+import net.stelmaszak.tweedit.helper.DataHelper;
 import net.stelmaszak.tweedit.service.CategoryService;
 import net.stelmaszak.tweedit.service.MessageService;
 import net.stelmaszak.tweedit.service.PostService;
@@ -34,6 +35,8 @@ public class PostController {
     private MessageService messageService;
     @Autowired
     private PostService postService;
+    @Autowired
+    private DataHelper dataHelper;
 
     @RequestMapping("/app/posts/{subs}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
@@ -50,7 +53,7 @@ public class PostController {
     @GetMapping("/app/addpost")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String addPost(Model model, Principal principal) {
-        User user = findUser(principal, model);
+        User user = dataHelper.getUserSendToView(principal, model);
         Post post = new Post();
         model.addAttribute("post", post);
         List<Category> categories = categoryService.getCategories();
@@ -64,14 +67,14 @@ public class PostController {
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String postPost(Model model, Principal principal, @Valid Post post, BindingResult result) {
         if (result.hasErrors()) {
-            User user = findUser(principal, model);
+            User user = dataHelper.getUserSendToView(principal, model);
             List<Category> categories = categoryService.getCategories();
             model.addAttribute("unread", messageService.getUnreadMessagesByUser(user));
             model.addAttribute("categories", categories);
             model.addAttribute("appContext", "addpost");
             return "main";
         } else {
-            User user = findUser(principal, model);
+            User user = dataHelper.getUserSendToView(principal, model);
             List<Category> categories = categoryService.getCategories();
             post.setCreated(new Date());
             postService.savePost(post);
@@ -82,15 +85,4 @@ public class PostController {
         }
     }
 
-    private User findUser(Principal principal, Model model) {
-        if (principal != null) {
-            Optional<User> findUser = userService.getUserByEmail(principal.getName());
-            if (findUser.isPresent()) {
-                User user = findUser.get();
-                model.addAttribute("user", user);
-                return user;
-            }
-        }
-        return null;
-    }
 }

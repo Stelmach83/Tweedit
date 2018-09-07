@@ -3,6 +3,7 @@ package net.stelmaszak.tweedit.controller;
 import net.stelmaszak.tweedit.dto.CommentDTO;
 import net.stelmaszak.tweedit.dto.PostDTO;
 import net.stelmaszak.tweedit.entity.*;
+import net.stelmaszak.tweedit.helper.DataHelper;
 import net.stelmaszak.tweedit.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,12 +36,14 @@ public class CommentController {
     private VoteService voteService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private DataHelper dataHelper;
 
     @GetMapping("/app/addcomment/{postId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String addComment(Model model, Principal principal, @PathVariable String postId) {
         List<Category> categories = categoryService.getCategories();
-        User user = findUser(principal, model);
+        User user = dataHelper.getUserSendToView(principal, model);
         Date date = new Date();
         List<Post> posts = postService.getAllFromNewest();
         List<Vote> userVotes = voteService.getVotedByUser(user);
@@ -73,7 +76,7 @@ public class CommentController {
 
         if (result.hasErrors()) {
             List<Category> categories = categoryService.getCategories();
-            User user = findUser(principal, model);
+            User user = dataHelper.getUserSendToView(principal, model);
             Date date = new Date();
             List<Post> posts = postService.getAllFromNewest();
             List<Vote> userVotes = voteService.getVotedByUser(user);
@@ -98,7 +101,7 @@ public class CommentController {
         } else {
 
             List<Category> categories = categoryService.getCategories();
-            User user = findUser(principal, model);
+            User user = dataHelper.getUserSendToView(principal, model);
             Date date = new Date();
             List<Post> posts = postService.getAllFromNewest();
             List<Vote> userVotes = voteService.getVotedByUser(user);
@@ -123,15 +126,4 @@ public class CommentController {
         }
     }
 
-    private User findUser(Principal principal, Model model) {
-        if (principal != null) {
-            Optional<User> findUser = userService.getUserByEmail(principal.getName());
-            if (findUser.isPresent()) {
-                User user = findUser.get();
-                model.addAttribute("user", user);
-                return user;
-            }
-        }
-        return null;
-    }
 }

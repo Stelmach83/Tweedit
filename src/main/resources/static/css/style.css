@@ -50,3 +50,11 @@ html {
 #commenttable {
     margin: 30px;
 }
+
+.commentsdata {
+    font-size: 11px;
+}
+
+.commentstext {
+    font-size: 12px;
+}

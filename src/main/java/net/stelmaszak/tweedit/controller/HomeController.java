@@ -5,6 +5,7 @@ import net.stelmaszak.tweedit.entity.Category;
 import net.stelmaszak.tweedit.entity.Post;
 import net.stelmaszak.tweedit.entity.User;
 import net.stelmaszak.tweedit.entity.Vote;
+import net.stelmaszak.tweedit.helper.DataHelper;
 import net.stelmaszak.tweedit.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,12 +34,14 @@ public class HomeController {
     private PostService postService;
     @Autowired
     private VoteService voteService;
+    @Autowired
+    private DataHelper dataHelper;
 
 
     @RequestMapping("/")
     public String home(Model model, Principal principal) {
         List<Category> categories = categoryService.getCategories();
-        User user = findUser(principal, model);
+        User user = dataHelper.getUserSendToView(principal, model);
         Date date = new Date();
         List<Post> posts = postService.getAllFromNewest();
         List<Vote> userVotes = voteService.getVotedByUser(user);
@@ -65,23 +68,11 @@ public class HomeController {
         if (logout != null) {
             return "redirect:lout";
         }
-        findUser(principal, model);
+        dataHelper.getUserSendToView(principal, model);
         List<Category> categories = categoryService.getCategories();
         model.addAttribute("categories", categories);
         model.addAttribute("appContext", "index");
         return "main";
-    }
-
-    private User findUser(Principal principal, Model model) {
-        if (principal != null) {
-            Optional<User> findUser = userService.getUserByEmail(principal.getName());
-            if (findUser.isPresent()) {
-                User user = findUser.get();
-                model.addAttribute("user", user);
-                return user;
-            }
-        }
-        return null;
     }
 
     @RequestMapping("/lout")

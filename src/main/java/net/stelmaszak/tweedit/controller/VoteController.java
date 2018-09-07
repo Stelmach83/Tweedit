@@ -3,6 +3,7 @@ package net.stelmaszak.tweedit.controller;
 import net.stelmaszak.tweedit.entity.Post;
 import net.stelmaszak.tweedit.entity.User;
 import net.stelmaszak.tweedit.entity.Vote;
+import net.stelmaszak.tweedit.helper.DataHelper;
 import net.stelmaszak.tweedit.repository.UserRepository;
 import net.stelmaszak.tweedit.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class VoteController {
     private PostService postService;
     @Autowired
     private VoteService voteService;
+    @Autowired
+    private DataHelper dataHelper;
 
 
     @PostMapping("/app/votedup/{id}")
@@ -36,7 +39,7 @@ public class VoteController {
         Post votedPost = postService.getPostById(id);
         Long postPoints = votedPost.getPoints() + 1;
         votedPost.setPoints(postPoints);
-        User votingUser = findUser(principal, model);
+        User votingUser = dataHelper.getUserSendToView(principal, model);
         Vote newVote = new Vote();
         newVote.setUser(votingUser);
         newVote.setPost(votedPost);
@@ -52,7 +55,7 @@ public class VoteController {
         Post votedPost = postService.getPostById(id);
         Long postPoints = votedPost.getPoints() - 1;
         votedPost.setPoints(postPoints);
-        User votingUser = findUser(principal, model);
+        User votingUser = dataHelper.getUserSendToView(principal, model);
         Vote newVote = new Vote();
         newVote.setUser(votingUser);
         newVote.setPost(votedPost);
@@ -67,18 +70,6 @@ public class VoteController {
     public List<User> showUsers() {
         List<User> users = userService.getAllUsers();
         return users;
-    }
-
-    private User findUser(Principal principal, Model model) {
-        if (principal != null) {
-            Optional<User> findUser = userService.getUserByEmail(principal.getName());
-            if (findUser.isPresent()) {
-                User user = findUser.get();
-                model.addAttribute("user", user);
-                return user;
-            }
-        }
-        return null;
     }
 
 }
