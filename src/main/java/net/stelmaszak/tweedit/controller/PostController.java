@@ -58,7 +58,7 @@ public class PostController {
         } else {
             User user = dataHelper.getUserSendToView(principal, model);
             dataHelper.getAllCategoriesAndSendToView(model);
-            dataHelper.setCreatedDateAndSavePost(post);
+            dataHelper.setCreatedAndUserDateAndSavePost(post, user);
             dataHelper.getIntegerUnreadMessagesForUser(user, model);
             dataHelper.getPostDTOandSendToView(dataHelper.getAllPostsFromNewest(), user, model);
             dataHelper.setAppContext("index", model);

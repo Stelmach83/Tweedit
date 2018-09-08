@@ -1,4 +1,5 @@
 $(function () {
+    ///// VOTING ON POSTS
     var arrowsUp = $('.float-right').children('#arrowup');
     arrowsUp.one('click', function (e) {
         e.preventDefault();
@@ -54,6 +55,37 @@ $(function () {
     })
 
     arrowsDown.on('click', function (e) {
+        e.preventDefault();
+    })
+
+    ///// VOTING ON COMMENTS
+    var arrowsUpComment = $('a.arrowupcomment');
+    arrowsUpComment.one('click', function (e) {
+        console.log($(this).attr('data-pid'))
+        e.preventDefault();
+        $(this).addClass("notlink");
+        var pointsBadge = $(this).siblings('#commentpointsbadge');
+
+        var arrowsDownComment = $(this).siblings('#arrowdowncomment');
+        $(arrowsDownComment).remove();
+
+        $(this).find('i').removeClass('greyarrow').addClass('greenarrow')
+        pointsBadge.removeClass('badge-secondary').addClass('badge-success')
+
+        var commmentId = $(this).attr('data-pid');
+        var contextPath = $(this).attr('data-contextpath');
+
+        $.ajax({
+            url: contextPath + "/app/votedupcomment/" + commmentId,
+            type: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+    })
+
+    arrowsUpComment.on('click', function (e) {
         e.preventDefault();
     })
 

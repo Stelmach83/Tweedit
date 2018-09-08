@@ -65,4 +65,10 @@ public class VoteController {
         voteService.saveVote(newVote);
     }
 
+    @PostMapping("/app/votedupcomment/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public void voteUpComment(@PathVariable Long id, Model model, Principal principal) {
+
+    }
+
 }

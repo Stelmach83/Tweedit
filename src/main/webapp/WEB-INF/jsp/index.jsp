@@ -5,7 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <br>
-<div class="card">
+<div class="card" id="maincard">
   <div class="card-body" style="background-color: #f4f4f4;">
     <div class="row">
       <div class="col-sm-5">
@@ -99,9 +99,9 @@
                           <td class="commentsdata" style="text-align: center"><fmt:formatDate pattern="dd-MMM HH:mm" value="${comment.getDate()}"/></td>
                           <td class="commentsdata" style="text-align: center">${comment.getUser().getUsername()}</td>
                           <td class="commentsdata" style="text-align: center">
-                            <a href="#" data-pid="placeholder" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-up greyarrow"></i></a>
-                            <span class="badge badge-pill badge-secondary" id="commentpointsbadge${comment.getId()}" data-points="placeholder">${comment.getPoints()}</span>
-                            <a href="#" data-pid="placeholder" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-down greyarrow"></i></a>
+                            <a href="#" class="arrowupcomment" data-pid="${comment.getId()}" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-up greyarrow"></i></a>
+                            <span class="badge badge-pill badge-secondary" id="commentpointsbadge" data-points="placeholder">${comment.getPoints()}</span>
+                            <a href="#" class="arrowdowncomment" data-pid="${comment.getId()}" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-down greyarrow"></i></a>
                           </td>
                         </tr>
                       </c:forEach>

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -118,8 +117,9 @@ public class DataHelper {
         messageService.saveMessage(message);
     }
 
-    public void setCreatedDateAndSavePost(Post post) {
+    public void setCreatedAndUserDateAndSavePost(Post post, User user) {
         post.setCreated(new Date());
+        post.setUser(user);
         postService.savePost(post);
     }
 
