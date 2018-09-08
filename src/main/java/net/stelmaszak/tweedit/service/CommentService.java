@@ -13,6 +13,8 @@ public interface CommentService {
 
     List<Comment> allAllFromNewestForPost(Post post);
 
+    List<Comment> getAllOrderByDate();
+
     Comment getCommentById(Long id);
 
 }

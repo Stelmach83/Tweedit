@@ -3,7 +3,6 @@ package net.stelmaszak.tweedit.controller;
 import net.stelmaszak.tweedit.entity.Message;
 import net.stelmaszak.tweedit.entity.User;
 import net.stelmaszak.tweedit.helper.DataHelper;
-import net.stelmaszak.tweedit.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -13,14 +12,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Date;
 import java.util.List;
 
 @Controller
 public class MessageController {
 
-    @Autowired
-    private MessageService messageService;
     @Autowired
     private DataHelper dataHelper;
 
@@ -31,7 +27,7 @@ public class MessageController {
         dataHelper.getAllCategoriesAndSendToView(model);
         dataHelper.getIntegerUnreadMessagesForUser(user, model);
         dataHelper.getMessagesToUser(user, model);
-        model.addAttribute("appContext", "messages");
+        dataHelper.setAppContext("messages", model);
         return "main";
     }
 
@@ -44,7 +40,7 @@ public class MessageController {
         if (dataHelper.doesMessageExist(messages, message)) {
             dataHelper.setMessageReadAndSave(message);
             dataHelper.getAllCategoriesAndSendToView(model);
-            model.addAttribute("appContext", "message");
+            dataHelper.setAppContext("message", model);
         } else {
             dataHelper.getAllCategoriesAndSendToView(model);
             return "error";
@@ -63,7 +59,7 @@ public class MessageController {
         dataHelper.getUsersOtherThanLogged(user, model);
         Message message = new Message();
         model.addAttribute("message", message);
-        model.addAttribute("appContext", "send");
+        dataHelper.setAppContext("send", model);
         return "main";
     }
 
@@ -76,17 +72,15 @@ public class MessageController {
             dataHelper.getAllUsersAndSendToView(model);
             dataHelper.getAllCategoriesAndSendToView(model);
             dataHelper.getIntegerUnreadMessagesForUser(user, model);
-            model.addAttribute("appContext", "send");
+            dataHelper.setAppContext("send", model);
             return "main";
         } else {
             User user = dataHelper.getUserSendToView(principal, model);
-            message.setDate(new Date());
-            message.setMessageRead(0);
-            messageService.saveMessage(message);
+            dataHelper.setMessageDateAndReadAndSave(message);
             dataHelper.getMessagesToUser(user, model);
             dataHelper.getAllCategoriesAndSendToView(model);
             dataHelper.getIntegerUnreadMessagesForUser(user, model);
-            model.addAttribute("appContext", "messages");
+            dataHelper.setAppContext("messages", model);
             return "main";
         }
     }

@@ -2,9 +2,12 @@ package net.stelmaszak.tweedit.entity;
 
 import lombok.EqualsAndHashCode;
 import net.stelmaszak.tweedit.dto.PostDTO;
+import net.stelmaszak.tweedit.service.CommentService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;

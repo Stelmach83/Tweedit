@@ -6,6 +6,7 @@ import net.stelmaszak.tweedit.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,7 +27,17 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> allAllFromNewestForPost(Post post) {
-        return commentRepository.getAllByPostOrderByDateDesc(post);
+        List<Comment> comments;
+        if (commentRepository.getAllByPostOrderByDateAsc(post) != null) {
+            comments = commentRepository.getAllByPostOrderByDateAsc(post);
+            return comments;
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<Comment> getAllOrderByDate() {
+        return commentRepository.findAllByOrderByDateDesc();
     }
 
     @Override

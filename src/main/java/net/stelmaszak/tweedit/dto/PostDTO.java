@@ -1,6 +1,7 @@
 package net.stelmaszak.tweedit.dto;
 
 import lombok.*;
+import net.stelmaszak.tweedit.entity.Comment;
 import net.stelmaszak.tweedit.entity.Post;
 import net.stelmaszak.tweedit.entity.Vote;
 
@@ -22,6 +23,15 @@ public class PostDTO {
                 .filter(vote -> vote.isVoteForPost(this))
                 .findFirst().ifPresent(this::setVote);
         return this;
+    }
+
+    public PostDTO addComments(List<Comment> comments) {
+        this.post.setComments(comments);
+        return this;
+    }
+
+    public Post getPostFromDto() {
+        return this.post;
     }
 
 }

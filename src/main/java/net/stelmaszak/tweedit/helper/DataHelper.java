@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -53,14 +55,23 @@ public class DataHelper {
         return categories;
     }
 
+    public List<Post> getAllPostsFromNewest() {
+        return postService.getAllFromNewest();
+    }
+
     public List<PostDTO> getPostDTOandSendToView(List<Post> posts, User user, Model model) {
         List<PostDTO> postDTOS =
                 posts.stream()
                         .map(Post::mapToPostDTO)
                         .map(x -> x.addVote(getUserVotesSendToView(user, model)))
+                        .map(x -> x.addComments(commentService.allAllFromNewestForPost(x.getPostFromDto())))
                         .collect(Collectors.toList());
         model.addAttribute("postdtos", postDTOS);
         return postDTOS;
+    }
+
+    public List<Comment> getAllComments() {
+        return commentService.getAllOrderByDate();
     }
 
     public List<CommentDTO> getCommentDTOandSendToView(List<Comment> comments, User user, Model model) {
@@ -101,6 +112,17 @@ public class DataHelper {
         messageService.saveMessage(message);
     }
 
+    public void setMessageDateAndReadAndSave(Message message) {
+        message.setDate(new Date());
+        message.setMessageRead(0);
+        messageService.saveMessage(message);
+    }
+
+    public void setCreatedDateAndSavePost(Post post) {
+        post.setCreated(new Date());
+        postService.savePost(post);
+    }
+
     public List<User> getUsersOtherThanLogged(User user, Model model) {
         List<User> users = userService.getAllUsersOtherThanLoggedIn(user);
         model.addAttribute("users", users);
@@ -111,6 +133,21 @@ public class DataHelper {
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
         return users;
+    }
+
+    public void setAppContext(String appContext, Model model) {
+        model.addAttribute("appContext", appContext);
+    }
+
+    public void setTodaysDate(Model model) {
+        Date date = new Date();
+        model.addAttribute("now", date);
+    }
+
+    public void saveCommment(Comment comment, User user) {
+        comment.setDate(new Date());
+        comment.setUser(user);
+        commentService.saveComment(comment);
     }
 
 }

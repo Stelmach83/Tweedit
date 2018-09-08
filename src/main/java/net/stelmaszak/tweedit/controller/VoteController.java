@@ -31,8 +31,7 @@ public class VoteController {
     @Autowired
     private DataHelper dataHelper;
 
-    // TODO Refactor with DataHelper
-
+    // TODO Add comment voting and refactor to DataHelper
 
     @PostMapping("/app/votedup/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
@@ -64,14 +63,6 @@ public class VoteController {
         newVote.setVoted(1);
         postService.savePost(votedPost);
         voteService.saveVote(newVote);
-    }
-
-    // For testing purposes
-    @GetMapping("/showusers")
-//    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    public List<User> showUsers() {
-        List<User> users = userService.getAllUsers();
-        return users;
     }
 
 }

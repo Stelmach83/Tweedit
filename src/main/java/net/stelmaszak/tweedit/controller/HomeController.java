@@ -2,7 +2,6 @@ package net.stelmaszak.tweedit.controller;
 
 import net.stelmaszak.tweedit.entity.*;
 import net.stelmaszak.tweedit.helper.DataHelper;
-import net.stelmaszak.tweedit.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -20,26 +19,21 @@ import java.util.*;
 public class HomeController {
 
     @Autowired
-    private PostService postService;
-    @Autowired
-    private CommentService commentService;
-    @Autowired
     private DataHelper dataHelper;
 
 
     @RequestMapping("/")
     public String home(Model model, Principal principal) {
         User user = dataHelper.getUserSendToView(principal, model);
-        Date date = new Date();
-        model.addAttribute("now", date);
-        List<Post> posts = postService.getAllFromNewest();
-        List<Comment> comments = commentService.getAllComments();
+        dataHelper.setTodaysDate(model);
+        List<Post> posts = dataHelper.getAllPostsFromNewest();
+        List<Comment> comments = dataHelper.getAllComments();
         dataHelper.getPostDTOandSendToView(posts, user, model);
         dataHelper.getAllCategoriesAndSendToView(model);
         dataHelper.getUserVotesSendToView(user, model);
         dataHelper.getCommentDTOandSendToView(comments, user, model);
         dataHelper.getIntegerUnreadMessagesForUser(user, model);
-        model.addAttribute("appContext", "index");
+        dataHelper.setAppContext("index", model);
         return "main";
     }
 
@@ -53,7 +47,7 @@ public class HomeController {
         }
         dataHelper.getUserSendToView(principal, model);
         dataHelper.getAllCategoriesAndSendToView(model);
-        model.addAttribute("appContext", "index");
+        dataHelper.setAppContext("index", model);
         return "main";
     }
 
@@ -66,7 +60,7 @@ public class HomeController {
             e.printStackTrace();
         }
         dataHelper.getAllCategoriesAndSendToView(model);
-        model.addAttribute("appContext", "index");
+        dataHelper.setAppContext("index", model);
         return "main";
     }
 
