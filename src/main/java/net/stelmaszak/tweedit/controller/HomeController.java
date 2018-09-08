@@ -1,10 +1,6 @@
 package net.stelmaszak.tweedit.controller;
 
-import net.stelmaszak.tweedit.dto.PostDTO;
-import net.stelmaszak.tweedit.entity.Category;
-import net.stelmaszak.tweedit.entity.Post;
-import net.stelmaszak.tweedit.entity.User;
-import net.stelmaszak.tweedit.entity.Vote;
+import net.stelmaszak.tweedit.entity.*;
 import net.stelmaszak.tweedit.helper.DataHelper;
 import net.stelmaszak.tweedit.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,44 +15,30 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
 
     @Autowired
-    private UserService userService;
-    @Autowired
-    private CategoryService categoryService;
-    @Autowired
-    private MessageService messageService;
-    @Autowired
     private PostService postService;
     @Autowired
-    private VoteService voteService;
+    private CommentService commentService;
     @Autowired
     private DataHelper dataHelper;
 
-    // TODO Refactor with DataHelper
 
     @RequestMapping("/")
     public String home(Model model, Principal principal) {
-        List<Category> categories = categoryService.getCategories();
         User user = dataHelper.getUserSendToView(principal, model);
         Date date = new Date();
-        List<Post> posts = postService.getAllFromNewest();
-        List<Vote> userVotes = voteService.getVotedByUser(user);
-        List<PostDTO> postDTOS = posts.stream()
-                .map(Post::mapToPostDTO)
-                .map(x -> x.addVote(userVotes))
-                .collect(Collectors.toList());
-
-        model.addAttribute("postdtos", postDTOS);
-        model.addAttribute("userVotes", userVotes);
-        model.addAttribute("posts", posts);
         model.addAttribute("now", date);
-        model.addAttribute("unread", messageService.getUnreadMessagesByUser(user));
-        model.addAttribute("categories", categories);
+        List<Post> posts = postService.getAllFromNewest();
+        List<Comment> comments = commentService.getAllComments();
+        dataHelper.getPostDTOandSendToView(posts, user, model);
+        dataHelper.getAllCategoriesAndSendToView(model);
+        dataHelper.getUserVotesSendToView(user, model);
+        dataHelper.getCommentDTOandSendToView(comments, user, model);
+        dataHelper.getIntegerUnreadMessagesForUser(user, model);
         model.addAttribute("appContext", "index");
         return "main";
     }
@@ -70,8 +52,7 @@ public class HomeController {
             return "redirect:lout";
         }
         dataHelper.getUserSendToView(principal, model);
-        List<Category> categories = categoryService.getCategories();
-        model.addAttribute("categories", categories);
+        dataHelper.getAllCategoriesAndSendToView(model);
         model.addAttribute("appContext", "index");
         return "main";
     }
@@ -84,8 +65,7 @@ public class HomeController {
         } catch (ServletException e) {
             e.printStackTrace();
         }
-        List<Category> categories = categoryService.getCategories();
-        model.addAttribute("categories", categories);
+        dataHelper.getAllCategoriesAndSendToView(model);
         model.addAttribute("appContext", "index");
         return "main";
     }

@@ -18,7 +18,6 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class MessageController {
@@ -32,30 +31,13 @@ public class MessageController {
     @Autowired
     private DataHelper dataHelper;
 
-//    @RequestMapping("/unread")
-//    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-//    @ResponseBody
-//    public String howManyUnread() {
-//
-//        Optional<User> findUser = userService.getUserByEmail("stelmaszak@gmail.com");
-//        User user = findUser.get();
-//        int unread = messageService.getUnreadMessagesByUser(user);
-//
-//        return String.valueOf(unread);
-//    }
-
-    // TODO Refactor with DataHelper
-
     @RequestMapping("/app/messages")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String showMessages(Model model, Principal principal) {
-
         User user = dataHelper.getUserSendToView(principal, model);
-        List<Message> messages = messageService.getMessagesByToUser(user);
-        List<Category> categories = categoryService.getCategories();
-        model.addAttribute("categories", categories);
-        model.addAttribute("unread", messageService.getUnreadMessagesByUser(user));
-        model.addAttribute("messages", messages);
+        dataHelper.getAllCategoriesAndSendToView(model);
+        dataHelper.getIntegerUnreadMessagesForUser(user, model);
+        dataHelper.getMessagesToUser(user, model);
         model.addAttribute("appContext", "messages");
         return "main";
     }
@@ -64,21 +46,17 @@ public class MessageController {
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String showMessage(Model model, Principal principal, @PathVariable Long message_id) {
         User user = dataHelper.getUserSendToView(principal, model);
-        List<Message> messages = messageService.getMessagesByToUser(user);
-        if (messages.contains(messageService.getMessagyById(message_id))) {
-            Message message = messageService.getMessagyById(message_id);
-            message.setMessageRead(1);
-            messageService.saveMessage(message);
-            List<Category> categories = categoryService.getCategories();
-            model.addAttribute("categories", categories);
-            model.addAttribute("message", message);
+        List<Message> messages = dataHelper.getMessagesToUser(user, model);
+        Message message = dataHelper.showMessage(message_id, model);
+        if (dataHelper.doesMessageExist(messages, message)) {
+            dataHelper.setMessageReadAndSave(message);
+            dataHelper.getAllCategoriesAndSendToView(model);
             model.addAttribute("appContext", "message");
         } else {
-            List<Category> categories = categoryService.getCategories();
-            model.addAttribute("categories", categories);
+            dataHelper.getAllCategoriesAndSendToView(model);
             return "error";
         }
-        model.addAttribute("unread", messageService.getUnreadMessagesByUser(user));
+        dataHelper.getIntegerUnreadMessagesForUser(user, model);
         return "main";
     }
 
@@ -86,15 +64,12 @@ public class MessageController {
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String sendMessage(Model model, Principal principal) {
         User user = dataHelper.getUserSendToView(principal, model);
-        List<Message> messages = messageService.getMessagesByToUser(user);
-        List<Category> categories = categoryService.getCategories();
-        List<User> users = userService.getAllUsersOtherThanLoggedIn(user); // testuje
+        dataHelper.getMessagesToUser(user, model);
+        dataHelper.getAllCategoriesAndSendToView(model);
+        dataHelper.getIntegerUnreadMessagesForUser(user, model);
+        dataHelper.getUsersOtherThanLogged(user, model);
         Message message = new Message();
         model.addAttribute("message", message);
-        model.addAttribute("users", users);
-        model.addAttribute("categories", categories);
-        model.addAttribute("unread", messageService.getUnreadMessagesByUser(user));
-        model.addAttribute("messages", messages);
         model.addAttribute("appContext", "send");
         return "main";
     }

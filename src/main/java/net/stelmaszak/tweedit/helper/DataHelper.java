@@ -4,6 +4,7 @@ import net.stelmaszak.tweedit.dto.CommentDTO;
 import net.stelmaszak.tweedit.dto.PostDTO;
 import net.stelmaszak.tweedit.entity.*;
 import net.stelmaszak.tweedit.service.*;
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
@@ -78,6 +79,33 @@ public class DataHelper {
                 .count();
         model.addAttribute("unread", unread);
         return unread;
+    }
+
+    public List<Message> getMessagesToUser(User user, Model model) {
+        List<Message> messages = messageService.getMessagesByToUser(user);
+        model.addAttribute("messages", messages);
+        return messages;
+    }
+
+    public Message showMessage(Long message_id, Model model) {
+        Message message = messageService.getMessagyById(message_id);
+        model.addAttribute("message", message);
+        return message;
+    }
+
+    public boolean doesMessageExist(List<Message> messages, Message message) {
+        return messages.contains(message);
+    }
+
+    public void setMessageReadAndSave(Message message) {
+        message.setMessageRead(1);
+        messageService.saveMessage(message);
+    }
+
+    public List<User> getUsersOtherThanLogged(User user, Model model) {
+        List<User> users = userService.getAllUsersOtherThanLoggedIn(user);
+        model.addAttribute("users", users);
+        return users;
     }
 
 }
