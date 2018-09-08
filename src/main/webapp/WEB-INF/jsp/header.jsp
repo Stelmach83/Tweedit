@@ -17,9 +17,11 @@
               </c:forEach>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<%=request.getContextPath()%>/app/wall">Your wall</a>
+            <a class="nav-link" href="<%=request.getContextPath()%>/app/rankings">User rankings</a>
           </li>
-
+          <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/">Your wall</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="<%=request.getContextPath()%>/app/addpost">Add Post</a>
           </li>

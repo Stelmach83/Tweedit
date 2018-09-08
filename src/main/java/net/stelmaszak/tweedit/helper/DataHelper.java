@@ -4,7 +4,6 @@ import net.stelmaszak.tweedit.dto.CommentDTO;
 import net.stelmaszak.tweedit.dto.PostDTO;
 import net.stelmaszak.tweedit.entity.*;
 import net.stelmaszak.tweedit.service.*;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
@@ -104,6 +103,12 @@ public class DataHelper {
 
     public List<User> getUsersOtherThanLogged(User user, Model model) {
         List<User> users = userService.getAllUsersOtherThanLoggedIn(user);
+        model.addAttribute("users", users);
+        return users;
+    }
+
+    public List<User> getAllUsersAndSendToView(Model model) {
+        List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
         return users;
     }

@@ -22,7 +22,7 @@ public class User {
     private String email;
 
     @Column(unique = true)
-    @Size(min = 3, max = 15, message = "Username needs to be between 3 - 15 characters.")
+    @Size(min = 3, max = 12, message = "Username needs to be between 3 - 12 characters.")
     private String username;
 
     @Size(min = 4, max = 200, message = "Password needs to be between 4 - 200 characters.")

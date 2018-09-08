@@ -78,43 +78,74 @@
               </footer>
               <div>
                 <div class="row">
-                  <table class="table table-responsive-sm table-sm" id="commenttable">
-                    <col style="width:67%">
-                    <col style="width:11%">
-                    <col style="width:11%">
-                    <col style="width:11%">
-                    <thead>
-                    <tr>
-                      <th class="commentstitle">Comment</th>
-                      <th class="commentstitle">Date</th>
-                      <th class="commentstitle">User</th>
-                      <th class="commentstitle">Points</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${comments}" var="comment">
+                  <c:if test="${comments.size() ne 0}">
+                    <table class="table table-responsive-sm table-sm" id="commenttable">
+                      <col style="width:67%">
+                      <col style="width:11%">
+                      <col style="width:9%">
+                      <col style="width:13%">
+                      <thead>
                       <tr>
-                        <td class="commentstext">${comment.getCommentText()}</td>
-                        <td class="commentsdata"><fmt:formatDate pattern="dd-MMM HH:mm" value="${comment.getDate()}"/></td>
-                        <td class="commentsdata">${comment.getUser().getUsername()}</td>
-                        <td class="commentsdata">
-                          <a href="#" data-pid="placeholder" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-up greyarrow"></i></a>
-                          <span class="badge badge-pill badge-secondary" id="commentpointsbadge${comment.getId()}" data-points="placeholder">${comment.getPoints()}</span>
-                          <a href="#" data-pid="placeholder" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-down greyarrow"></i></a>
-                        </td>
+                        <th class="commentstitle">Comment</th>
+                        <th class="commentstitle" style="text-align: center">Date</th>
+                        <th class="commentstitle" style="text-align: center">User</th>
+                        <th class="commentstitle" style="text-align: center">Points</th>
                       </tr>
-                    </c:forEach>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="row">
-                  <c:if test="${not empty user && empty addcomment}">
-                    <a href="<%=request.getContextPath()%>/app/addcomment/${post.getId()}" class="nav-link">add comment</a>
+                      </thead>
+                      <tbody>
+                      <c:forEach items="${comments}" var="comment">
+                        <tr>
+                          <td class="commentstext">${comment.getCommentText()}</td>
+                          <td class="commentsdata" style="text-align: center"><fmt:formatDate pattern="dd-MMM HH:mm" value="${comment.getDate()}"/></td>
+                          <td class="commentsdata" style="text-align: center">${comment.getUser().getUsername()}</td>
+                          <td class="commentsdata" style="text-align: center">
+                            <a href="#" data-pid="placeholder" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-up greyarrow"></i></a>
+                            <span class="badge badge-pill badge-secondary" id="commentpointsbadge${comment.getId()}" data-points="placeholder">${comment.getPoints()}</span>
+                            <a href="#" data-pid="placeholder" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-down greyarrow"></i></a>
+                          </td>
+                        </tr>
+                      </c:forEach>
+                      <c:if test="${not empty user && empty addcomment}">
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="addcomment">
+                            <a href="<%=request.getContextPath()%>/app/addcomment/${post.getId()}" class="nav-link">add comment</a>
+                          </td>
+                        </tr>
+                      </c:if>
+                      </tbody>
+                    </table>
+                  </c:if>
+                  <c:if test="${comments.size() eq 0}">
+                    <c:if test="${not empty user && empty addcomment}">
+                      <table class="table table-responsive-sm table-sm" id="commenttable" style="border: 0px; margin-top: 0px">
+                        <col style="width:67%; border: 0px; margin-top: 0px">
+                        <col style="width:11%; border: 0px; margin-top: 0px">
+                        <col style="width:9%; border: 0px; margin-top: 0px">
+                        <col style="width:13%; border: 0px; margin-top: 0px">
+                        <tr style="border: 0px; margin-top: 0px">
+                          <th class="commentstitle" style="border: 0px; margin-top: 0px"></th>
+                          <th class="commentstitle" style="text-align: center; border: 0px; margin-top: 0px"></th>
+                          <th class="commentstitle" style="text-align: center; border: 0px; margin-top: 0px"></th>
+                          <th class="commentstitle" style="text-align: center; border: 0px; margin-top: 0px"></th>
+                        </tr>
+                        <tr style="border: 0px; margin-top: 0px">
+                          <td style="border: 0px; margin-top: 0px"></td>
+                          <td style="border: 0px; margin-top: 0px"></td>
+                          <td style="border: 0px; margin-top: 0px"></td>
+                          <td class="addcomment" style="border: 0px; margin-top: 0px">
+                            <a href="<%=request.getContextPath()%>/app/addcomment/${post.getId()}" class="nav-link">add comment</a>
+                          </td>
+                        </tr>
+                      </table>
+                    </c:if>
                   </c:if>
                 </div>
-
                 <div class="col-sm-12">
                   <c:if test="${addcomment eq post.getId()}">
+                    <br>
                     <form:form method="post" modelAttribute="comment">
                       <form>
                         <input type="hidden" name="user.id" value="${user.getId()}">

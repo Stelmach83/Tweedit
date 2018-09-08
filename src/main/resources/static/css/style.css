@@ -49,6 +49,7 @@ html {
 
 #commenttable {
     margin: 30px;
+    margin-bottom: 0px;
 }
 
 .commentsdata {
@@ -62,4 +63,13 @@ html {
 .commentstitle {
     font-weight: normal;
     font-size: 14px;
+}
+
+.addcomment {
+    font-size: 12px;
+    text-align: center;
+}
+
+.emptycomments {
+    border: 0px #ffffff;
 }
