@@ -34,7 +34,7 @@
               </div>
               <div class="float-right">
                   <%--
-                        VOTING ON POSTS
+                        VOTING ON POSTS START
                   --%>
                 <c:if test="${not empty user}">
                   <c:if test="${pdto.getVote().getVoted() eq 2}">
@@ -72,7 +72,9 @@
                     <a href="#" id="arrowdown" data-pid="${postid}" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-down greyarrow"></i></a>
                   </c:if>
                 </c:if>
-
+                  <%--
+                        VOTING ON POSTS END
+                  --%>
               </div>
             </div>
             <div class="card-body"><p>${post.getText()}</p>
@@ -103,9 +105,48 @@
                           <td class="commentsdata" style="text-align: center"><fmt:formatDate pattern="dd-MMM HH:mm" value="${comment.getDate()}"/></td>
                           <td class="commentsdata" style="text-align: center">${comment.getUser().getUsername()}</td>
                           <td class="commentsdata" style="text-align: center">
-                            <a href="#" class="arrowupcomment" data-pid="${comment.getId()}" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-up greyarrow"></i></a>
-                            <span class="badge badge-pill badge-secondary" id="commentpointsbadge" data-points="placeholder">${comment.getPoints()}</span>
-                            <a href="#" class="arrowdowncomment" data-pid="${comment.getId()}" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-down greyarrow"></i></a>
+                              <%--
+                                    VOTING ON COMMENTS START
+                              --%>
+                            <c:if test="${not empty user}">
+                              <c:if test="${commment.getVote().getVoted() eq 2}">
+                                <i class="fas fa-arrow-up greenarrow"></i>
+                              </c:if>
+                              <c:if test="${commment.getVote().getVoted() eq 1}">
+                              </c:if>
+                              <c:if test="${commment.getVote() eq null}">
+                                <a href="#" class="arrowupcomment" data-pid="${comment.getId()}" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-up greyarrow"></i></a>
+                              </c:if>
+                            </c:if>
+
+                            <c:if test="${empty user}">
+                              <span class="badge badge-pill badge-secondary" id="commentpointsbadge" data-points="placeholder">${comment.getPoints()}</span>
+                            </c:if>
+                            <c:if test="${not empty user}">
+                              <c:if test="${commment.getVote().getVoted() eq 2}">
+                                <span class="badge badge-pill badge-success" id="commentpointsbadge" data-points="placeholder">${comment.getPoints()}</span>
+                              </c:if>
+                              <c:if test="${commment.getVote().getVoted() eq 1}">
+                                <span class="badge badge-pill badge-danger" id="commentpointsbadge" data-points="placeholder">${comment.getPoints()}</span>
+                              </c:if>
+                              <c:if test="${commment.getVote() eq null}">
+                                <span class="badge badge-pill badge-secondary" id="commentpointsbadge" data-points="placeholder">${comment.getPoints()}</span>
+                              </c:if>
+                            </c:if>
+
+                            <c:if test="${not empty user}">
+                              <c:if test="${commment.getVote().getVoted() eq 1}">
+                                <i class="fas fa-arrow-down redarrow"></i>
+                              </c:if>
+                              <c:if test="${commment.getVote().getVoted() eq 2}">
+                              </c:if>
+                              <c:if test="${commment.getVote() eq null}">
+                                <a href="#" class="arrowdowncomment" data-pid="${comment.getId()}" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-down greyarrow"></i></a>
+                              </c:if>
+                            </c:if>
+                              <%--
+                                VOTING ON COMMENTS START
+                              --%>
                           </td>
                         </tr>
                       </c:forEach>

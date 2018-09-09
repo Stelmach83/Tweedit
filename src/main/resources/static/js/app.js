@@ -59,7 +59,6 @@ $(function () {
     ///// VOTING ON COMMENTS
     var arrowsUpComment = $('a.arrowupcomment');
     arrowsUpComment.one('click', function (e) {
-        console.log($(this).attr('data-pid'))
         e.preventDefault();
         $(this).addClass("notlink");
         var pointsBadge = $(this).siblings('#commentpointsbadge');
@@ -88,7 +87,6 @@ $(function () {
 
     var arrowsDownComment = $('a.arrowdowncomment');
     arrowsDownComment.one('click', function (e) {
-        console.log($(this).attr('data-pid'))
         e.preventDefault();
         $(this).addClass("notlink");
         var pointsBadge = $(this).siblings('#commentpointsbadge');
