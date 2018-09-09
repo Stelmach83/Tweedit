@@ -33,13 +33,14 @@
                 <em><i class="fa fa-at"></i> ${post.getCategory().getName()}</em>
               </div>
               <div class="float-right">
-
+                  <%--
+                        VOTING ON POSTS
+                  --%>
                 <c:if test="${not empty user}">
                   <c:if test="${pdto.getVote().getVoted() eq 2}">
                     <i class="fas fa-arrow-up greenarrow"></i>
                   </c:if>
                   <c:if test="${pdto.getVote().getVoted() eq 1}">
-                    <%--<i class="fas fa-arrow-up greyarrow"></i>--%>
                   </c:if>
                   <c:if test="${pdto.getVote() eq null}">
                     <a href="#" id="arrowup" data-pid="${postid}" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-up greyarrow"></i></a>
@@ -66,12 +67,10 @@
                     <i class="fas fa-arrow-down redarrow"></i>
                   </c:if>
                   <c:if test="${pdto.getVote().getVoted() eq 2}">
-                    <%--<i class="fas fa-arrow-down greyarrow"></i>--%>
                   </c:if>
                   <c:if test="${pdto.getVote() eq null}">
                     <a href="#" id="arrowdown" data-pid="${postid}" data-contextpath="<%=request.getContextPath()%>"><i class="fas fa-arrow-down greyarrow"></i></a>
                   </c:if>
-
                 </c:if>
 
               </div>

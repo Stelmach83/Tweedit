@@ -1,10 +1,10 @@
 package net.stelmaszak.tweedit.controller;
 
+import net.stelmaszak.tweedit.entity.Comment;
 import net.stelmaszak.tweedit.entity.Post;
 import net.stelmaszak.tweedit.entity.User;
 import net.stelmaszak.tweedit.entity.Vote;
 import net.stelmaszak.tweedit.helper.DataHelper;
-import net.stelmaszak.tweedit.repository.UserRepository;
 import net.stelmaszak.tweedit.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,22 +12,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class VoteController {
 
     @Autowired
-    private UserService userService;
-    @Autowired
-    private CategoryService categoryService;
-    @Autowired
-    private MessageService messageService;
-    @Autowired
     private PostService postService;
     @Autowired
     private VoteService voteService;
+    @Autowired
+    CommentService commentService;
     @Autowired
     private DataHelper dataHelper;
 
@@ -36,7 +30,6 @@ public class VoteController {
     @PostMapping("/app/votedup/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public void voteUp(@PathVariable Long id, Model model, Principal principal) {
-
         Post votedPost = postService.getPostById(id);
         Long postPoints = votedPost.getPoints() + 1;
         votedPost.setPoints(postPoints);
@@ -52,7 +45,6 @@ public class VoteController {
     @PostMapping("/app/voteddown/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public void voteDown(@PathVariable Long id, Model model, Principal principal) {
-
         Post votedPost = postService.getPostById(id);
         Long postPoints = votedPost.getPoints() - 1;
         votedPost.setPoints(postPoints);
@@ -68,7 +60,31 @@ public class VoteController {
     @PostMapping("/app/votedupcomment/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public void voteUpComment(@PathVariable Long id, Model model, Principal principal) {
+        Comment comment = commentService.getCommentById(id);
+        Long points = comment.getPoints() + 1;
+        comment.setPoints(points);
+        User votingUser = dataHelper.getUserSendToView(principal, model);
+        Vote vote = new Vote();
+        vote.setUser(votingUser);
+        vote.setComment(comment);
+        vote.setVoted(2);
+        commentService.saveComment(comment);
+        voteService.saveVote(vote);
+    }
 
+    @PostMapping("/app/voteddowncomment/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public void voteDownComment(@PathVariable Long id, Model model, Principal principal) {
+        Comment comment = commentService.getCommentById(id);
+        Long points = comment.getPoints() - 1;
+        comment.setPoints(points);
+        User votingUser = dataHelper.getUserSendToView(principal, model);
+        Vote vote = new Vote();
+        vote.setUser(votingUser);
+        vote.setComment(comment);
+        vote.setVoted(1);
+        commentService.saveComment(comment);
+        voteService.saveVote(vote);
     }
 
 }
