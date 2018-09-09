@@ -4,6 +4,7 @@ import net.stelmaszak.tweedit.entity.*;
 import net.stelmaszak.tweedit.helper.DataHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,14 +26,16 @@ public class HomeController {
     @RequestMapping("/")
     public String home(Model model, Principal principal) {
         User user = dataHelper.getUserSendToView(principal, model);
-        dataHelper.setTodaysDate(model);
-        List<Post> posts = dataHelper.getAllPostsFromNewest();
-        List<Comment> comments = dataHelper.getAllComments();
-        dataHelper.getPostDTOandSendToView(posts, user, model);
-        dataHelper.getAllCategoriesAndSendToView(model);
-        dataHelper.getUserVotesSendToView(user, model);
-        dataHelper.getCommentDTOandSendToView(comments, user, model);
-        dataHelper.getIntegerUnreadMessagesForUser(user, model);
+        if (user != null) {
+            dataHelper.setTodaysDate(model);
+            List<Post> posts = dataHelper.getAllPostsFromNewest();
+            List<Comment> comments = dataHelper.getAllComments();
+            dataHelper.getPostDTOandSendToView(posts, user, model);
+            dataHelper.getAllCategoriesAndSendToView(model);
+            dataHelper.getUserVotesSendToView(user, model);
+            dataHelper.getCommentDTOandSendToView(comments, user, model);
+            dataHelper.getIntegerUnreadMessagesForUser(user, model);
+        }
         dataHelper.setAppContext("index", model);
         return "main";
     }
@@ -45,7 +48,6 @@ public class HomeController {
         if (logout != null) {
             return "redirect:lout";
         }
-        dataHelper.getUserSendToView(principal, model);
         dataHelper.getAllCategoriesAndSendToView(model);
         dataHelper.setAppContext("index", model);
         return "main";
@@ -53,9 +55,9 @@ public class HomeController {
 
     @RequestMapping("/lout")
     public String logout(HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response, Principal principal) {
-
         try {
             request.logout();
+            SecurityContextHolder.clearContext();
         } catch (ServletException e) {
             e.printStackTrace();
         }

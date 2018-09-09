@@ -9,8 +9,13 @@
   <div class="card-body" style="background-color: #f4f4f4;">
     <div class="row">
       <div class="col-sm-5">
-        <h4 class="card-title mb-0">Your wall</h4>
-        <div class="small text-muted"><fmt:formatDate pattern="dd-MM-yyyy" value="${now}"/></div>
+        <c:if test="${not empty user}">
+          <h4 class="card-title mb-0">Your wall</h4>
+          <div class="small text-muted"><fmt:formatDate pattern="dd-MM-yyyy" value="${now}"/></div>
+        </c:if>
+        <c:if test="${empty user}">
+          <h4 class="card-title mb-0">Log in or register.</h4>
+        </c:if>
       </div>
     </div>
     <br>
@@ -87,8 +92,8 @@
                       <thead>
                       <tr>
                         <th class="commentstitle">Comment</th>
-                        <th class="commentstitle" style="text-align: center">Date</th>
-                        <th class="commentstitle" style="text-align: center">User</th>
+                        <th class="commentstitle" style="text-align: center">Posted on</th>
+                        <th class="commentstitle" style="text-align: center">Posted by</th>
                         <th class="commentstitle" style="text-align: center">Points</th>
                       </tr>
                       </thead>
