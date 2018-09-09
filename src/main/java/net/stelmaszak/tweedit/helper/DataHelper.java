@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -58,28 +59,32 @@ public class DataHelper {
         return postService.getAllFromNewest();
     }
 
+    // TODO refactor
     public List<PostDTO> getPostDTOandSendToView(List<Post> posts, User user, Model model) {
+        List<Vote> userVotes = getUserVotesSendToView(user, model);
         List<PostDTO> postDTOS =
                 posts.stream()
                         .map(Post::mapToPostDTO)
-                        .map(x -> x.addVote(getUserVotesSendToView(user, model)))
-                        .map(x -> x.addComments(commentService.allAllFromNewestForPost(x.getPostFromDto())))
+                        .map(p -> p.addVote(userVotes))
+                        .map(p -> p.addComments())
                         .collect(Collectors.toList());
-        model.addAttribute("postdtos", postDTOS);
+        List<PostDTO> postsWithAllVotes = new ArrayList<>();
+        for (PostDTO p : postDTOS) {
+            List<CommentDTO> postComments = p.getComments();
+            List<CommentDTO> postCommentswithVotes = new ArrayList<>();
+            for (CommentDTO c : postComments) {
+                c.addUserVote(userVotes);
+                postCommentswithVotes.add(c);
+            }
+            p.setComments(postCommentswithVotes);
+            postsWithAllVotes.add(p);
+        }
+        model.addAttribute("postdtos", postsWithAllVotes);
         return postDTOS;
     }
 
     public List<Comment> getAllComments() {
         return commentService.getAllOrderByDate();
-    }
-
-    public List<CommentDTO> getCommentDTOandSendToView(List<Comment> comments, User user, Model model) {
-        List<CommentDTO> commentDTOS = comments.stream()
-                .map(Comment::mapToCommentDTO)
-                .map(x -> x.addVote(getUserVotesSendToView(user, model)))
-                .collect(Collectors.toList());
-        model.addAttribute("commentsdtos", commentDTOS);
-        return commentDTOS;
     }
 
     public int getIntegerUnreadMessagesForUser(User user, Model model) {

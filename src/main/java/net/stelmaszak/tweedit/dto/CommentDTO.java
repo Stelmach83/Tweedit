@@ -17,10 +17,11 @@ public class CommentDTO {
     private Comment comment;
     private Vote vote;
 
-    public CommentDTO addVote(List<Vote> userVotes) {
+    public CommentDTO addUserVote(List<Vote> userVotes) {
         userVotes.stream()
                 .filter(vote -> vote.isVoteForComment(this))
                 .findFirst().ifPresent(this::setVote);
         return this;
     }
+
 }

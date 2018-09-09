@@ -8,7 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @EqualsAndHashCode
@@ -32,8 +32,8 @@ public class Comment {
     @Size(min = 1)
     private String commentText;
 
-    @OneToMany
-    private Set<Vote> votes;
+    @OneToMany(mappedBy = "comment")
+    private List<Vote> votes;
 
     private Long points;
 
@@ -80,11 +80,11 @@ public class Comment {
         this.date = date;
     }
 
-    public Set<Vote> getVotes() {
+    public List<Vote> getVotes() {
         return votes;
     }
 
-    public void setVotes(Set<Vote> votes) {
+    public void setVotes(List<Vote> votes) {
         this.votes = votes;
     }
 

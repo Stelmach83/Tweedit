@@ -5,6 +5,7 @@ import net.stelmaszak.tweedit.entity.Comment;
 import net.stelmaszak.tweedit.entity.Post;
 import net.stelmaszak.tweedit.entity.Vote;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @EqualsAndHashCode
@@ -17,6 +18,7 @@ public class PostDTO {
 
     private Post post;
     private Vote vote;
+    private List<CommentDTO> comments;
 
     public PostDTO addVote(List<Vote> userVotes) {
         userVotes.stream()
@@ -25,8 +27,13 @@ public class PostDTO {
         return this;
     }
 
-    public PostDTO addComments(List<Comment> comments) {
-        this.post.setComments(comments);
+    public PostDTO addComments() {
+        List<Comment> postCommments = this.post.getComments();
+        List<CommentDTO> buildComments = new ArrayList<>();
+        for (Comment c : postCommments) {
+            buildComments.add(Comment.mapToCommentDTO(c));
+        }
+        comments = buildComments;
         return this;
     }
 

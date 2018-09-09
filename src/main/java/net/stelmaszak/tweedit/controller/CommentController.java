@@ -23,13 +23,11 @@ public class CommentController {
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String addComment(Model model, Principal principal, @PathVariable String postId) {
         User user = dataHelper.getUserSendToView(principal, model);
-        List<Comment> comments = dataHelper.getAllComments();
         List<Post> posts = dataHelper.getAllPostsFromNewest();
         dataHelper.setTodaysDate(model);
         dataHelper.getAllCategoriesAndSendToView(model);
         dataHelper.getUserVotesSendToView(user, model);
         dataHelper.getPostDTOandSendToView(posts, user, model);
-        dataHelper.getCommentDTOandSendToView(comments, user, model);
         dataHelper.getIntegerUnreadMessagesForUser(user, model);
         dataHelper.setAppContext("index", model);
         Comment comment = new Comment();
@@ -43,13 +41,11 @@ public class CommentController {
     public String postComment(Model model, Principal principal, @Valid Comment comment, BindingResult result, @PathVariable String postId) {
         if (result.hasErrors()) {
             User user = dataHelper.getUserSendToView(principal, model);
-            List<Comment> comments = dataHelper.getAllComments();
             List<Post> posts = dataHelper.getAllPostsFromNewest();
             dataHelper.setTodaysDate(model);
             dataHelper.getAllCategoriesAndSendToView(model);
             dataHelper.getUserVotesSendToView(user, model);
             dataHelper.getPostDTOandSendToView(posts, user, model);
-            dataHelper.getCommentDTOandSendToView(comments, user, model);
             dataHelper.getIntegerUnreadMessagesForUser(user, model);
             dataHelper.setAppContext("index", model);
             model.addAttribute("addcomment", postId);
@@ -57,13 +53,11 @@ public class CommentController {
         } else {
             User user = dataHelper.getUserSendToView(principal, model);
             dataHelper.setTodaysDate(model);
-            List<Comment> comments = dataHelper.getAllComments();
             List<Post> posts = dataHelper.getAllPostsFromNewest();
             dataHelper.saveCommment(comment, user);
             dataHelper.getAllCategoriesAndSendToView(model);
             dataHelper.getUserVotesSendToView(user, model);
             dataHelper.getPostDTOandSendToView(posts, user, model);
-            dataHelper.getCommentDTOandSendToView(comments, user, model);
             dataHelper.getIntegerUnreadMessagesForUser(user, model);
             dataHelper.setAppContext("index", model);
             return "main";

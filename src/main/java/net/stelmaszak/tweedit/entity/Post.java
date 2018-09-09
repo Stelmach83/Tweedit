@@ -2,15 +2,11 @@ package net.stelmaszak.tweedit.entity;
 
 import lombok.EqualsAndHashCode;
 import net.stelmaszak.tweedit.dto.PostDTO;
-import net.stelmaszak.tweedit.service.CommentService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @EqualsAndHashCode
@@ -42,8 +38,8 @@ public class Post {
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
 
-    @OneToMany
-    private Set<Vote> votes;
+    @OneToMany(mappedBy = "post")
+    private List<Vote> votes;
 
     private Long points;
 
@@ -114,11 +110,11 @@ public class Post {
         this.comments = comments;
     }
 
-    public Set<Vote> getVotes() {
+    public List<Vote> getVotes() {
         return votes;
     }
 
-    public void setVotes(Set<Vote> votes) {
+    public void setVotes(List<Vote> votes) {
         this.votes = votes;
     }
 

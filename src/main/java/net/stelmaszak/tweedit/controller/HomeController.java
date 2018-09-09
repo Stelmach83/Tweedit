@@ -29,11 +29,9 @@ public class HomeController {
         if (user != null) {
             dataHelper.setTodaysDate(model);
             List<Post> posts = dataHelper.getAllPostsFromNewest();
-            List<Comment> comments = dataHelper.getAllComments();
             dataHelper.getPostDTOandSendToView(posts, user, model);
             dataHelper.getAllCategoriesAndSendToView(model);
             dataHelper.getUserVotesSendToView(user, model);
-            dataHelper.getCommentDTOandSendToView(comments, user, model);
             dataHelper.getIntegerUnreadMessagesForUser(user, model);
         }
         dataHelper.setAppContext("index", model);
