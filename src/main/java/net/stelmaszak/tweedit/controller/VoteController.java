@@ -21,6 +21,8 @@ public class VoteController {
     @Autowired
     private VoteService voteService;
     @Autowired
+    private UserService userService;
+    @Autowired
     CommentService commentService;
     @Autowired
     private DataHelper dataHelper;
@@ -32,6 +34,9 @@ public class VoteController {
     public void voteUp(@PathVariable Long id, Model model, Principal principal) {
         Post votedPost = postService.getPostById(id);
         Long postPoints = votedPost.getPoints() + 1;
+        User owner = votedPost.getUser();
+        Long userPoints = owner.getPoints() + 1;
+        owner.setPoints(userPoints);
         votedPost.setPoints(postPoints);
         User votingUser = dataHelper.getUserSendToView(principal, model);
         Vote newVote = new Vote();
@@ -40,6 +45,7 @@ public class VoteController {
         newVote.setVoted(2);
         postService.savePost(votedPost);
         voteService.saveVote(newVote);
+        userService.saveUser(owner);
     }
 
     @PostMapping("/app/voteddown/{id}")
@@ -47,6 +53,9 @@ public class VoteController {
     public void voteDown(@PathVariable Long id, Model model, Principal principal) {
         Post votedPost = postService.getPostById(id);
         Long postPoints = votedPost.getPoints() - 1;
+        User owner = votedPost.getUser();
+        Long userPoints = owner.getPoints() - 1;
+        owner.setPoints(userPoints);
         votedPost.setPoints(postPoints);
         User votingUser = dataHelper.getUserSendToView(principal, model);
         Vote newVote = new Vote();
@@ -55,6 +64,7 @@ public class VoteController {
         newVote.setVoted(1);
         postService.savePost(votedPost);
         voteService.saveVote(newVote);
+        userService.saveUser(owner);
     }
 
     @PostMapping("/app/votedupcomment/{id}")
@@ -62,6 +72,9 @@ public class VoteController {
     public void voteUpComment(@PathVariable Long id, Model model, Principal principal) {
         Comment comment = commentService.getCommentById(id);
         Long points = comment.getPoints() + 1;
+        User owner = comment.getUser();
+        Long userPoints = owner.getPoints() + 1;
+        owner.setPoints(userPoints);
         comment.setPoints(points);
         User votingUser = dataHelper.getUserSendToView(principal, model);
         Vote vote = new Vote();
@@ -70,6 +83,7 @@ public class VoteController {
         vote.setVoted(2);
         commentService.saveComment(comment);
         voteService.saveVote(vote);
+        userService.saveUser(owner);
     }
 
     @PostMapping("/app/voteddowncomment/{id}")
@@ -77,6 +91,9 @@ public class VoteController {
     public void voteDownComment(@PathVariable Long id, Model model, Principal principal) {
         Comment comment = commentService.getCommentById(id);
         Long points = comment.getPoints() - 1;
+        User owner = comment.getUser();
+        Long userPoints = owner.getPoints() - 1;
+        owner.setPoints(userPoints);
         comment.setPoints(points);
         User votingUser = dataHelper.getUserSendToView(principal, model);
         Vote vote = new Vote();
@@ -85,6 +102,7 @@ public class VoteController {
         vote.setVoted(1);
         commentService.saveComment(comment);
         voteService.saveVote(vote);
+        userService.saveUser(owner);
     }
 
 }

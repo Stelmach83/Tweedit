@@ -13,4 +13,6 @@ public interface UserService {
 
     List<User> getAllUsersOtherThanLoggedIn(User user);
 
+    void saveUser(User user);
+
 }

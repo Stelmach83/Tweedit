@@ -32,4 +32,9 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
         return result;
     }
+
+    @Override
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
 }
