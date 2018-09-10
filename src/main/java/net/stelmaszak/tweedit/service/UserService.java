@@ -15,4 +15,6 @@ public interface UserService {
 
     void saveUser(User user);
 
+    List<User> getTop10Users();
+
 }

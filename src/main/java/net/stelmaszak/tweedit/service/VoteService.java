@@ -8,6 +8,7 @@ import java.util.List;
 public interface VoteService {
 
     void saveVote(Vote vote);
+
     List<Vote> getVotedByUser(User user);
 
 }

@@ -37,4 +37,9 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user) {
         userRepository.save(user);
     }
+
+    @Override
+    public List<User> getTop10Users() {
+        return userRepository.getAllByOrderByPointsDesc();
+    }
 }

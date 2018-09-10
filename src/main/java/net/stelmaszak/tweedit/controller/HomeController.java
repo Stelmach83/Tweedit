@@ -34,7 +34,7 @@ public class HomeController {
             dataHelper.getUserVotesSendToView(user, model);
             dataHelper.getIntegerUnreadMessagesForUser(user, model);
         }
-        dataHelper.setAppContext("index", model);
+        dataHelper.setAppContext("wall", model);
         return "main";
     }
 
@@ -47,7 +47,7 @@ public class HomeController {
             return "redirect:lout";
         }
         dataHelper.getAllCategoriesAndSendToView(model);
-        dataHelper.setAppContext("index", model);
+        dataHelper.setAppContext("wall", model);
         return "main";
     }
 
@@ -60,7 +60,7 @@ public class HomeController {
             e.printStackTrace();
         }
         dataHelper.getAllCategoriesAndSendToView(model);
-        dataHelper.setAppContext("index", model);
+        dataHelper.setAppContext("wall", model);
         return "main";
     }
 

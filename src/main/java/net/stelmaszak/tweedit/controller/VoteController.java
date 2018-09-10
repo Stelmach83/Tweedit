@@ -23,7 +23,7 @@ public class VoteController {
     @Autowired
     private UserService userService;
     @Autowired
-    CommentService commentService;
+    private CommentService commentService;
     @Autowired
     private DataHelper dataHelper;
 

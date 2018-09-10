@@ -147,7 +147,7 @@
                               </c:if>
                             </c:if>
                               <%--
-                                VOTING ON COMMENTS START
+                                VOTING ON COMMENTS END
                               --%>
                           </td>
                         </tr>
@@ -165,7 +165,7 @@
                       </tbody>
                     </table>
                   </c:if>
-                  <c:if test="${comments.size() eq 0}">
+                  <c:if test="${commentsdtos.size() eq 0}">
                     <c:if test="${not empty user && empty addcomment}">
                       <table class="table table-responsive-sm table-sm" id="commenttable" style="border: 0px; margin-top: 0px">
                         <col style="width:67%; border: 0px; margin-top: 0px">

@@ -29,7 +29,7 @@ public class CommentController {
         dataHelper.getUserVotesSendToView(user, model);
         dataHelper.getPostDTOandSendToView(posts, user, model);
         dataHelper.getIntegerUnreadMessagesForUser(user, model);
-        dataHelper.setAppContext("index", model);
+        dataHelper.setAppContext("wall", model);
         Comment comment = new Comment();
         model.addAttribute("comment", comment);
         model.addAttribute("addcomment", postId);
@@ -47,7 +47,7 @@ public class CommentController {
             dataHelper.getUserVotesSendToView(user, model);
             dataHelper.getPostDTOandSendToView(posts, user, model);
             dataHelper.getIntegerUnreadMessagesForUser(user, model);
-            dataHelper.setAppContext("index", model);
+            dataHelper.setAppContext("wall", model);
             model.addAttribute("addcomment", postId);
             return "main";
         } else {
@@ -59,7 +59,7 @@ public class CommentController {
             dataHelper.getUserVotesSendToView(user, model);
             dataHelper.getPostDTOandSendToView(posts, user, model);
             dataHelper.getIntegerUnreadMessagesForUser(user, model);
-            dataHelper.setAppContext("index", model);
+            dataHelper.setAppContext("wall", model);
             return "main";
         }
     }

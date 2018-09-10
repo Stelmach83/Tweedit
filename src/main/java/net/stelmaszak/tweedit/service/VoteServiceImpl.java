@@ -14,7 +14,6 @@ public class VoteServiceImpl implements VoteService {
     @Autowired
     private VoteRepository voteRepository;
 
-
     @Override
     public void saveVote(Vote vote) {
         voteRepository.save(vote);
@@ -24,4 +23,5 @@ public class VoteServiceImpl implements VoteService {
     public List<Vote> getVotedByUser(User user) {
         return voteRepository.findAllByUser(user);
     }
+
 }

@@ -155,4 +155,10 @@ public class DataHelper {
         commentService.saveComment(comment);
     }
 
+    public List<User> getTop10Users(Model model) {
+        List<User> users = userService.getTop10Users();
+        model.addAttribute("rankings", users);
+        return users;
+    }
+
 }

@@ -61,7 +61,7 @@ public class PostController {
             dataHelper.setCreatedAndUserDateAndSavePost(post, user);
             dataHelper.getIntegerUnreadMessagesForUser(user, model);
             dataHelper.getPostDTOandSendToView(dataHelper.getAllPostsFromNewest(), user, model);
-            dataHelper.setAppContext("index", model);
+            dataHelper.setAppContext("wall", model);
             return "main";
         }
     }
