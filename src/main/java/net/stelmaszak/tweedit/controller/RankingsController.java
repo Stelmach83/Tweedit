@@ -24,6 +24,7 @@ public class RankingsController {
         dataHelper.setAppContext("rankings", model);
         dataHelper.setTodaysDate(model);
         dataHelper.getIntegerUnreadMessagesForUser(user, model);
+        dataHelper.getAllCategoriesAndSendToView(model);
         return "main";
     }
 }
