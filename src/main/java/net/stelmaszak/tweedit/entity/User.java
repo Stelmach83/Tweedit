@@ -1,7 +1,6 @@
 package net.stelmaszak.tweedit.entity;
 
 import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import javax.persistence.*;
@@ -66,7 +65,6 @@ public class User {
     @OneToMany
     private Set<Message> sent;                          // user ma set wysłanych wiadomości
 
-//    @ColumnDefault("0")
     private Long points;                                // zsumowana ilość puntów za Votes z Comments i Posts
 
     public User() {
