@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -41,6 +42,14 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_category", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "category_id")})
     private Set<Category> categories;                   // user ma subskrypcje do categorii (many to many)
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_subs", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "sub_id"))
+    private List<User> subbedToUsers;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_subs", joinColumns = @JoinColumn(name = "sub_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> usersSubbedToYou;
 
     @OneToMany(mappedBy = "user")
     private Set<Vote> votes;                            // user ma set swoich łapek w górę i dół
@@ -143,6 +152,22 @@ public class User {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public List<User> getSubbedToUsers() {
+        return subbedToUsers;
+    }
+
+    public void setSubbedToUsers(List<User> subbedToUsers) {
+        this.subbedToUsers = subbedToUsers;
+    }
+
+    public List<User> getUsersSubbedToYou() {
+        return usersSubbedToYou;
+    }
+
+    public void setUsersSubbedToYou(List<User> usersSubbedToYou) {
+        this.usersSubbedToYou = usersSubbedToYou;
     }
 
     public Set<Message> getReceived() {

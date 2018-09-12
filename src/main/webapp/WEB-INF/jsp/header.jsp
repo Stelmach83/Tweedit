@@ -23,7 +23,7 @@
             <a class="nav-link" href="<%=request.getContextPath()%>/">Your wall</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<%=request.getContextPath()%>/app/addpost">Add Post</a>
+            <a class="nav-link" href="<%=request.getContextPath()%>/app/addpost">Add post</a>
           </li>
         </c:if>
       </ul>
