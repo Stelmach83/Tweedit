@@ -13,7 +13,19 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All categories</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <c:forEach var="cat" items="${categories}">
-              <a class="dropdown-item" href="#">${cat.getName()}</a>
+              <div class="dropdown-item">
+                <div class="row" style="width: 200px">
+                  <div class="col-sm-6">
+                    <a class="nav-link catelink" href="#" style="padding-top: 3px">${cat.getName()}</a>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-9">
+                      <button type="button" class="btn btn-outline-info btn-sm">follow</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
               </c:forEach>
           </li>
           <li class="nav-item">
