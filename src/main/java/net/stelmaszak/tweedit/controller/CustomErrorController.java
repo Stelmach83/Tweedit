@@ -16,7 +16,7 @@ public class CustomErrorController implements ErrorController {
     @RequestMapping("/error")
     public String error(Model model) {
         dataHelper.getAllCategoriesAndSendToView(model);
-        model.addAttribute("appContext", "error");
+        dataHelper.setAppContext("error", model);
         return "main";
     }
 

@@ -85,10 +85,10 @@ table.center {
     margin-right: auto;
 }
 
-a.catelink {
-    color: red;
-}
+/*a.catelink {*/
+    /*color: red;*/
+/*}*/
 
-a.catelink:hover {
-    color: black;
-}
+/*a.catelink:hover {*/
+    /*color: black;*/
+/*}*/
