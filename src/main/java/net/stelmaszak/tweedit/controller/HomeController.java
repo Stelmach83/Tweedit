@@ -22,6 +22,20 @@ public class HomeController {
     @Autowired
     private DataHelper dataHelper;
 
+    @GetMapping("/register")
+    public String register(Model model, Principal principal) {
+        User user = dataHelper.getUserSendToView(principal, model);
+        if (user != null) {
+            dataHelper.setTodaysDate(model);
+            List<Post> posts = dataHelper.getAllPostsFromNewest();
+            dataHelper.getPostDTOandSendToView(posts, user, model);
+            dataHelper.getAllCategoriesAndSendToView(model);
+            dataHelper.getUserVotesSendToView(user, model);
+            dataHelper.getIntegerUnreadMessagesForUser(user, model);
+        }
+        dataHelper.setAppContext("register", model);
+        return "main";
+    }
 
     @RequestMapping("/")
     public String home(Model model, Principal principal) {

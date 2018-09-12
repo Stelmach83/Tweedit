@@ -111,13 +111,9 @@
                       <div class="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</div>
                     </div>
                   </a>
-                    <%--<a class="dropdown-item text-center" href="#">--%>
-                    <%--<strong>View all messages</strong>--%>
-                    <%--</a>--%>
                   <a class="dropdown-item text-center" href="<%=request.getContextPath()%>/login?logout">logout</a>
                 </div>
               </li>
-                <%--<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/login?logout">${user.getUsername()} logout</a></li>--%>
             </ul>
           </c:when>
           <c:otherwise>
@@ -125,7 +121,7 @@
             <input class="form-control mr-sm-2" type="password" placeholder="Password" name="password">
             <button class="btn btn-primary my-2 my-sm-0" type="submit">Login</button>
             <ul class="nav navbar-nav ml-auto">
-              <li class="nav-item"><a href="#" class="nav-link">Register</a></li>
+              <li class="nav-item"><a href="<%=request.getContextPath()%>/register" class="nav-link">Register</a></li>
             </ul>
           </c:otherwise>
         </c:choose>
