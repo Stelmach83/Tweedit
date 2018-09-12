@@ -8,7 +8,7 @@
   <div class="container">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <c:if test="${not empty user}">
+        <c:if test="${user.getLogged() eq 1}">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All categories</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -42,7 +42,7 @@
 
       <form class="form-inline my-2 my-lg-0" action="<%=request.getContextPath()%>/login" method="post">
         <c:choose>
-          <c:when test="${not empty user}">
+          <c:when test="${user.getLogged() eq 1}">
             <ul class="nav navbar-nav ml-auto">
               <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/app/send">Send message</a></li>
                 <%--MESSAGES--%>

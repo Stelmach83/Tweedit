@@ -29,6 +29,12 @@ public class User {
     @Size(min = 4, max = 200, message = "Password needs to be between 4 - 200 characters.")
     private String password;
 
+    @Transient
+    private String password2;
+
+    @Transient
+    private int logged;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
@@ -60,7 +66,7 @@ public class User {
     @OneToMany
     private Set<Message> sent;                          // user ma set wysłanych wiadomości
 
-    @ColumnDefault("0")
+//    @ColumnDefault("0")
     private Long points;                                // zsumowana ilość puntów za Votes z Comments i Posts
 
     public User() {
@@ -104,6 +110,22 @@ public class User {
 
     public void setPassword(String password) {
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+
+    public String getPassword2() {
+        return password2;
+    }
+
+    public void setPassword2(String password2) {
+        this.password2 = password2;
+    }
+
+    public int getLogged() {
+        return logged;
+    }
+
+    public void setLogged(int logged) {
+        this.logged = logged;
     }
 
     public Set<Role> getRoles() {
@@ -196,10 +218,11 @@ public class User {
                 '}';
     }
 
-    //    @PrePersist
-//    public void prePersist() {
-//        if (points == null) {
-//            points = 0l;
-//        }
-//    }
+    @PrePersist
+    public void prePersist() {
+        if (points == null) {
+            points = 0l;
+        }
+    }
+
 }

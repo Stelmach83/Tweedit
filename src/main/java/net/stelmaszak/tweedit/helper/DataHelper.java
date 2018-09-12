@@ -9,10 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -36,6 +33,7 @@ public class DataHelper {
             Optional<User> findUser = userService.getUserByEmail(principal.getName());
             if (findUser.isPresent()) {
                 User user = findUser.get();
+                user.setLogged(1);
                 model.addAttribute("user", user);
                 return user;
             }
@@ -57,6 +55,13 @@ public class DataHelper {
 
     public List<Post> getAllPostsFromNewest() {
         return postService.getAllFromNewest();
+    }
+
+    public void saveNewUser(User user) {
+        Set<Role> roles = new HashSet<>();
+        roles.add(Role.USER);
+        user.setRoles(roles);
+        userService.saveUser(user);
     }
 
     // TODO refactor

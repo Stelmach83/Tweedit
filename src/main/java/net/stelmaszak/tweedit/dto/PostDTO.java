@@ -30,8 +30,10 @@ public class PostDTO {
     public PostDTO addComments() {
         List<Comment> postCommments = this.post.getComments();
         List<CommentDTO> buildComments = new ArrayList<>();
-        for (Comment c : postCommments) {
-            buildComments.add(Comment.mapToCommentDTO(c));
+        if (postCommments != null) {
+            for (Comment c : postCommments) {
+                buildComments.add(Comment.mapToCommentDTO(c));
+            }
         }
         comments = buildComments;
         return this;

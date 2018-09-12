@@ -9,33 +9,57 @@
   <div class="col-md-6">
     <div class="card mx-4">
       <div class="card-body p-4">
-        <h1>Register</h1>
-        <p class="text-muted">Create your account</p>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="icon-user"></i></span>
-          </div>
-          <input class="form-control" type="text" placeholder="Username">
-        </div>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">@</span>
-          </div>
-          <input class="form-control" type="text" placeholder="Email">
-        </div>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="icon-lock"></i></span>
-          </div>
-          <input class="form-control" type="password" placeholder="Password">
-        </div>
-        <div class="input-group mb-4">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="icon-lock"></i></span>
-          </div>
-          <input class="form-control" type="password" placeholder="Repeat password">
-        </div>
-        <button class="btn btn-block btn-success" type="button">Create Account</button>
+        <form:form method="post" modelAttribute="user">
+          <form>
+            <h1>Register</h1>
+            <p class="text-muted">Create your account</p>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="icon-user"></i></span>
+              </div>
+              <input class="form-control" type="text" placeholder="Username" name="username">
+            </div>
+            <div style="margin-bottom: -10px">
+              <form:errors path="username" cssClass="errorreg"/>
+            </div>
+            <br>
+            <br>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">@</span>
+              </div>
+              <input class="form-control" type="text" placeholder="Email" name="email">
+            </div>
+            <div style="margin-bottom: -10px">
+              <form:errors path="email" cssClass="errorreg"/>
+            </div>
+            <br>
+            <br>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="icon-lock"></i></span>
+              </div>
+              <input class="form-control" type="password" placeholder="Password" name="password">
+            </div>
+            <div style="margin-bottom: -10px">
+              <form:errors path="password" cssClass="errorreg"/>
+            </div>
+            <br>
+            <br>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="icon-lock"></i></span>
+              </div>
+              <input class="form-control" type="password" placeholder="Repeat password" name="password2">
+            </div>
+            <div style="margin-bottom: -10px">
+              <form:errors path="password2" cssClass="errorreg"/>
+            </div>
+            <br>
+            <br>
+            <button class="btn btn-block btn-success" type="submit">Create Account</button>
+          </form>
+        </form:form>
       </div>
     </div>
   </div>
