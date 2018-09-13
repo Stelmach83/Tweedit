@@ -21,7 +21,9 @@
                   <div class="col-sm-6">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-9">
-                      <button type="button" class="btn btn-outline-info btn-sm">follow</button>
+                      <div class="catfollow" data-cid="${cat.getId()}">
+                        <button type="button" class="btn btn-outline-info btn-sm" data-contextpath="<%=request.getContextPath()%>">follow</button>
+                      </div>
                     </div>
                   </div>
                 </div>

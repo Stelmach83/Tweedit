@@ -42,4 +42,9 @@ public class UserServiceImpl implements UserService {
     public List<User> getTop10Users() {
         return userRepository.getAllByOrderByPointsDesc();
     }
+
+    @Override
+    public User getUserById(Long id) {
+        return userRepository.getOne(id);
+    }
 }

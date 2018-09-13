@@ -12,8 +12,8 @@ $(function () {
         $(this).find('i').removeClass('greyarrow').addClass('greenarrow')
         pointsBadge.removeClass('badge-secondary').addClass('badge-success')
 
-        var postId = $(this).attr('data-pid');
-        var contextPath = $(this).attr('data-contextpath');
+        var postId = $(this).data('pid');
+        var contextPath = $(this).data('contextpath');
 
         $.ajax({
             url: contextPath + "/app/votedup/" + postId,
@@ -40,8 +40,8 @@ $(function () {
         $(this).find('i').removeClass('greyarrow').addClass('redarrow')
         pointsBadge.removeClass('badge-secondary').addClass('badge-danger')
 
-        var postId = $(this).attr('data-pid');
-        var contextPath = $(this).attr('data-contextpath');
+        var postId = $(this).data('pid');
+        var contextPath = $(this).data('contextpath');
 
         $.ajax({
             url: contextPath + "/app/voteddown/" + postId,
@@ -69,8 +69,8 @@ $(function () {
         $(this).find('i').removeClass('greyarrow').addClass('greenarrow')
         pointsBadge.removeClass('badge-secondary').addClass('badge-success')
 
-        var commmentId = $(this).attr('data-pid');
-        var contextPath = $(this).attr('data-contextpath');
+        var commmentId = $(this).data('pid');
+        var contextPath = $(this).data('contextpath');
 
         $.ajax({
             url: contextPath + "/app/votedupcomment/" + commmentId,
@@ -97,8 +97,8 @@ $(function () {
         $(this).find('i').removeClass('greyarrow').addClass('redarrow')
         pointsBadge.removeClass('badge-secondary').addClass('badge-danger')
 
-        var commmentId = $(this).attr('data-pid');
-        var contextPath = $(this).attr('data-contextpath');
+        var commmentId = $(this).data('pid');
+        var contextPath = $(this).data('contextpath');
 
         $.ajax({
             url: contextPath + "/app/voteddowncomment/" + commmentId,
@@ -113,5 +113,33 @@ $(function () {
         e.preventDefault();
     })
 
-})
+    ///// FOLLOWING CATEGORIES
+
+    var followCat = $('div.catfollow');
+    followCat.one('click', function (e) {
+        e.preventDefault();
+        var catId = $(this).data('cid');
+        console.log(catId)
+
+        var button = $(this).find('button')
+        var contextPath = $(this).data('contextpath');
+
+        if (button.html('unfollow')) {
+            button.html('follow');
+        }
+        if (button.html('follow')) {
+            button.html('unfollow');
+            $.ajax({
+                url: "http://localhost:8080/app/followcat/" + catId,
+                type: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                }
+            })
+        }
+
+    })
+
+});
 

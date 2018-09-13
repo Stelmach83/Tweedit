@@ -41,6 +41,12 @@ public class DataHelper {
         return null;
     }
 
+    public User getViewUser(Long id, Model model) {
+        User viewUser = userService.getUserById(id);
+        model.addAttribute("viewUser", viewUser);
+        return viewUser;
+    }
+
     public List<Vote> getUserVotesSendToView(User user, Model model) {
         List<Vote> userVotes = voteService.getVotedByUser(user);
         model.addAttribute("userVotes", userVotes);
@@ -61,6 +67,7 @@ public class DataHelper {
         Set<Role> roles = new HashSet<>();
         roles.add(Role.USER);
         user.setRoles(roles);
+        user.setJoined(new Date());
         userService.saveUser(user);
     }
 
@@ -164,6 +171,10 @@ public class DataHelper {
         List<User> users = userService.getTop10Users();
         model.addAttribute("rankings", users);
         return users;
+    }
+
+    public Category getCategoryById(Long id) {
+        return categoryService.getCategoryById(id);
     }
 
 }

@@ -17,4 +17,6 @@ public interface UserService {
 
     List<User> getTop10Users();
 
+    User getUserById(Long id);
+
 }

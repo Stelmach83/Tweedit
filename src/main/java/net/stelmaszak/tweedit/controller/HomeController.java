@@ -38,7 +38,7 @@ public class HomeController {
             dataHelper.setAppContext("register", model);
         } else {
             dataHelper.saveNewUser(newuser);
-            dataHelper.setAppContext("register", model);
+            dataHelper.setAppContext("regsuccess", model);
         }
         return "main";
     }

@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -30,6 +31,8 @@ public class User {
 
     @Transient
     private String password2;
+
+    private Date joined;
 
     @Transient
     private int logged;
@@ -116,6 +119,14 @@ public class User {
 
     public void setPassword2(String password2) {
         this.password2 = password2;
+    }
+
+    public Date getJoined() {
+        return joined;
+    }
+
+    public void setJoined(Date joined) {
+        this.joined = joined;
     }
 
     public int getLogged() {
@@ -212,6 +223,8 @@ public class User {
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
+                ", joined=" + joined +
+                ", roles=" + roles +
                 ", points=" + points +
                 '}';
     }

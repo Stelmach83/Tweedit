@@ -1,9 +1,6 @@
 package net.stelmaszak.tweedit.controller;
 
-import net.stelmaszak.tweedit.entity.Comment;
-import net.stelmaszak.tweedit.entity.Post;
-import net.stelmaszak.tweedit.entity.User;
-import net.stelmaszak.tweedit.entity.Vote;
+import net.stelmaszak.tweedit.entity.*;
 import net.stelmaszak.tweedit.helper.DataHelper;
 import net.stelmaszak.tweedit.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.HashSet;
+import java.util.Set;
 
 @RestController
-public class VoteController {
+public class StatelessController {
 
     @Autowired
     private PostService postService;
@@ -24,6 +23,8 @@ public class VoteController {
     private UserService userService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private CategoryService categoryService;
     @Autowired
     private DataHelper dataHelper;
 
@@ -103,6 +104,26 @@ public class VoteController {
         commentService.saveComment(comment);
         voteService.saveVote(vote);
         userService.saveUser(owner);
+    }
+
+    @PostMapping("/app/followcat/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public void followCategory(@PathVariable Long id, Model model, Principal principal) {
+        Category followedCat = dataHelper.getCategoryById(id);
+        User user = dataHelper.getUserSendToView(principal, model);
+        Set<Category> userCategories = user.getCategories();
+        userCategories.add(followedCat);
+        userService.saveUser(user);
+    }
+
+    @PostMapping("/app/unfollowcat/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public void unfollowCategory(@PathVariable Long id, Model model, Principal principal) {
+        Category unfollowedCat = dataHelper.getCategoryById(id);
+        User user = dataHelper.getUserSendToView(principal, model);
+        Set<Category> userCategories = user.getCategories();
+        userCategories.remove(unfollowedCat);
+        userService.saveUser(user);
     }
 
 }
