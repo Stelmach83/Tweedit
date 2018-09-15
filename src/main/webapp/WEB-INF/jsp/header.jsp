@@ -15,19 +15,24 @@
               <c:forEach var="cat" items="${categories}">
               <div class="dropdown-item">
                 <div class="row" style="width: 200px">
-                  <div class="col-sm-6">
-                    <a class="nav-link catelink" href="#" style="padding-top: 3px">${cat.getName()}</a>
+                  <div class="col-sm-5">
+                    <a class="nav-link catelink" href="#" style="padding-top: 3px;margin-left: -20px;padding-left: -20px">${cat.getName()}</a>
                   </div>
-                  <div class="col-sm-6">
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-9">
+                  <div class="col-sm-2">
+                    <a class="nav-link catelink" href="#" style="padding-top: 3px;margin-left: -20px;padding-left: -20px">
+                        ${cat.getSubbedUsers().size()}<i class="icon-user" style="padding-left: 10px"></i>
+                    </a>
+                  </div>
+                  <div class="col-sm-5">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-10">
                       <div class="catfollow" data-cid="${cat.getId()}">
                         <c:choose>
                           <c:when test="${cat.getSubbedUsers().contains(user)}">
-                            <button type="button" class="btn btn-outline-info btn-sm" data-contextpath="<%=request.getContextPath()%>">unfollow</button>
+                            <button type="button" class="btn btn-outline-info btn-sm" style="padding-top: 3px;margin-left: -20px;padding-left: -20px" data-contextpath="<%=request.getContextPath()%>">unfollow</button>
                           </c:when>
                           <c:otherwise>
-                            <button type="button" class="btn btn-outline-info btn-sm" data-contextpath="<%=request.getContextPath()%>">follow</button>
+                            <button type="button" class="btn btn-outline-info btn-sm" style="padding-top: 3px;margin-left: -20px;padding-left: -20px" data-contextpath="<%=request.getContextPath()%>">follow</button>
                           </c:otherwise>
                         </c:choose>
                       </div>
@@ -76,7 +81,6 @@
               <li class="nav-item dropdown d-md-down-none">
                 <a class="nav-link" data-toggle="dropdown" href="<%=request.getContextPath()%>/messages" role="button" aria-haspopup="true" aria-expanded="false">
                   <i class="icon-user"></i>
-                    <%--<span id="userpoints" class="badge badge-pill badge-success">${user.getPoints()}</span>--%>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg">
                   <div class="dropdown-header text-center">
@@ -88,38 +92,38 @@
                   <a class="dropdown-item" href="#">
                     <p>Review your votes</p>
                   </a>
-                  <a class="dropdown-item" href="#">
-                    <div class="message">
-                      <div class="py-3 mr-3 float-left">
-                        <div class="avatar">
-                          <i class="fa fa-check"></i>
-                          <span class="avatar-status badge-danger"></span>
-                        </div>
-                      </div>
-                      <div>
-                        <small class="text-muted">John Doe</small>
-                        <small class="text-muted float-right mt-1">1:52 PM</small>
-                      </div>
-                      <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
-                      <div class="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</div>
-                    </div>
-                  </a>
-                  <a class="dropdown-item" href="#">
-                    <div class="message">
-                      <div class="py-3 mr-3 float-left">
-                        <div class="avatar">
-                          <i class="fa fa-check"></i>
-                          <span class="avatar-status badge-info"></span>
-                        </div>
-                      </div>
-                      <div>
-                        <small class="text-muted">John Doe</small>
-                        <small class="text-muted float-right mt-1">4:03 PM</small>
-                      </div>
-                      <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
-                      <div class="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</div>
-                    </div>
-                  </a>
+                    <%--<a class="dropdown-item" href="#">--%>
+                    <%--<div class="message">--%>
+                    <%--<div class="py-3 mr-3 float-left">--%>
+                    <%--<div class="avatar">--%>
+                    <%--<i class="fa fa-check"></i>--%>
+                    <%--<span class="avatar-status badge-danger"></span>--%>
+                    <%--</div>--%>
+                    <%--</div>--%>
+                    <%--<div>--%>
+                    <%--<small class="text-muted">John Doe</small>--%>
+                    <%--<small class="text-muted float-right mt-1">1:52 PM</small>--%>
+                    <%--</div>--%>
+                    <%--<div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>--%>
+                    <%--<div class="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</div>--%>
+                    <%--</div>--%>
+                    <%--</a>--%>
+                    <%--<a class="dropdown-item" href="#">--%>
+                    <%--<div class="message">--%>
+                    <%--<div class="py-3 mr-3 float-left">--%>
+                    <%--<div class="avatar">--%>
+                    <%--<i class="fa fa-check"></i>--%>
+                    <%--<span class="avatar-status badge-info"></span>--%>
+                    <%--</div>--%>
+                    <%--</div>--%>
+                    <%--<div>--%>
+                    <%--<small class="text-muted">John Doe</small>--%>
+                    <%--<small class="text-muted float-right mt-1">4:03 PM</small>--%>
+                    <%--</div>--%>
+                    <%--<div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>--%>
+                    <%--<div class="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</div>--%>
+                    <%--</div>--%>
+                    <%--</a>--%>
                   <a class="dropdown-item text-center" href="<%=request.getContextPath()%>/login?logout">logout</a>
                 </div>
               </li>
