@@ -11,11 +11,11 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@EqualsAndHashCode
 public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

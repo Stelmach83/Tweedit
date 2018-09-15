@@ -8,12 +8,11 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
-@EqualsAndHashCode
-@Table(name = "message")
 public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Size(min = 1)

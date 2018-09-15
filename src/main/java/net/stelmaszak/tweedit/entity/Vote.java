@@ -7,11 +7,11 @@ import net.stelmaszak.tweedit.dto.PostDTO;
 import javax.persistence.*;
 
 @Entity
-@EqualsAndHashCode
 public class Vote {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     private Integer voted;   // 2=voted up; 1=voted down; 0=no vote

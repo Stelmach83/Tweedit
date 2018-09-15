@@ -8,7 +8,6 @@ import net.stelmaszak.tweedit.entity.Vote;
 import java.util.ArrayList;
 import java.util.List;
 
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter

@@ -11,19 +11,21 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@EqualsAndHashCode
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(unique = true)
     @Email
+    @EqualsAndHashCode.Include
     private String email;
 
     @Column(unique = true)
     @Size(min = 3, max = 12, message = "Username needs to be between 3 - 12 characters.")
+    @EqualsAndHashCode.Include
     private String username;
 
     @Size(min = 4, max = 200, message = "Password needs to be between 4 - 200 characters.")

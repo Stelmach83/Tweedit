@@ -22,7 +22,14 @@
                     <div class="col-sm-3"></div>
                     <div class="col-sm-9">
                       <div class="catfollow" data-cid="${cat.getId()}">
-                        <button type="button" class="btn btn-outline-info btn-sm" data-contextpath="<%=request.getContextPath()%>">follow</button>
+                        <c:choose>
+                          <c:when test="${cat.getSubbedUsers().contains(user)}">
+                            <button type="button" class="btn btn-outline-info btn-sm" data-contextpath="<%=request.getContextPath()%>">unfollow</button>
+                          </c:when>
+                          <c:otherwise>
+                            <button type="button" class="btn btn-outline-info btn-sm" data-contextpath="<%=request.getContextPath()%>">follow</button>
+                          </c:otherwise>
+                        </c:choose>
                       </div>
                     </div>
                   </div>
