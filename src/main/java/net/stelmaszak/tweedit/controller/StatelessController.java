@@ -113,6 +113,7 @@ public class StatelessController {
         Set<Category> userCategories = user.getCategories();
         userCategories.add(followedCat);
         userService.saveUser(user);
+
     }
 
     @PostMapping("/app/unfollowcat/{id}")

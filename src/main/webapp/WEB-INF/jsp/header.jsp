@@ -30,14 +30,14 @@
                           <c:when test="${cat.getSubbedUsers().contains(user)}">
                             <div class="d-flex justify-content-center">
                               <a href="#">
-                                <button type="button" class="btn btn-outline-info btn-sm" style="padding-top: 3px" data-contextpath="<%=request.getContextPath()%>">unfollow</button>
+                                <button type="button" class="btn btn-outline-dark disabled btn-sm" style="padding-top: 3px" data-contextpath="<%=request.getContextPath()%>">unfollow</button>
                               </a>
                             </div>
                           </c:when>
                           <c:otherwise>
                             <div class="d-flex justify-content-center">
                               <a href="#">
-                                <button type="button" class="btn btn-outline-info btn-sm" style="padding-top: 3px" data-contextpath="<%=request.getContextPath()%>">follow</button>
+                                <button type="button" class="btn btn-outline-dark disabled btn-sm" style="padding-top: 3px" data-contextpath="<%=request.getContextPath()%>">follow</button>
                               </a>
                             </div>
                           </c:otherwise>
