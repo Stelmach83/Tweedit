@@ -46,7 +46,7 @@ public class HomeController {
     }
 
     @RequestMapping("/")
-    public String home(Model model, Principal principal) {
+    public String home(Model model, Principal principal, HttpSession session) {
         User user = dataHelper.getUserSendToView(principal, model);
         if (user != null) {
             dataHelper.setTodaysDate(model);
@@ -55,6 +55,7 @@ public class HomeController {
             dataHelper.getAllCategoriesAndSendToView(model);
             dataHelper.getUserVotesSendToView(user, model);
             dataHelper.getIntegerUnreadMessagesForUser(user, model);
+            session.setMaxInactiveInterval(60 * 60 * 24 * 7);
         }
         dataHelper.setAppContext("wall", model);
         return "main";

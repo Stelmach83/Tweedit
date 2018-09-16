@@ -15,24 +15,27 @@
               <c:forEach var="cat" items="${categories}">
               <div class="dropdown-item">
                 <div class="row" style="width: 200px">
-                  <div class="col-sm-5">
-                    <a class="nav-link catelink" href="<%=request.getContextPath()%>/app/posts/${cat.getId()}" style="padding-top: 3px;margin-left: -20px;padding-left: -20px">${cat.getName()}</a>
-                  </div>
-                  <div class="col-sm-2">
+                  <div class="col-sm-2 d-flex justify-content-start">
                     <a class="nav-link catelink" href="#" style="padding-top: 3px;margin-left: -20px;padding-left: -20px">
                         ${cat.getSubbedUsers().size()}<i class="icon-user" style="padding-left: 10px"></i>
                     </a>
                   </div>
+                  <div class="col-sm-5 d-flex justify-content-start">
+                    <a class="nav-link catelink" href="<%=request.getContextPath()%>/app/posts/${cat.getId()}" style="padding-top: 3px;margin-left: -20px;padding-left: -20px">${cat.getName()}</a>
+                  </div>
                   <div class="col-sm-5">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-10">
+                    <div class="col-sm-12">
                       <div class="catfollow" data-cid="${cat.getId()}">
                         <c:choose>
                           <c:when test="${cat.getSubbedUsers().contains(user)}">
-                            <button type="button" class="btn btn-outline-info btn-sm" style="padding-top: 3px;margin-left: -20px;padding-left: -20px" data-contextpath="<%=request.getContextPath()%>">unfollow</button>
+                            <div class="d-flex justify-content-center">
+                              <button type="button" class="btn btn-outline-info btn-sm" style="padding-top: 3px" data-contextpath="<%=request.getContextPath()%>">unfollow</button>
+                            </div>
                           </c:when>
                           <c:otherwise>
-                            <button type="button" class="btn btn-outline-info btn-sm" style="padding-top: 3px;margin-left: -20px;padding-left: -20px" data-contextpath="<%=request.getContextPath()%>">follow</button>
+                            <div class="d-flex justify-content-center">
+                              <button type="button" class="btn btn-outline-info btn-sm" style="padding-top: 3px" data-contextpath="<%=request.getContextPath()%>">follow</button>
+                            </div>
                           </c:otherwise>
                         </c:choose>
                       </div>
