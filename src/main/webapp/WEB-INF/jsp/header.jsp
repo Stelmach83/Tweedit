@@ -60,7 +60,6 @@
           </li>
         </c:if>
       </ul>
-
       <form class="form-inline my-2 my-lg-0" action="<%=request.getContextPath()%>/login" method="post">
         <c:choose>
           <c:when test="${user.getLogged() eq 1}">
@@ -93,45 +92,13 @@
                   <div class="dropdown-header text-center">
                     <strong>${user.getUsername()} <i class="icon-trophy"></i>${user.getPoints()}</strong>
                   </div>
-                  <a class="dropdown-item" href="#">
-                    <p>Your user profile</p>
+                  <a class="dropdown-item text-center" href="#">
+                    User profile
                   </a>
-                  <a class="dropdown-item" href="#">
-                    <p>Review your votes</p>
+                  <a class="dropdown-item text-center" href="#">
+                    Review your votes
                   </a>
-                    <%--<a class="dropdown-item" href="#">--%>
-                    <%--<div class="message">--%>
-                    <%--<div class="py-3 mr-3 float-left">--%>
-                    <%--<div class="avatar">--%>
-                    <%--<i class="fa fa-check"></i>--%>
-                    <%--<span class="avatar-status badge-danger"></span>--%>
-                    <%--</div>--%>
-                    <%--</div>--%>
-                    <%--<div>--%>
-                    <%--<small class="text-muted">John Doe</small>--%>
-                    <%--<small class="text-muted float-right mt-1">1:52 PM</small>--%>
-                    <%--</div>--%>
-                    <%--<div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>--%>
-                    <%--<div class="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</div>--%>
-                    <%--</div>--%>
-                    <%--</a>--%>
-                    <%--<a class="dropdown-item" href="#">--%>
-                    <%--<div class="message">--%>
-                    <%--<div class="py-3 mr-3 float-left">--%>
-                    <%--<div class="avatar">--%>
-                    <%--<i class="fa fa-check"></i>--%>
-                    <%--<span class="avatar-status badge-info"></span>--%>
-                    <%--</div>--%>
-                    <%--</div>--%>
-                    <%--<div>--%>
-                    <%--<small class="text-muted">John Doe</small>--%>
-                    <%--<small class="text-muted float-right mt-1">4:03 PM</small>--%>
-                    <%--</div>--%>
-                    <%--<div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>--%>
-                    <%--<div class="small text-muted text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</div>--%>
-                    <%--</div>--%>
-                    <%--</a>--%>
-                  <a class="dropdown-item text-center" href="<%=request.getContextPath()%>/login?logout">logout</a>
+                  <a class="dropdown-item text-center" href="<%=request.getContextPath()%>/login?logout"><strong>logout</strong></a>
                 </div>
               </li>
             </ul>
@@ -147,7 +114,6 @@
         </c:choose>
       </form>
     </div>
-
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
