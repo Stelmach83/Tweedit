@@ -42,5 +42,10 @@ public class PostServiceImpl implements PostService {
         return postRepository.findAllByCategoryInOrderByCreatedDesc(categories);
     }
 
+    @Override
+    public List<Post> getPostsByCat(Category category) {
+        return postRepository.findAllByCategoryOrderByCreatedDesc(category);
+    }
+
 
 }

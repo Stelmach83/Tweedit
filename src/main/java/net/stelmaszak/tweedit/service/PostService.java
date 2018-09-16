@@ -18,4 +18,6 @@ public interface PostService {
 
     List<Post> getPostsForUserBySubsCats(Set<Category> categories);
 
+    List<Post> getPostsByCat(Category category);
+
 }

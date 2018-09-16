@@ -16,7 +16,7 @@
               <div class="dropdown-item">
                 <div class="row" style="width: 200px">
                   <div class="col-sm-5">
-                    <a class="nav-link catelink" href="#" style="padding-top: 3px;margin-left: -20px;padding-left: -20px">${cat.getName()}</a>
+                    <a class="nav-link catelink" href="<%=request.getContextPath()%>/app/posts/${cat.getId()}" style="padding-top: 3px;margin-left: -20px;padding-left: -20px">${cat.getName()}</a>
                   </div>
                   <div class="col-sm-2">
                     <a class="nav-link catelink" href="#" style="padding-top: 3px;margin-left: -20px;padding-left: -20px">

@@ -1,5 +1,6 @@
 package net.stelmaszak.tweedit.controller;
 
+import net.stelmaszak.tweedit.entity.Category;
 import net.stelmaszak.tweedit.entity.Post;
 import net.stelmaszak.tweedit.entity.User;
 import net.stelmaszak.tweedit.helper.DataHelper;
@@ -23,16 +24,24 @@ public class PostController {
     @Autowired
     private DataHelper dataHelper;
 
-    @RequestMapping("/app/posts/{subs}")
+    @RequestMapping("/app/userposts/{userId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    public String showPostsForUserSubs(@PathVariable String subs) {
+    public String showPostsForUserSubs(@PathVariable Long userId) {
         return "";
     }
 
-    @RequestMapping("/app/posts/{category}")
+    @RequestMapping("/app/posts/{catId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    public String showPostsByCategory(@PathVariable String category) {
-        return "";
+    public String showPostsByCategory(@PathVariable Long catId, Model model, Principal principal) {
+        User user = dataHelper.getUserSendToView(principal, model);
+        Category category = dataHelper.getCategoryById(catId);
+        List<Post> posts = dataHelper.getPostsByCategory(category);
+        dataHelper.getPostDTOandSendToView(posts, user, model);
+        dataHelper.getAllCategoriesAndSendToView(model);
+        dataHelper.setAppContext("wall", model);
+        dataHelper.setTodaysDate(model);
+        dataHelper.getIntegerUnreadMessagesForUser(user, model);
+        return "main";
     }
 
     @GetMapping("/app/addpost")

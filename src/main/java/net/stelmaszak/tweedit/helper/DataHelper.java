@@ -102,6 +102,11 @@ public class DataHelper {
         return posts;
     }
 
+    public List<Post> getPostsByCategory(Category category) {
+        List<Post> posts = postService.getPostsByCat(category);
+        return posts;
+    }
+
     public List<Comment> getAllComments() {
         return commentService.getAllOrderByDate();
     }

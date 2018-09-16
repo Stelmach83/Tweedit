@@ -7,6 +7,7 @@
 <br>
 <div class="card" id="maincard">
   <div class="card-body" style="background-color: #f4f4f4;">
+
     <c:if test="${not empty user}">
       <c:choose>
         <c:when test="${postdtos.size() eq 0}">
@@ -28,6 +29,7 @@
             <c:set var="post" value="${pdto.getPost()}"></c:set>
             <c:set var="postid" value="${post.getId()}"></c:set>
             <c:set var="commentsdtos" value="${pdto.getComments()}"></c:set>
+
             <div class="row">
               <div class="col-sm-12 col-md-12">
                 <div class="card">
@@ -231,9 +233,12 @@
             </div>
             <br>
           </c:forEach>
+
         </c:otherwise>
       </c:choose>
     </c:if>
+
+
     <c:if test="${empty user}">
       <div class="row">
         <div class="col-sm-5">
@@ -241,5 +246,6 @@
         </div>
       </div>
     </c:if>
+
   </div>
 </div>
