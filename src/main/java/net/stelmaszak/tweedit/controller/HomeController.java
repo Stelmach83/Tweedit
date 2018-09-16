@@ -1,9 +1,7 @@
 package net.stelmaszak.tweedit.controller;
 
-import javafx.geometry.Pos;
 import net.stelmaszak.tweedit.entity.*;
 import net.stelmaszak.tweedit.helper.DataHelper;
-import net.stelmaszak.tweedit.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -85,6 +83,28 @@ public class HomeController {
         dataHelper.getAllCategoriesAndSendToView(model);
         dataHelper.setAppContext("wall", model);
         return "main";
+    }
+
+    @GetMapping("/app/followcat/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public String followCategory(@PathVariable Long id, Model model, Principal principal) {
+        Category followedCat = dataHelper.getCategoryById(id);
+        User user = dataHelper.getUserSendToView(principal, model);
+        Set<Category> userCategories = user.getCategories();
+        userCategories.add(followedCat);
+        dataHelper.saveUser(user);
+        return "redirect:/";
+    }
+
+    @GetMapping("/app/unfollowcat/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public String unfollowCategory(@PathVariable Long id, Model model, Principal principal) {
+        Category unfollowedCat = dataHelper.getCategoryById(id);
+        User user = dataHelper.getUserSendToView(principal, model);
+        Set<Category> userCategories = user.getCategories();
+        userCategories.remove(unfollowedCat);
+        dataHelper.saveUser(user);
+        return "redirect:/";
     }
 
 

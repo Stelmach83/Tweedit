@@ -105,25 +105,4 @@ public class StatelessController {
         userService.saveUser(owner);
     }
 
-    @PostMapping("/app/followcat/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    public void followCategory(@PathVariable Long id, Model model, Principal principal) {
-        Category followedCat = dataHelper.getCategoryById(id);
-        User user = dataHelper.getUserSendToView(principal, model);
-        Set<Category> userCategories = user.getCategories();
-        userCategories.add(followedCat);
-        userService.saveUser(user);
-
-    }
-
-    @PostMapping("/app/unfollowcat/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    public void unfollowCategory(@PathVariable Long id, Model model, Principal principal) {
-        Category unfollowedCat = dataHelper.getCategoryById(id);
-        User user = dataHelper.getUserSendToView(principal, model);
-        Set<Category> userCategories = user.getCategories();
-        userCategories.remove(unfollowedCat);
-        userService.saveUser(user);
-    }
-
 }

@@ -167,7 +167,7 @@
                                     </td>
                                   </c:when>
                                   <c:otherwise>
-                                    <td class="addcomment"><a href="#" class="nav-link">follow category</a></td>
+                                    <td class="addcomment"><a href="<%=request.getContextPath()%>/app/followcat/${post.getCategory().getId()}" class="nav-link">follow category</a></td>
                                   </c:otherwise>
                                 </c:choose>
                               </tr>
@@ -199,7 +199,7 @@
                                     </td>
                                   </c:when>
                                   <c:otherwise>
-                                    <td class="addcomment"><a href="#" class="nav-link">follow category</a></td>
+                                    <td class="addcomment"><a href="<%=request.getContextPath()%>/app/followcat/${post.getCategory().getId()}" class="nav-link">follow category</a></td>
                                   </c:otherwise>
                                 </c:choose>
                               </tr>
