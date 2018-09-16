@@ -23,7 +23,7 @@ public class CommentController {
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String addComment(Model model, Principal principal, @PathVariable String postId) {
         User user = dataHelper.getUserSendToView(principal, model);
-        List<Post> posts = dataHelper.getAllPostsFromNewest();
+        List<Post> posts = dataHelper.getSubPostsFromCats(principal, model);
         dataHelper.setTodaysDate(model);
         dataHelper.getAllCategoriesAndSendToView(model);
         dataHelper.getUserVotesSendToView(user, model);
@@ -41,7 +41,7 @@ public class CommentController {
     public String postComment(Model model, Principal principal, @Valid Comment comment, BindingResult result, @PathVariable String postId) {
         if (result.hasErrors()) {
             User user = dataHelper.getUserSendToView(principal, model);
-            List<Post> posts = dataHelper.getAllPostsFromNewest();
+            List<Post> posts = dataHelper.getSubPostsFromCats(principal, model);
             dataHelper.setTodaysDate(model);
             dataHelper.getAllCategoriesAndSendToView(model);
             dataHelper.getUserVotesSendToView(user, model);
@@ -53,7 +53,7 @@ public class CommentController {
         } else {
             User user = dataHelper.getUserSendToView(principal, model);
             dataHelper.setTodaysDate(model);
-            List<Post> posts = dataHelper.getAllPostsFromNewest();
+            List<Post> posts = dataHelper.getSubPostsFromCats(principal, model);
             dataHelper.saveCommment(comment, user);
             dataHelper.getAllCategoriesAndSendToView(model);
             dataHelper.getUserVotesSendToView(user, model);

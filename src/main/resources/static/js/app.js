@@ -115,8 +115,8 @@ $(function () {
 
     ///// FOLLOWING CATEGORIES
 
-    var followCat = $('div.catfollow');
-    followCat.one('click', function (e) {
+    var unfollowCat = $('div.catfollow');
+    unfollowCat.one('click', function (e) {
         e.preventDefault();
         var catId = $(this).data('cid');
         console.log(catId)
@@ -126,7 +126,26 @@ $(function () {
 
         if (button.html('unfollow')) {
             button.html('follow');
+            $.ajax({
+                url: "http://localhost:8080/app/unfollowcat/" + catId,
+                type: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                }
+            })
         }
+    })
+
+    var followCat = $('div.catfollow');
+    followCat.one('click', function (e) {
+        e.preventDefault();
+        var catId = $(this).data('cid');
+        console.log(catId)
+
+        var button = $(this).find('button')
+        var contextPath = $(this).data('contextpath');
+
         if (button.html('follow')) {
             button.html('unfollow');
             $.ajax({
@@ -138,7 +157,6 @@ $(function () {
                 }
             })
         }
-
     })
 
 });

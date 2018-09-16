@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class PostController {
@@ -60,7 +61,8 @@ public class PostController {
             dataHelper.getAllCategoriesAndSendToView(model);
             dataHelper.setCreatedAndUserDateAndSavePost(post, user);
             dataHelper.getIntegerUnreadMessagesForUser(user, model);
-            dataHelper.getPostDTOandSendToView(dataHelper.getAllPostsFromNewest(), user, model);
+            List<Post> posts = dataHelper.getSubPostsFromCats(principal, model);
+            dataHelper.getPostDTOandSendToView(posts, user, model);
             dataHelper.setAppContext("wall", model);
             return "main";
         }

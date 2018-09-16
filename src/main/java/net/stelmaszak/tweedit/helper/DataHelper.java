@@ -95,6 +95,13 @@ public class DataHelper {
         return postDTOS;
     }
 
+    public List<Post> getSubPostsFromCats(Principal principal, Model model) {
+        User user = getUserSendToView(principal, model);
+        Set<Category> categories = user.getCategories();
+        List<Post> posts = postService.getPostsForUserBySubsCats(categories);
+        return posts;
+    }
+
     public List<Comment> getAllComments() {
         return commentService.getAllOrderByDate();
     }

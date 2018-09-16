@@ -1,5 +1,6 @@
 package net.stelmaszak.tweedit.service;
 
+import net.stelmaszak.tweedit.entity.Category;
 import net.stelmaszak.tweedit.entity.Post;
 import net.stelmaszak.tweedit.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -33,6 +35,11 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post getPostById(Long id) {
         return postRepository.getOne(id);
+    }
+
+    @Override
+    public List<Post> getPostsForUserBySubsCats(Set<Category> categories) {
+        return postRepository.findAllByCategoryInOrderByCreatedDesc(categories);
     }
 
 
