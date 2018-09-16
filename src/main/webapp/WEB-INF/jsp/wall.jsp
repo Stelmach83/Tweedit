@@ -167,7 +167,7 @@
                                     </td>
                                   </c:when>
                                   <c:otherwise>
-                                    <td style="font-size: 9px">follow to add comments</td>
+                                    <td class="addcomment"><a href="#" class="nav-link">follow category</a></td>
                                   </c:otherwise>
                                 </c:choose>
                               </tr>
@@ -199,7 +199,7 @@
                                     </td>
                                   </c:when>
                                   <c:otherwise>
-                                    <td style="font-size: 9px">follow to add comments</td>
+                                    <td class="addcomment"><a href="#" class="nav-link">follow category</a></td>
                                   </c:otherwise>
                                 </c:choose>
                               </tr>
