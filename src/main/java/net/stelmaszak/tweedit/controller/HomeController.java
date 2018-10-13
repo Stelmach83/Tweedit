@@ -2,6 +2,7 @@ package net.stelmaszak.tweedit.controller;
 
 import net.stelmaszak.tweedit.entity.*;
 import net.stelmaszak.tweedit.helper.DataHelper;
+import net.stelmaszak.tweedit.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -48,7 +49,7 @@ public class HomeController {
         User user = dataHelper.getUserSendToView(principal, model);
         if (user != null) {
             dataHelper.setTodaysDate(model);
-            List<Post> posts = dataHelper.getSubPostsFromCats(principal, model);
+            List<Post> posts = dataHelper.getPostsByFollowedCatsAndUsers(principal, model);
             dataHelper.getPostDTOandSendToView(posts, user, model);
             dataHelper.getAllCategoriesAndSendToView(model);
             dataHelper.getUserVotesSendToView(user, model);

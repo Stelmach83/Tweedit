@@ -25,7 +25,9 @@
               <div class="row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-9">
-                  <a href="#"><button type="button" class="btn btn-outline-dark btn-sm">follow</button></a>
+                  <a href="<%=request.getContextPath()%>/app/followuser/${viewUser.getId()}">
+                    <button type="button" class="btn btn-outline-dark btn-sm">follow</button>
+                  </a>
                   <%--<button type="button" class="btn btn-outline-dark btn-sm">unfollow</button>--%>
                 </div>
               </div>

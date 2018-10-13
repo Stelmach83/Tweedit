@@ -106,6 +106,19 @@ public class DataHelper {
         return posts;
     }
 
+    public List<Post> getPostsByFollowedCatsAndUsers(Principal principal, Model model) {
+        User user = getUserSendToView(principal, model);
+        List<Post> posts = postService.getPostsByFollowedCatsAndUsers(user.getCategories(), user.getSubbedToUsers());
+        return posts;
+    }
+
+    public List<Post> getSubPostsFromUsers(Principal principal, Model model) {
+        User user = getUserSendToView(principal, model);
+        List<User> subbedUsers = user.getSubbedToUsers();
+        List<Post> posts = postService.getPostForUsersSubs(subbedUsers);
+        return posts;
+    }
+
     public List<Post> getPostsByCategory(Category category) {
         List<Post> posts = postService.getPostsByCat(category);
         return posts;
