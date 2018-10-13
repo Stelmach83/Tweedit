@@ -70,7 +70,7 @@ public class PostController {
             dataHelper.getAllCategoriesAndSendToView(model);
             dataHelper.setCreatedAndUserDateAndSavePost(post, user);
             dataHelper.getIntegerUnreadMessagesForUser(user, model);
-            List<Post> posts = dataHelper.getSubPostsFromCats(principal, model);
+            List<Post> posts = dataHelper.getPostsByFollowedCatsAndUsers(principal, model);
             dataHelper.getPostDTOandSendToView(posts, user, model);
             dataHelper.setAppContext("wall", model);
             return "main";

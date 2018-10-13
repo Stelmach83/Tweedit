@@ -108,6 +108,8 @@ public class HomeController {
         return "redirect:/";
     }
 
+    // dodać unfollow user
+
     @GetMapping("/app/unfollowcat/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String unfollowCategory(@PathVariable Long id, Model model, Principal principal) {
