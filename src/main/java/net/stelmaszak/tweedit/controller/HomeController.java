@@ -88,10 +88,22 @@ public class HomeController {
     @GetMapping("/app/followcat/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String followCategory(@PathVariable Long id, Model model, Principal principal) {
-        Category followedCat = dataHelper.getCategoryById(id);
+        Category followCat = dataHelper.getCategoryById(id);
         User user = dataHelper.getUserSendToView(principal, model);
         Set<Category> userCategories = user.getCategories();
-        userCategories.add(followedCat);
+        userCategories.add(followCat);
+        dataHelper.saveUser(user);
+        return "redirect:/";
+    }
+
+    // end point aby dodać usera do listy obserwowanych
+    @GetMapping("/app/followuser/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public String followUser(@PathVariable Long id, Model model, Principal principal) {
+        User followUser = dataHelper.getUserById(id);
+        User user = dataHelper.getUserSendToView(principal, model);
+        List<User> followedUsers = user.getSubbedToUsers();
+        followedUsers.add(followUser);
         dataHelper.saveUser(user);
         return "redirect:/";
     }

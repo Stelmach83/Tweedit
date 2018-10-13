@@ -193,4 +193,8 @@ public class DataHelper {
         return categoryService.getCategoryById(id);
     }
 
+    public User getUserById(Long id) {
+        return userService.getUserById(id);
+    }
+
 }
