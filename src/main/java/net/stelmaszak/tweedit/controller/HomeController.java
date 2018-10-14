@@ -96,6 +96,17 @@ public class HomeController {
         return "redirect:/";
     }
 
+    @GetMapping("/app/unfollowcat/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public String unfollowCategory(@PathVariable Long id, Model model, Principal principal) {
+        Category unfollowedCat = dataHelper.getCategoryById(id);
+        User user = dataHelper.getUserSendToView(principal, model);
+        Set<Category> userCategories = user.getCategories();
+        userCategories.remove(unfollowedCat);
+        dataHelper.saveUser(user);
+        return "redirect:/";
+    }
+
     @GetMapping("/app/followuser/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String followUser(@PathVariable Long id, Model model, Principal principal) {
@@ -129,18 +140,6 @@ public class HomeController {
         }
         return "redirect:/";
     }
-
-    @GetMapping("/app/unfollowcat/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    public String unfollowCategory(@PathVariable Long id, Model model, Principal principal) {
-        Category unfollowedCat = dataHelper.getCategoryById(id);
-        User user = dataHelper.getUserSendToView(principal, model);
-        Set<Category> userCategories = user.getCategories();
-        userCategories.remove(unfollowedCat);
-        dataHelper.saveUser(user);
-        return "redirect:/";
-    }
-
 
     @RequestMapping("/app")
     @PreAuthorize("hasAnyRole('ADMIN')")
