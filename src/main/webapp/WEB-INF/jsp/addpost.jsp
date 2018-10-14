@@ -8,7 +8,7 @@
 <br>
 <h4>Add Post</h4>
 
-<form:form method="post" action="/app/addpost" modelAttribute="post">
+<form:form method="post" modelAttribute="post">
   <form>
     <input type="hidden" name="user.id" value="${user.getId()}">
     <div class="form-group">

@@ -12,14 +12,28 @@
         <c:when test="${postdtos.size() eq 0}">
           <div class="row">
             <div class="col-sm-12">
-              <h4 class="card-title mb-0">Please customise your wall by following a category and/or user.</h4>
+              <c:choose>
+                <c:when test="${noposts}">
+                  <h4 class="card-title mb-0">Please customise your wall by following a category and/or user.</h4>
+                </c:when>
+                <c:otherwise>
+                  <h4 class="card-title mb-0">There are no posts in this category.</h4
+                </c:otherwise>
+              </c:choose>
             </div>
           </div>
         </c:when>
         <c:otherwise>
           <div class="row">
             <div class="col-sm-12">
-              <h4 class="card-title mb-0">Your wall</h4>
+              <c:choose>
+                <c:when test="${catview ne null}">
+                  <h4 class="card-title mb-0">${catview.getName()}</h4>
+                </c:when>
+                <c:otherwise>
+                  <h4 class="card-title mb-0">Your wall</h4>
+                </c:otherwise>
+              </c:choose>
               <div class="small text-muted"><fmt:formatDate pattern="dd-MM-yyyy" value="${now}"/></div>
             </div>
           </div>

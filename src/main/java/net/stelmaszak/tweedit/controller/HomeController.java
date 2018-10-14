@@ -49,6 +49,9 @@ public class HomeController {
         if (user != null) {
             dataHelper.setTodaysDate(model);
             List<Post> posts = dataHelper.getPostsByFollowedCatsAndUsers(principal, model);
+            if (posts.size() == 0) {
+                model.addAttribute("noposts", "true");
+            }
             dataHelper.getPostDTOandSendToView(posts, user, model);
             dataHelper.getAllCategoriesAndSendToView(model);
             dataHelper.getUserVotesSendToView(user, model);

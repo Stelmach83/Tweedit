@@ -36,6 +36,7 @@ public class PostController {
         User user = dataHelper.getUserSendToView(principal, model);
         Category category = dataHelper.getCategoryById(catId);
         List<Post> posts = dataHelper.getPostsByCategory(category);
+        model.addAttribute("catview", category);
         dataHelper.getPostDTOandSendToView(posts, user, model);
         dataHelper.getAllCategoriesAndSendToView(model);
         dataHelper.setAppContext("wall", model);
