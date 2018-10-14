@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.Set;
 
 @RestController
 public class StatelessController {
@@ -26,8 +25,6 @@ public class StatelessController {
     private CategoryService categoryService;
     @Autowired
     private DataHelper dataHelper;
-
-    // TODO Add comment voting and refactor to DataHelper
 
     @PostMapping("/app/votedup/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")

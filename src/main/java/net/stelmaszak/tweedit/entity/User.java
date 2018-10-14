@@ -7,7 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -55,11 +54,11 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_subs", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "sub_id"))
-    private List<User> subbedToUsers;
+    private Set<User> subbedToUsers;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_subs", joinColumns = @JoinColumn(name = "sub_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> usersSubbedToYou;
+    private Set<User> usersSubbedToYou;
 
     @OneToMany(mappedBy = "user")
     private Set<Vote> votes;                            // user ma set swoich łapek w górę i dół
@@ -71,6 +70,8 @@ public class User {
     private Set<Message> sent;                          // user ma set wysłanych wiadomości
 
     private Long points;                                // zsumowana ilość puntów za Votes z Comments i Posts
+
+    private Long followers;                             // ilość userów którzy Cię followują
 
     public User() {
     }
@@ -187,20 +188,29 @@ public class User {
         this.categories = categories;
     }
 
-    public List<User> getSubbedToUsers() {
+    public Set<User> getSubbedToUsers() {
         return subbedToUsers;
     }
 
-    public void setSubbedToUsers(List<User> subbedToUsers) {
+    public void setSubbedToUsers(Set<User> subbedToUsers) {
         this.subbedToUsers = subbedToUsers;
     }
 
-    public List<User> getUsersSubbedToYou() {
+    public Set<User> getUsersSubbedToYou() {
         return usersSubbedToYou;
     }
 
-    public void setUsersSubbedToYou(List<User> usersSubbedToYou) {
+    public void setUsersSubbedToYou(Set<User> usersSubbedToYou) {
         this.usersSubbedToYou = usersSubbedToYou;
+    }
+
+    public Long getFollowers() {
+        followers = Long.valueOf(usersSubbedToYou.size());
+        return followers;
+    }
+
+    public void setFollowers(Long followers) {
+        this.followers = followers;
     }
 
     public Set<Message> getReceived() {

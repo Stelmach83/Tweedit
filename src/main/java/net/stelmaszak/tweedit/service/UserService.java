@@ -17,6 +17,8 @@ public interface UserService {
 
     List<User> getTop10Users();
 
+    List<User> getTop10UserByFollowers();
+
     User getUserById(Long id);
 
 }

@@ -49,8 +49,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getPostsByFollowedCatsAndUsers(Set<Category> categories, List<User> userList) {
-        return postRepository.findAllByCategoryInOrUserInOrderByCreatedDesc(categories, userList);
+    public List<Post> getPostsByFollowedCatsAndUsers(Set<Category> categories, Set<User> users) {
+        return postRepository.findAllByCategoryInOrUserInOrderByCreatedDesc(categories, users);
     }
 
     @Override

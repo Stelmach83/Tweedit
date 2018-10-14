@@ -104,33 +104,33 @@
               </thead>
               <tbody>
 
-              <c:forEach var="u" items="${rankings}" varStatus="loop">
+              <c:forEach var="u" items="${frankings}" varStatus="loop">
                 <c:if test="${loop.index + 1 eq 1}">
                   <tr style="background-color: #ffdc73">
                     <td style="text-align: left">Rank ${loop.index + 1}</td>
                     <td style="text-align: center">${u.getUsername()}</td>
-                    <td style="text-align: right">${u.getPoints()} <i class="icon-user"></i></td>
+                    <td style="text-align: right">${u.getFollowers()} <i class="icon-user"></i></td>
                   </tr>
                 </c:if>
                 <c:if test="${loop.index + 1 eq 2}">
                   <tr style="background-color: #dadada">
                     <td style="text-align: left">Rank ${loop.index + 1}</td>
                     <td style="text-align: center">${u.getUsername()}</td>
-                    <td style="text-align: right">${u.getPoints()} <i class="icon-user"></i></td>
+                    <td style="text-align: right">${u.getFollowers()} <i class="icon-user"></i></td>
                   </tr>
                 </c:if>
                 <c:if test="${loop.index + 1 eq 3}">
                   <tr style="background-color: #e8c4a0">
                     <td style="text-align: left">Rank ${loop.index + 1}</td>
                     <td style="text-align: center">${u.getUsername()}</td>
-                    <td style="text-align: right">${u.getPoints()} <i class="icon-user"></i></td>
+                    <td style="text-align: right">${u.getFollowers()} <i class="icon-user"></i></td>
                   </tr>
                 </c:if>
                 <c:if test="${loop.index + 1 ne 3 && loop.index + 1 ne 1 && loop.index + 1 ne 2}">
                   <tr>
                     <td style="text-align: left">Rank ${loop.index + 1}</td>
                     <td style="text-align: center">${u.getUsername()}</td>
-                    <td style="text-align: right">${u.getPoints()} <i class="icon-user"></i></td>
+                    <td style="text-align: right">${u.getFollowers()} <i class="icon-user"></i></td>
                   </tr>
                 </c:if>
               </c:forEach>

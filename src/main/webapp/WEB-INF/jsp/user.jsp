@@ -25,10 +25,18 @@
               <div class="row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-9">
-                  <a href="<%=request.getContextPath()%>/app/followuser/${viewUser.getId()}">
-                    <button type="button" class="btn btn-outline-dark btn-sm">follow</button>
-                  </a>
-                  <%--<button type="button" class="btn btn-outline-dark btn-sm">unfollow</button>--%>
+                  <c:choose>
+                    <c:when test="${user.getSubbedToUsers().contains(viewUser)}">
+                      <a href="<%=request.getContextPath()%>/app/unfollowuser/${viewUser.getId()}">
+                        <button type="button" class="btn btn-outline-dark btn-sm">unfollow</button>
+                      </a>
+                    </c:when>
+                    <c:otherwise>
+                      <a href="<%=request.getContextPath()%>/app/followuser/${viewUser.getId()}">
+                        <button type="button" class="btn btn-outline-dark btn-sm">follow</button>
+                      </a>
+                    </c:otherwise>
+                  </c:choose>
                 </div>
               </div>
             </div>

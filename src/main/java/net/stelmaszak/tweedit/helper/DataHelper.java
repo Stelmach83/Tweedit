@@ -68,6 +68,8 @@ public class DataHelper {
         roles.add(Role.USER);
         user.setRoles(roles);
         user.setJoined(new Date());
+        user.setFollowers(0L);
+        user.setPoints(0L);
         userService.saveUser(user);
     }
 
@@ -109,13 +111,6 @@ public class DataHelper {
     public List<Post> getPostsByFollowedCatsAndUsers(Principal principal, Model model) {
         User user = getUserSendToView(principal, model);
         List<Post> posts = postService.getPostsByFollowedCatsAndUsers(user.getCategories(), user.getSubbedToUsers());
-        return posts;
-    }
-
-    public List<Post> getSubPostsFromUsers(Principal principal, Model model) {
-        User user = getUserSendToView(principal, model);
-        List<User> subbedUsers = user.getSubbedToUsers();
-        List<Post> posts = postService.getPostForUsersSubs(subbedUsers);
         return posts;
     }
 
@@ -199,6 +194,12 @@ public class DataHelper {
     public List<User> getTop10Users(Model model) {
         List<User> users = userService.getTop10Users();
         model.addAttribute("rankings", users);
+        return users;
+    }
+
+    public List<User> getTop10UsersByFollowers(Model model) {
+        List<User> users = userService.getTop10UserByFollowers();
+        model.addAttribute("frankings", users);
         return users;
     }
 

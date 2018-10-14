@@ -96,19 +96,39 @@ public class HomeController {
         return "redirect:/";
     }
 
-    // end point aby dodać usera do listy obserwowanych
     @GetMapping("/app/followuser/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String followUser(@PathVariable Long id, Model model, Principal principal) {
-        User followUser = dataHelper.getUserById(id);
+        User userToFollow = dataHelper.getUserById(id);
         User user = dataHelper.getUserSendToView(principal, model);
-        List<User> followedUsers = user.getSubbedToUsers();
-        followedUsers.add(followUser);
-        dataHelper.saveUser(user);
+        Set<User> following = user.getSubbedToUsers();
+        if (!following.contains(userToFollow)) {
+            following.add(userToFollow);
+            userToFollow.setFollowers(userToFollow.getFollowers() + 1);
+            dataHelper.saveUser(userToFollow);
+            dataHelper.saveUser(user);
+        }
         return "redirect:/";
     }
 
-    // dodać unfollow user
+    @GetMapping("/app/unfollowuser/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public String unfollowUser(@PathVariable Long id, Model model, Principal principal) {
+        User userToUnfollow = dataHelper.getUserById(id);
+        User user = dataHelper.getUserSendToView(principal, model);
+        Set<User> following = user.getSubbedToUsers();
+        if (following.contains(userToUnfollow)) {
+            following.remove(userToUnfollow);
+            if (userToUnfollow.getFollowers() > 0) {
+                userToUnfollow.setFollowers(userToUnfollow.getFollowers() - 1);
+            } else {
+                userToUnfollow.setFollowers(0L);
+            }
+            dataHelper.saveUser(userToUnfollow);
+            dataHelper.saveUser(user);
+        }
+        return "redirect:/";
+    }
 
     @GetMapping("/app/unfollowcat/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")

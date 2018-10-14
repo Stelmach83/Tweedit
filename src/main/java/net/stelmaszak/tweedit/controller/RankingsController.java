@@ -21,6 +21,7 @@ public class RankingsController {
     public String showRankings(Model model, Principal principal) {
         User user = dataHelper.getUserSendToView(principal, model);
         dataHelper.getTop10Users(model);
+        dataHelper.getTop10UsersByFollowers(model);
         dataHelper.setAppContext("rankings", model);
         dataHelper.setTodaysDate(model);
         dataHelper.getIntegerUnreadMessagesForUser(user, model);

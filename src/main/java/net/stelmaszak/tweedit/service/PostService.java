@@ -23,6 +23,6 @@ public interface PostService {
 
     List<Post> getPostForUsersSubs(List<User> userList);
 
-    List<Post> getPostsByFollowedCatsAndUsers(Set<Category> categories, List<User> userList);
+    List<Post> getPostsByFollowedCatsAndUsers(Set<Category> categories, Set<User> userList);
 
 }

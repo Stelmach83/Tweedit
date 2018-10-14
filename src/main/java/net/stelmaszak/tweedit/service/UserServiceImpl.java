@@ -46,6 +46,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getTop10UserByFollowers() {
+        return userRepository.getAllByOrderByFollowersDesc();
+    }
+
+    @Override
     public User getUserById(Long id) {
         return userRepository.getOne(id);
     }

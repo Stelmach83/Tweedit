@@ -18,6 +18,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findAllByCategoryOrderByCreatedDesc(Category category);
 
-    List<Post> findAllByCategoryInOrUserInOrderByCreatedDesc(Set<Category> categories, List<User> users);
+    List<Post> findAllByCategoryInOrUserInOrderByCreatedDesc(Set<Category> categories, Set<User> users);
 
 }
