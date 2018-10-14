@@ -12,7 +12,7 @@
         <c:when test="${postdtos.size() eq 0}">
           <div class="row">
             <div class="col-sm-12">
-              <h4 class="card-title mb-0">Please choose or follow a category or user to see posts on your wall.</h4>
+              <h4 class="card-title mb-0">Please customise your wall by following a category and/or user.</h4>
             </div>
           </div>
         </c:when>
