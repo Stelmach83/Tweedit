@@ -238,6 +238,7 @@ public class User {
                 ", joined=" + joined +
                 ", roles=" + roles +
                 ", points=" + points +
+                ", followers=" + followers +
                 '}';
     }
 
