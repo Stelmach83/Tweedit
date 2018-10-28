@@ -1,4 +1,4 @@
-package net.stelmaszak.validator;
+package net.stelmaszak.tweedit.validator;
 
 
 import javax.validation.Constraint;
@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 public @interface MatchingPass {
     String[] value();
 
-    String message() default "Passwords have to be the same.";
+    String message() default "Passwords have to be matching.";
 
     Class<?>[] groups() default {};
 

@@ -1,4 +1,4 @@
-package net.stelmaszak.validator;
+package net.stelmaszak.tweedit.validator;
 
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.PropertyAccessorFactory;

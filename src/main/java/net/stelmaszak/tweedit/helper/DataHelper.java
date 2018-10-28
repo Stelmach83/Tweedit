@@ -211,4 +211,14 @@ public class DataHelper {
         return userService.getUserById(id);
     }
 
+    public boolean isUserUnique(String username) {
+        Long userCount = userService.isUserUnique(username);
+        return userCount > 0 ? false : true;
+    }
+
+    public boolean isEmailUnique(String email) {
+        Long userCount = userService.isEmailUnique(email);
+        return userCount > 0 ? false : true;
+    }
+
 }

@@ -21,4 +21,8 @@ public interface UserService {
 
     User getUserById(Long id);
 
+    Long isUserUnique(String username);
+
+    Long isEmailUnique(String email);
+
 }

@@ -54,4 +54,14 @@ public class UserServiceImpl implements UserService {
     public User getUserById(Long id) {
         return userRepository.getOne(id);
     }
+
+    @Override
+    public Long isUserUnique(String username) {
+        return userRepository.countUsersByUsername(username);
+    }
+
+    @Override
+    public Long isEmailUnique(String email) {
+        return userRepository.countUsersByEmail(email);
+    }
 }

@@ -14,4 +14,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> getAllByOrderByFollowersDesc();
 
+    Long countUsersByUsername(String username);
+
+    Long countUsersByEmail(String email);
+
 }
