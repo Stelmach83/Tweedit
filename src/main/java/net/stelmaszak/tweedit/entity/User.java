@@ -1,10 +1,7 @@
 package net.stelmaszak.tweedit.entity;
 
 import lombok.EqualsAndHashCode;
-import net.stelmaszak.tweedit.validator.UniqueEmail;
-import net.stelmaszak.tweedit.validator.UniqueUser;
-import net.stelmaszak.tweedit.validator.UserRegisterValidationGroup;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import net.stelmaszak.tweedit.validator.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -13,6 +10,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
+@EnableMatchConstraint(groups = UserRegisterValidationGroup.class)
 public class User {
 
     @Id
@@ -36,6 +34,7 @@ public class User {
     private String password;
 
     @Transient
+    @Match(field = "password", message = "Passwords must match.")
     private String password2;
 
     private Date joined;
@@ -118,8 +117,10 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+//        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+        this.password = password;
     }
+
 
     public String getPassword2() {
         return password2;

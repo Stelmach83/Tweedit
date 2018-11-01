@@ -5,6 +5,7 @@ import net.stelmaszak.tweedit.dto.PostDTO;
 import net.stelmaszak.tweedit.entity.*;
 import net.stelmaszak.tweedit.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
@@ -70,6 +71,7 @@ public class DataHelper {
         user.setJoined(new Date());
         user.setFollowers(0L);
         user.setPoints(0L);
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         userService.saveUser(user);
     }
 

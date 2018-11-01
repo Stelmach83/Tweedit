@@ -1,18 +1,16 @@
 package net.stelmaszak.tweedit.validator;
 
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
-@Constraint(validatedBy = MatchingPassValidator.class)
-@Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
+@Constraint(validatedBy = MatchValidator.class)
 @Documented
-public @interface MatchingPass {
-    String[] value();
+public @interface EnableMatchConstraint {
 
-    String message() default "Passwords have to be matching.";
+    String message() default "Fields must match!";
 
     Class<?>[] groups() default {};
 
