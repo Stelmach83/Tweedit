@@ -77,7 +77,7 @@ public class DataHelper {
         userService.saveUser(user);
     }
 
-    // TODO refactor
+    // TODO refactor test
     public List<PostDTO> getPostDTOandSendToView(List<Post> posts, User user, Model model) {
         List<Vote> userVotes = getUserVotesSendToView(user, model);
         List<PostDTO> postDTOS =
