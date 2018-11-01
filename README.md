@@ -19,7 +19,7 @@ It is possible to vote up or down on Posts, and Comments (Reddit funtionality), 
 * Hibernate
 * Validation JSR-303/JSR-349
 * MySQL
-* jQuery
+* jQuery (Ajax)
 * Bootstrap
 * Https: SSL Certificate
     
