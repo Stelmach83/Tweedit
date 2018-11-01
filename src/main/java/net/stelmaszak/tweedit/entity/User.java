@@ -3,6 +3,7 @@ package net.stelmaszak.tweedit.entity;
 import lombok.EqualsAndHashCode;
 import net.stelmaszak.tweedit.validator.UniqueEmail;
 import net.stelmaszak.tweedit.validator.UniqueUser;
+import net.stelmaszak.tweedit.validator.UserRegisterValidationGroup;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import javax.persistence.*;
@@ -22,13 +23,13 @@ public class User {
     @Column(unique = true)
     @Email
     @EqualsAndHashCode.Include
-    @UniqueEmail
+    @UniqueEmail(groups = UserRegisterValidationGroup.class)
     private String email;
 
     @Column(unique = true)
     @Size(min = 3, max = 12, message = "Username needs to be between 3 - 12 characters.")
     @EqualsAndHashCode.Include
-    @UniqueUser
+    @UniqueUser(groups = UserRegisterValidationGroup.class)
     private String username;
 
     @Size(min = 4, max = 200, message = "Password needs to be between 4 - 200 characters.")

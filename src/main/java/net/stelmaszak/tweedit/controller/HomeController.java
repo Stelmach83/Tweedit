@@ -2,19 +2,20 @@ package net.stelmaszak.tweedit.controller;
 
 import net.stelmaszak.tweedit.entity.*;
 import net.stelmaszak.tweedit.helper.DataHelper;
+import net.stelmaszak.tweedit.validator.UserRegisterValidationGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.security.Principal;
 import java.util.*;
 
@@ -33,7 +34,7 @@ public class HomeController {
     }
 
     @PostMapping("/register")
-    public String postRegister(Model model, Principal principal, @Valid User newuser, BindingResult result) {
+    public String postRegister(Model model, Principal principal, @Validated({UserRegisterValidationGroup.class}) User newuser, BindingResult result) {
         if (result.hasErrors()) {
             dataHelper.setAppContext("register", model);
         } else {
