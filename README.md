@@ -1,9 +1,9 @@
 # Tweedit (Work in Progress)
-### Version 0.0.1 available @ www.stelmaszak.net/tweedit
+### Version 0.0.1 deployed @ www.stelmaszak.net/tweedit
 
 This is a portfolio application that is a mutation-combination of Tweeter and Reddit. 
 
-It supports following categories (think of subreddits on Reddit), and following users (think of followers on Tweeter).
+It supports following categories (think of subreddits on Reddit), and following users (think of followers on Tweeter), DM's to Users, etc.
 
 You customize your own Wall by following the Users/Categories that interest you.
 
