@@ -21,7 +21,7 @@ It is possible to vote up or down on Posts, and Comments (Reddit funtionality), 
 * MySQL
 * jQuery (Ajax)
 * Bootstrap
-* DevOps (VPS Server):
+* DevOps (VPS server deployment):
     * Ubuntu 16.04.5
     * Tomcat 8.5
     * Https: SSL Certificate
