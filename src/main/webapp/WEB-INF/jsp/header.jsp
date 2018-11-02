@@ -1,3 +1,4 @@
+<%@ page import="net.stelmaszak.tweedit.entity.Role" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -98,6 +99,12 @@
                   <a class="dropdown-item text-center" href="#">
                     Review your votes
                   </a>
+                  <% pageContext.setAttribute("admin", Role.ADMIN); %>
+                  <c:if test="${user.getRoles().contains(admin)}">
+                    <a class="dropdown-item text-center" href="<%=request.getContextPath()%>/app/logs">
+                      Logs
+                    </a>
+                  </c:if>
                   <a class="dropdown-item text-center" href="<%=request.getContextPath()%>/login?logout"><strong>logout</strong></a>
                 </div>
               </li>
