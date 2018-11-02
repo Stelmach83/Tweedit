@@ -13,6 +13,7 @@ It is possible to vote up or down on Posts, and Comments (Reddit funtionality), 
 * Java
 * Spring:
     * Spring Boot
+    * Spring Security
     * Spring MVC
     * Spring Data
     * Rest Controllers (REST API)
