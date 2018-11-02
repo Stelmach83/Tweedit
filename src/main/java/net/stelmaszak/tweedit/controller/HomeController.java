@@ -53,13 +53,29 @@ public class HomeController {
             if (posts.size() == 0) {
                 model.addAttribute("noposts", "true");
             }
-            dataHelper.getPostDTOandSendToView(posts, user, model);
             dataHelper.getAllCategoriesAndSendToView(model);
             dataHelper.getUserVotesSendToView(user, model);
             dataHelper.getIntegerUnreadMessagesForUser(user, model);
+            dataHelper.getPostDTOandSendToView(posts, user, model);
             session.setMaxInactiveInterval(60 * 60 * 24 * 7);
         }
         dataHelper.setAppContext("wall", model);
+        return "main";
+    }
+
+    @RequestMapping("/app/logs")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public String logs(Model model, Principal principal, HttpSession session) {
+        User user = dataHelper.getUserSendToView(principal, model);
+        if (user != null) {
+            dataHelper.setTodaysDate(model);
+            dataHelper.getAllLogs(model);
+            dataHelper.getAllCategoriesAndSendToView(model);
+            dataHelper.getIntegerUnreadMessagesForUser(user, model);
+            dataHelper.getUserVotesSendToView(user, model);
+            session.setMaxInactiveInterval(60 * 60 * 24 * 7);
+        }
+        dataHelper.setAppContext("logs", model);
         return "main";
     }
 

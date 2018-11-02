@@ -3,6 +3,7 @@ package net.stelmaszak.tweedit.helper;
 import net.stelmaszak.tweedit.dto.CommentDTO;
 import net.stelmaszak.tweedit.dto.PostDTO;
 import net.stelmaszak.tweedit.entity.*;
+import net.stelmaszak.tweedit.filter.ReqInfo;
 import net.stelmaszak.tweedit.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -28,6 +29,8 @@ public class DataHelper {
     private VoteService voteService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private FilterService filterService;
 
     public User getUserSendToView(Principal principal, Model model) {
         if (principal != null) {
@@ -137,6 +140,12 @@ public class DataHelper {
         List<Message> messages = messageService.getMessagesByToUser(user);
         model.addAttribute("messages", messages);
         return messages;
+    }
+
+    public List<ReqInfo> getAllLogs(Model model) {
+        List<ReqInfo> logs = filterService.getAllLogs();
+        model.addAttribute("logslist", logs);
+        return logs;
     }
 
     public Message showMessage(Long message_id, Model model) {
