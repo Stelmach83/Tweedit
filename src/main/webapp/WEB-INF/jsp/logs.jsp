@@ -37,7 +37,7 @@
                             <thead>
                             <tr>
                                 <th style="text-align: center">Id</th>
-                                <th style="text-align: center">Browser/Device</th>
+                                <th style="text-align: center">Device/Browser</th>
                                 <th style="text-align: center">Date</th>
                                 <th style="text-align: center">Ping</th>
                                 <th style="text-align: center">IP</th>

@@ -175,7 +175,16 @@ public class HomeController {
     }
 
     @RequestMapping("/accessDenied")
-    public String accessDenied() {
-        return "accessDenied";
+    public String accessDenied(Principal principal, Model model) {
+        User user = dataHelper.getUserSendToView(principal, model);
+        if (user != null) {
+            dataHelper.setTodaysDate(model);
+            dataHelper.getAllLogs(model);
+            dataHelper.getAllCategoriesAndSendToView(model);
+            dataHelper.getIntegerUnreadMessagesForUser(user, model);
+            dataHelper.getUserVotesSendToView(user, model);
+        }
+        dataHelper.setAppContext("accessDenied", model);
+        return "main";
     }
 }

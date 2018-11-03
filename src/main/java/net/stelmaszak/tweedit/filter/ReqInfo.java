@@ -12,16 +12,16 @@ public class ReqInfo {
     private String browser;
     private Date dataCzas;
     private int reqTime;
-    private String ipAdress;
+    private String ipAddress;
 
     public ReqInfo() {
     }
 
-    public ReqInfo(String browser, Date dataCzas, int reqTime, String ipAdress) {
+    public ReqInfo(String browser, Date dataCzas, int reqTime, String ipAddress) {
         this.browser = browser;
         this.dataCzas = dataCzas;
         this.reqTime = reqTime;
-        this.ipAdress = ipAdress;
+        this.ipAddress = ipAddress;
     }
 
     public Long getId() {
@@ -56,12 +56,12 @@ public class ReqInfo {
         this.reqTime = reqTime;
     }
 
-    public String getIpAdress() {
-        return ipAdress;
+    public String getIpAddress() {
+        return ipAddress;
     }
 
-    public void setIpAdress(String ipAdress) {
-        this.ipAdress = ipAdress;
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class ReqInfo {
                 ", browser='" + browser + '\'' +
                 ", dataCzas=" + dataCzas +
                 ", reqTime=" + reqTime +
-                ", ipAdress='" + ipAdress + '\'' +
+                ", ipAddress='" + ipAddress + '\'' +
                 '}';
     }
 }
