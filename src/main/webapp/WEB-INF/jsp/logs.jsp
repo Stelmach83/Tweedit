@@ -50,7 +50,7 @@
                                     <td style="text-align: center">${log.getBrowser()}</td>
                                     <td style="text-align: center"><fmt:formatDate pattern="dd-MM-yyyy HH:mm:ss" value="${log.getDataCzas()}"/></td>
                                     <td style="text-align: center">${log.getReqTime()}</td>
-                                    <td style="text-align: center">${log.getIpAdress()}</td>
+                                    <td style="text-align: center">${log.getIpAddress()}</td>
                                 </tr>
                             </c:forEach>
                             </tbody>
