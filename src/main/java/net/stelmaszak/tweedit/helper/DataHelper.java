@@ -47,8 +47,11 @@ public class DataHelper {
 
     public User getViewUser(Long id, Model model) {
         User viewUser = userService.getUserById(id);
-        model.addAttribute("viewUser", viewUser);
-        return viewUser;
+        if (viewUser != null) {
+            model.addAttribute("viewUser", viewUser);
+            return viewUser;
+        }
+        return null;
     }
 
     public List<Vote> getUserVotesSendToView(User user, Model model) {

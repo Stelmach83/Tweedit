@@ -21,11 +21,9 @@ public class CustomErrorController implements ErrorController {
         User user = dataHelper.getUserSendToView(principal, model);
         if (user != null) {
             dataHelper.setTodaysDate(model);
-            dataHelper.getAllLogs(model);
             dataHelper.getIntegerUnreadMessagesForUser(user, model);
-            dataHelper.getAllCategoriesAndSendToView(model);
-            dataHelper.getUserVotesSendToView(user, model);
         }
+        dataHelper.getAllCategoriesAndSendToView(model);
         dataHelper.setAppContext("error", model);
         return "main";
     }

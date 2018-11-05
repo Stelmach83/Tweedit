@@ -22,7 +22,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category getCategoryById(Long id) {
-        return categoryRepository.getOne(id);
+        return categoryRepository.findById(id).orElse(null);
     }
 
     @Override

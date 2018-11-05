@@ -31,7 +31,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Message getMessagyById(Long id) {
-        return messageRepository.getOne(id);
+        return messageRepository.findById(id).orElse(null);
     }
 
     @Override
