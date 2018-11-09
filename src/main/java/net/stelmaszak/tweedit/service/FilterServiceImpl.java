@@ -17,6 +17,6 @@ public class FilterServiceImpl implements FilterService {
 
     @Override
     public List<ReqInfo> getAllLogs() {
-        return reqInfoRepository.findAll();
+        return reqInfoRepository.findAllByOrderByDataCzasDesc();
     }
 }
