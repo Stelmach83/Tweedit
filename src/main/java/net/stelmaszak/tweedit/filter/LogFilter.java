@@ -68,7 +68,8 @@ public class LogFilter implements Filter {
         if (ipAddress == null) {
             ipAddress = request.getRemoteAddr();
         }
-        reqInfoRepository.save(new ReqInfo(przeglad, dateTime, czasZadania, ipAddress));
+        String servletPath = ((HttpServletRequest) request).getServletPath();
+        reqInfoRepository.save(new ReqInfo(przeglad, dateTime, czasZadania, ipAddress, servletPath));
     }
 
     @Override

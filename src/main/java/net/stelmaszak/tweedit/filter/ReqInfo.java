@@ -13,15 +13,17 @@ public class ReqInfo {
     private Date dataCzas;
     private int reqTime;
     private String ipAddress;
+    private String servletPath;
 
     public ReqInfo() {
     }
 
-    public ReqInfo(String browser, Date dataCzas, int reqTime, String ipAddress) {
+    public ReqInfo(String browser, Date dataCzas, int reqTime, String ipAddress, String servletPath) {
         this.browser = browser;
         this.dataCzas = dataCzas;
         this.reqTime = reqTime;
         this.ipAddress = ipAddress;
+        this.servletPath = servletPath;
     }
 
     public Long getId() {
@@ -64,6 +66,14 @@ public class ReqInfo {
         this.ipAddress = ipAddress;
     }
 
+    public String getServletPath() {
+        return servletPath;
+    }
+
+    public void setServletPath(String servletPath) {
+        this.servletPath = servletPath;
+    }
+
     @Override
     public String toString() {
         return "ReqInfo{" +
@@ -72,6 +82,8 @@ public class ReqInfo {
                 ", dataCzas=" + dataCzas +
                 ", reqTime=" + reqTime +
                 ", ipAddress='" + ipAddress + '\'' +
+                ", servletPath='" + servletPath + '\'' +
                 '}';
     }
+
 }

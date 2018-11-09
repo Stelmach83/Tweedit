@@ -30,10 +30,11 @@
                         <br>
                         <table class="table table-responsive-sm table-sm center" style="width: 90%;padding-left: 10px;padding-right: 10px">
                             <col style="width:5%">
-                            <col style="width:30%">
-                            <col style="width:30%">
+                            <col style="width:19%">
+                            <col style="width:19%">
                             <col style="width:5%">
-                            <col style="width:30%">
+                            <col style="width:21%">
+                            <col style="width:31%">
                             <thead>
                             <tr>
                                 <th style="text-align: center">Id</th>
@@ -41,6 +42,7 @@
                                 <th style="text-align: center">Date</th>
                                 <th style="text-align: center">Ping</th>
                                 <th style="text-align: center">IP</th>
+                                <th style="text-align: center">Servlet path</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -51,6 +53,7 @@
                                     <td style="text-align: center"><fmt:formatDate pattern="dd-MM-yyyy HH:mm:ss" value="${log.getDataCzas()}"/></td>
                                     <td style="text-align: center">${log.getReqTime()}</td>
                                     <td style="text-align: center">${log.getIpAddress()}</td>
+                                    <td style="text-align: center">${log.getServletPath()}</td>
                                 </tr>
                             </c:forEach>
                             </tbody>
