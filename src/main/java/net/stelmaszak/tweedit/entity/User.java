@@ -19,18 +19,18 @@ public class User {
     private Long id;
 
     @Column(unique = true)
-    @Email
+    @Email(groups = UserRegisterValidationGroup.class)
     @EqualsAndHashCode.Include
     @UniqueEmail(groups = UserRegisterValidationGroup.class)
     private String email;
 
     @Column(unique = true)
-    @Size(min = 3, max = 12, message = "Username needs to be between 3 - 12 characters.")
+    @Size(min = 3, max = 12, groups = UserRegisterValidationGroup.class, message = "Username needs to be between 3 - 12 characters.")
     @EqualsAndHashCode.Include
     @UniqueUser(groups = UserRegisterValidationGroup.class)
     private String username;
 
-    @Size(min = 4, max = 200, message = "Password needs to be between 4 - 200 characters.")
+    @Size(min = 6, max = 200, groups = UserRegisterValidationGroup.class, message = "Password needs to be between 4 - 200 characters.")
     private String password;
 
     @Transient
