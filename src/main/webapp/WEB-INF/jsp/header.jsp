@@ -76,10 +76,10 @@
                   <div class="dropdown-header text-center">
                     <strong>${unread} unread messages</strong>
                   </div>
-                  <a class="dropdown-item text-center" href="#">
+                  <a class="dropdown-item text-center" href="<%=request.getContextPath()%>/app/send">
                     <strong>View messages</strong>
                   </a>
-                  <a class="dropdown-item text-center" href="#">
+                  <a class="dropdown-item text-center" href="<%=request.getContextPath()%>/app/send">
                     <strong>Send message</strong>
                   </a>
                 </div>

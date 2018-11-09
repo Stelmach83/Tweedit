@@ -12,10 +12,10 @@
         <p class="error">Email/Password is incorrect.</p>
       </c:when>
       <c:when test="${sessionScope[\"SPRING_SECURITY_LAST_EXCEPTION\"].message eq 'User is disabled'}">
-        <p>Your account is disabled, please contact administrator.</p>
+        <p class="error">Your account is disabled, please contact administrator.</p>
       </c:when>
       <c:when test="${fn:containsIgnoreCase(sessionScope[\"SPRING_SECURITY_LAST_EXCEPTION\"].message,'A communications error has been detected')}">
-        <p>Database connection is down, try again later.</p>
+        <p class="error">Database connection is down, try again later.</p>
       </c:when>
       <c:otherwise>
         <div class="clearfix">
