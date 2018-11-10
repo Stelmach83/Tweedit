@@ -1,6 +1,7 @@
 package net.stelmaszak.tweedit.controller;
 
 import net.stelmaszak.tweedit.entity.*;
+import net.stelmaszak.tweedit.filter.ReqInfo;
 import net.stelmaszak.tweedit.helper.DataHelper;
 import net.stelmaszak.tweedit.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 public class StatelessController {
@@ -100,6 +102,12 @@ public class StatelessController {
         commentService.saveComment(comment);
         voteService.saveVote(vote);
         userService.saveUser(owner);
+    }
+
+    @GetMapping("/app/restlogs")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public List<ReqInfo> getLogs() {
+        return dataHelper.getLogsRest();
     }
 
 }

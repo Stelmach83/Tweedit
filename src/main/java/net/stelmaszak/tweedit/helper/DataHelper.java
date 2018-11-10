@@ -151,6 +151,10 @@ public class DataHelper {
         return logs;
     }
 
+    public List<ReqInfo> getLogsRest() {
+        return filterService.getAllLogs();
+    }
+
     public Message showMessage(Long message_id, Model model) {
         Message message = messageService.getMessagyById(message_id);
         model.addAttribute("message", message);
