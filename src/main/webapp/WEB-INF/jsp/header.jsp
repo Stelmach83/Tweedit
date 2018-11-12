@@ -93,7 +93,7 @@
                   <div class="dropdown-header text-center">
                     <strong>${user.getUsername()} <i class="icon-trophy"></i>${user.getPoints()}</strong>
                   </div>
-                  <a class="dropdown-item text-center" href="#">
+                  <a class="dropdown-item text-center" href="<%=request.getContextPath()%>/app/userprofile">
                     User profile
                   </a>
                   <a class="dropdown-item text-center" href="#">

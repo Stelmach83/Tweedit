@@ -77,16 +77,4 @@ public class PostController {
             return "main";
         }
     }
-
-    @GetMapping("/app/user/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    public String showUser(Model model, Principal principal, @PathVariable Long id) {
-        User user = dataHelper.getUserSendToView(principal, model);
-        User viewUser = dataHelper.getViewUser(id, model);
-        dataHelper.getAllCategoriesAndSendToView(model);
-        dataHelper.getIntegerUnreadMessagesForUser(user, model);
-        dataHelper.setAppContext("user", model);
-        return "main";
-    }
-
 }
