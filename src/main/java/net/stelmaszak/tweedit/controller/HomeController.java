@@ -66,18 +66,11 @@ public class HomeController {
     @RequestMapping("/app/logs")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public String logs(Model model, Principal principal, HttpSession session) {
-        User user = dataHelper.getUserSendToView(principal, model);
-        if (user != null) {
-            dataHelper.setTodaysDate(model);
-            dataHelper.getAllLogs(model);
-            dataHelper.getAllCategoriesAndSendToView(model);
-            dataHelper.getIntegerUnreadMessagesForUser(user, model);
-            dataHelper.getUserVotesSendToView(user, model);
-            session.setMaxInactiveInterval(60 * 60 * 24 * 7);
-        }
-        dataHelper.setAppContext("logs", model);
+        dataHelper.getRequiredHeaderInfo(principal, model);
+        dataHelper.getAllLogs(model);
+        dataHelper.setAppContext("logs",model);
         return "main";
-    }
+}
 
     @GetMapping("/login")
     public String loginPage(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, Principal principal, Model model) {

@@ -239,4 +239,15 @@ public class DataHelper {
         return userCount > 0 ? false : true;
     }
 
+    public User getRequiredHeaderInfo(Principal principal, Model model) {
+        User user = getUserSendToView(principal, model);
+        setTodaysDate(model);
+        getAllCategoriesAndSendToView(model);
+        if (user != null) {
+            getIntegerUnreadMessagesForUser(user, model);
+        }
+        return user;
+
+    }
+
 }
