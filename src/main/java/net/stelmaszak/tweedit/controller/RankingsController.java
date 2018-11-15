@@ -1,6 +1,5 @@
 package net.stelmaszak.tweedit.controller;
 
-import net.stelmaszak.tweedit.entity.User;
 import net.stelmaszak.tweedit.helper.DataHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,13 +18,10 @@ public class RankingsController {
     @GetMapping("/app/showrankings")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String showRankings(Model model, Principal principal) {
-        User user = dataHelper.getUserSendToView(principal, model);
+        dataHelper.getRequiredHeaderInfo(principal, model);
         dataHelper.getTop10Users(model);
         dataHelper.getTop10UsersByFollowers(model);
         dataHelper.setAppContext("rankings", model);
-        dataHelper.setTodaysDate(model);
-        dataHelper.getIntegerUnreadMessagesForUser(user, model);
-        dataHelper.getAllCategoriesAndSendToView(model);
         return "main";
     }
 }

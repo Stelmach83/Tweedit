@@ -20,10 +20,8 @@ public class UserController {
     @GetMapping("/app/user/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String showUser(Model model, Principal principal, @PathVariable Long id) {
-        User user = dataHelper.getUserSendToView(principal, model);
+        dataHelper.getRequiredHeaderInfo(principal, model);
         dataHelper.getViewUser(id, model);
-        dataHelper.getAllCategoriesAndSendToView(model);
-        dataHelper.getIntegerUnreadMessagesForUser(user, model);
         dataHelper.setAppContext("user", model);
         return "main";
     }
@@ -31,11 +29,8 @@ public class UserController {
     @GetMapping("/app/userprofile")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String showUserProfile(Model model, Principal principal) {
-        User user = dataHelper.getUserSendToView(principal, model);
+        User user = dataHelper.getRequiredHeaderInfo(principal, model);
         if (user != null) {
-            dataHelper.setTodaysDate(model);
-            dataHelper.getAllCategoriesAndSendToView(model);
-            dataHelper.getIntegerUnreadMessagesForUser(user, model);
             dataHelper.getUserVotesSendToView(user, model);
         }
         dataHelper.setAppContext("profile", model);

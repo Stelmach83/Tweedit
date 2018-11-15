@@ -33,26 +33,23 @@ public class PostController {
     @RequestMapping("/app/posts/{catId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String showPostsByCategory(@PathVariable Long catId, Model model, Principal principal) {
-        User user = dataHelper.getUserSendToView(principal, model);
+        User user = dataHelper.getRequiredHeaderInfo(principal, model);
         Category category = dataHelper.getCategoryById(catId);
         List<Post> posts = dataHelper.getPostsByCategory(category);
         model.addAttribute("catview", category);
-        dataHelper.getPostDTOandSendToView(posts, user, model);
-        dataHelper.getAllCategoriesAndSendToView(model);
+        if (user != null) {
+            dataHelper.getPostDTOandSendToView(posts, user, model);
+        }
         dataHelper.setAppContext("wall", model);
-        dataHelper.setTodaysDate(model);
-        dataHelper.getIntegerUnreadMessagesForUser(user, model);
         return "main";
     }
 
     @GetMapping("/app/addpost")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String addPost(Model model, Principal principal) {
-        User user = dataHelper.getUserSendToView(principal, model);
+        dataHelper.getRequiredHeaderInfo(principal, model);
         Post post = new Post();
         model.addAttribute("post", post);
-        dataHelper.getAllCategoriesAndSendToView(model);
-        dataHelper.getIntegerUnreadMessagesForUser(user, model);
         dataHelper.setAppContext("addpost", model);
         return "main";
     }
@@ -61,16 +58,12 @@ public class PostController {
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String postPost(Model model, Principal principal, @Valid Post post, BindingResult result) {
         if (result.hasErrors()) {
-            User user = dataHelper.getUserSendToView(principal, model);
-            dataHelper.getAllCategoriesAndSendToView(model);
-            dataHelper.getIntegerUnreadMessagesForUser(user, model);
+            dataHelper.getRequiredHeaderInfo(principal, model);
             dataHelper.setAppContext("addpost", model);
             return "main";
         } else {
-            User user = dataHelper.getUserSendToView(principal, model);
-            dataHelper.getAllCategoriesAndSendToView(model);
+            User user = dataHelper.getRequiredHeaderInfo(principal, model);
             dataHelper.setCreatedAndUserDateAndSavePost(post, user);
-            dataHelper.getIntegerUnreadMessagesForUser(user, model);
             List<Post> posts = dataHelper.getPostsByFollowedCatsAndUsers(principal, model);
             dataHelper.getPostDTOandSendToView(posts, user, model);
             dataHelper.setAppContext("wall", model);

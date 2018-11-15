@@ -23,9 +23,7 @@ public class MessageController {
     @RequestMapping("/app/messages")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String showMessages(Model model, Principal principal) {
-        User user = dataHelper.getUserSendToView(principal, model);
-        dataHelper.getAllCategoriesAndSendToView(model);
-        dataHelper.getIntegerUnreadMessagesForUser(user, model);
+        User user = dataHelper.getRequiredHeaderInfo(principal, model);
         dataHelper.getMessagesToUser(user, model);
         dataHelper.setAppContext("messages", model);
         return "main";
@@ -34,28 +32,23 @@ public class MessageController {
     @RequestMapping("/app/message/{message_id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String showMessage(Model model, Principal principal, @PathVariable Long message_id) {
-        User user = dataHelper.getUserSendToView(principal, model);
+        User user = dataHelper.getRequiredHeaderInfo(principal, model);
         List<Message> messages = dataHelper.getMessagesToUser(user, model);
         Message message = dataHelper.showMessage(message_id, model);
         if (dataHelper.doesMessageExist(messages, message)) {
             dataHelper.setMessageReadAndSave(message);
-            dataHelper.getAllCategoriesAndSendToView(model);
             dataHelper.setAppContext("message", model);
         } else {
-            dataHelper.getAllCategoriesAndSendToView(model);
             return "error";
         }
-        dataHelper.getIntegerUnreadMessagesForUser(user, model);
         return "main";
     }
 
     @GetMapping("/app/send")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String sendMessage(Model model, Principal principal) {
-        User user = dataHelper.getUserSendToView(principal, model);
+        User user = dataHelper.getRequiredHeaderInfo(principal, model);
         dataHelper.getMessagesToUser(user, model);
-        dataHelper.getAllCategoriesAndSendToView(model);
-        dataHelper.getIntegerUnreadMessagesForUser(user, model);
         dataHelper.getUsersOtherThanLogged(user, model);
         Message message = new Message();
         model.addAttribute("message", message);
@@ -67,19 +60,15 @@ public class MessageController {
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String sendPost(Model model, Principal principal, @Valid Message message, BindingResult result) {
         if (result.hasErrors()) {
-            User user = dataHelper.getUserSendToView(principal, model);
+            User user = dataHelper.getRequiredHeaderInfo(principal, model);
             dataHelper.getMessagesToUser(user, model);
             dataHelper.getAllUsersAndSendToView(model);
-            dataHelper.getAllCategoriesAndSendToView(model);
-            dataHelper.getIntegerUnreadMessagesForUser(user, model);
             dataHelper.setAppContext("send", model);
             return "main";
         } else {
-            User user = dataHelper.getUserSendToView(principal, model);
+            User user = dataHelper.getRequiredHeaderInfo(principal, model);
             dataHelper.setMessageDateAndReadAndSave(message);
             dataHelper.getMessagesToUser(user, model);
-            dataHelper.getAllCategoriesAndSendToView(model);
-            dataHelper.getIntegerUnreadMessagesForUser(user, model);
             dataHelper.setAppContext("messages", model);
             return "main";
         }

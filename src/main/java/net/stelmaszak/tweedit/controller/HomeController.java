@@ -46,16 +46,13 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home(Model model, Principal principal, HttpSession session) {
-        User user = dataHelper.getUserSendToView(principal, model);
+        User user = dataHelper.getRequiredHeaderInfo(principal, model);
         if (user != null) {
-            dataHelper.setTodaysDate(model);
             List<Post> posts = dataHelper.getPostsByFollowedCatsAndUsers(principal, model);
             if (posts.size() == 0) {
                 model.addAttribute("noposts", "true");
             }
-            dataHelper.getAllCategoriesAndSendToView(model);
             dataHelper.getUserVotesSendToView(user, model);
-            dataHelper.getIntegerUnreadMessagesForUser(user, model);
             dataHelper.getPostDTOandSendToView(posts, user, model);
             session.setMaxInactiveInterval(60 * 60 * 24 * 7);
         }
@@ -68,9 +65,9 @@ public class HomeController {
     public String logs(Model model, Principal principal, HttpSession session) {
         dataHelper.getRequiredHeaderInfo(principal, model);
         dataHelper.getAllLogs(model);
-        dataHelper.setAppContext("logs",model);
+        dataHelper.setAppContext("logs", model);
         return "main";
-}
+    }
 
     @GetMapping("/login")
     public String loginPage(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, Principal principal, Model model) {
@@ -169,14 +166,11 @@ public class HomeController {
 
     @RequestMapping("/accessDenied")
     public String accessDenied(Principal principal, Model model) {
-        User user = dataHelper.getUserSendToView(principal, model);
+        User user = dataHelper.getRequiredHeaderInfo(principal, model);
         if (user != null) {
-            dataHelper.setTodaysDate(model);
-            dataHelper.getAllLogs(model);
-            dataHelper.getAllCategoriesAndSendToView(model);
-            dataHelper.getIntegerUnreadMessagesForUser(user, model);
             dataHelper.getUserVotesSendToView(user, model);
         }
+        dataHelper.getAllLogs(model);
         dataHelper.setAppContext("accessDenied", model);
         return "main";
     }

@@ -22,13 +22,10 @@ public class CommentController {
     @GetMapping("/app/addcomment/{postId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String addComment(Model model, Principal principal, @PathVariable String postId) {
-        User user = dataHelper.getUserSendToView(principal, model);
+        User user = dataHelper.getRequiredHeaderInfo(principal, model);
         List<Post> posts = dataHelper.getPostsByFollowedCatsAndUsers(principal, model);
-        dataHelper.setTodaysDate(model);
-        dataHelper.getAllCategoriesAndSendToView(model);
         dataHelper.getUserVotesSendToView(user, model);
         dataHelper.getPostDTOandSendToView(posts, user, model);
-        dataHelper.getIntegerUnreadMessagesForUser(user, model);
         dataHelper.setAppContext("wall", model);
         Comment comment = new Comment();
         model.addAttribute("comment", comment);
@@ -40,25 +37,19 @@ public class CommentController {
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String postComment(Model model, Principal principal, @Valid Comment comment, BindingResult result, @PathVariable String postId) {
         if (result.hasErrors()) {
-            User user = dataHelper.getUserSendToView(principal, model);
+            User user = dataHelper.getRequiredHeaderInfo(principal, model);
             List<Post> posts = dataHelper.getPostsByFollowedCatsAndUsers(principal, model);
-            dataHelper.setTodaysDate(model);
-            dataHelper.getAllCategoriesAndSendToView(model);
             dataHelper.getUserVotesSendToView(user, model);
             dataHelper.getPostDTOandSendToView(posts, user, model);
-            dataHelper.getIntegerUnreadMessagesForUser(user, model);
             dataHelper.setAppContext("wall", model);
             model.addAttribute("addcomment", postId);
             return "main";
         } else {
-            User user = dataHelper.getUserSendToView(principal, model);
-            dataHelper.setTodaysDate(model);
+            User user = dataHelper.getRequiredHeaderInfo(principal, model);
             List<Post> posts = dataHelper.getPostsByFollowedCatsAndUsers(principal, model);
             dataHelper.saveCommment(comment, user);
-            dataHelper.getAllCategoriesAndSendToView(model);
             dataHelper.getUserVotesSendToView(user, model);
             dataHelper.getPostDTOandSendToView(posts, user, model);
-            dataHelper.getIntegerUnreadMessagesForUser(user, model);
             dataHelper.setAppContext("wall", model);
             return "main";
         }

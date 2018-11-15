@@ -247,7 +247,6 @@ public class DataHelper {
             getIntegerUnreadMessagesForUser(user, model);
         }
         return user;
-
     }
 
 }

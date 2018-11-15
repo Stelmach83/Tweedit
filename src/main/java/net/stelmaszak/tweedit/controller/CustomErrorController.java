@@ -1,6 +1,5 @@
 package net.stelmaszak.tweedit.controller;
 
-import net.stelmaszak.tweedit.entity.User;
 import net.stelmaszak.tweedit.helper.DataHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -18,12 +17,7 @@ public class CustomErrorController implements ErrorController {
 
     @RequestMapping("/error")
     public String error(Principal principal, Model model) {
-        User user = dataHelper.getUserSendToView(principal, model);
-        if (user != null) {
-            dataHelper.setTodaysDate(model);
-            dataHelper.getIntegerUnreadMessagesForUser(user, model);
-        }
-        dataHelper.getAllCategoriesAndSendToView(model);
+        dataHelper.getRequiredHeaderInfo(principal, model);
         dataHelper.setAppContext("error", model);
         return "main";
     }
