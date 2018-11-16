@@ -27,7 +27,17 @@
                     </div>
                     <div class="card-body">
                         Points: <i class="icon-trophy"></i>${user.getPoints()}<br>
-                        Follower: <i class="icon-user"></i>${user.getFollowers()}
+                        Followers: <i class="icon-user"></i>${user.getFollowers()}
+                        <br><br>
+                        <form:form method="post" target="">
+                            <form>
+                                <label>Username:</label> <input type="text" value="${user.getUsername()}" readonly><br>
+                                <label>Email:</label> <input type="text" value="${user.getEmail()}"><br>
+                                <label>Old password:</label> <input type="password" value="***"><br>
+                                <label>New password:</label> <input type="password" value=""><br>
+                                <label>Repeat new password:</label> <input type="password" value=""><br>
+                            </form>
+                        </form:form>
                     </div>
                 </div>
             </div>

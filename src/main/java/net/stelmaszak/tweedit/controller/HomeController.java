@@ -25,25 +25,6 @@ public class HomeController {
     @Autowired
     private DataHelper dataHelper;
 
-    @GetMapping("/register")
-    public String register(Model model, Principal principal) {
-        User newuser = new User();
-        model.addAttribute("newuser", newuser);
-        dataHelper.setAppContext("register", model);
-        return "main";
-    }
-
-    @PostMapping("/register")
-    public String postRegister(Model model, Principal principal, @Validated({UserRegisterValidationGroup.class}) User newuser, BindingResult result) {
-        if (result.hasErrors()) {
-            dataHelper.setAppContext("register", model);
-        } else {
-            dataHelper.saveNewUser(newuser);
-            dataHelper.setAppContext("regsuccess", model);
-        }
-        return "main";
-    }
-
     @RequestMapping("/")
     public String home(Model model, Principal principal, HttpSession session) {
         User user = dataHelper.getRequiredHeaderInfo(principal, model);
