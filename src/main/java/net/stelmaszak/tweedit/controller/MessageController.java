@@ -37,6 +37,7 @@ public class MessageController {
         Message message = dataHelper.showMessage(message_id, model);
         if (dataHelper.doesMessageExist(messages, message)) {
             dataHelper.setMessageReadAndSave(message);
+            dataHelper.getIntegerUnreadMessagesForUser(user, model);
             dataHelper.setAppContext("message", model);
         } else {
             return "error";
