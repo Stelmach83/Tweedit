@@ -1,5 +1,5 @@
 # Tweedit (Work in Progress)
-### Version 0.0.1 deployed @ www.stelmaszak.net:8080/tweedit
+### Version 0.0.1 deployed @ stelmaszak.net:8080/tweedit
 
 This is a portfolio application that is a mutation-combination of Tweeter and Reddit. 
 
