@@ -1,5 +1,5 @@
 # Tweedit (Work in Progress)
-### Version 0.0.1 deployed @ www.stelmaszak.net/tweedit
+### Version 0.0.1 deployed @ www.stelmaszak.net:8080/tweedit
 
 This is a portfolio application that is a mutation-combination of Tweeter and Reddit. 
 
@@ -22,7 +22,7 @@ It is possible to vote up or down on Posts, and Comments (Reddit funtionality), 
 * MySQL
 * jQuery (Ajax)
 * Bootstrap
-* DevOps (VPS server deployment):
-    * Ubuntu 16.04.5
+* DevOps (VMware Workstation server on local virtual machine with external DNS configuration):
+    * Ubuntu 18.04.1
     * Tomcat 8.5
-    * Https: SSL Certificate
+    * Https: SSL Certificate (to be configured on VM)
